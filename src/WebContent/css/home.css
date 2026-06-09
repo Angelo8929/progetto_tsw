@@ -51,6 +51,31 @@ body{
 	flex-wrap:wrap;
 }
 
+.in_evidenza_title{
+	margin-left:20px;
+}
+
+.in_evidenza_products{
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	flex-wrap:wrap;
+	
+}
+
+.categorie_title{
+	margin-left:20px;
+}
+
+
+.categorie_products{
+	display:flex;
+	justify-content:space-around;
+	align-items:center;
+	flex-wrap:wrap;
+	
+}
+
 .item{
 	width:200px;
 	height:200px;
@@ -58,6 +83,17 @@ body{
 	margin:10px;
 	background-color:#FFB400;
 	transition: .3s ease-in;
+	
+}
+
+.category_item{
+	width:200px;
+	height:200px;
+	padding:10px;
+	margin:10px;
+	background-color:#FFB400;
+	transition: .3s ease-in;
+	
 }
 
 .item:hover{

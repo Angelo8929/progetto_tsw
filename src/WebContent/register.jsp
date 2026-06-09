@@ -9,27 +9,34 @@
 <body>
 <%@ include file="header.jsp"  %>
 
+<h1>Registrazione</h1>
 
 <div class="form">
 
 	<form action="RegistrazioneServlet" method="post">
 	
 	<div class="campo">
-		<label for="email">email</label>
+		<label for="email">Email</label>
 		<input type="text" name="email" id="email" />
 	
 	</div>
 	
 	
 	 	<div class="campo">
-				<label for="username">username</label>
+				<label for="username">Username</label>
 				<input type="text" id="username" name="username"/>
 			
 			</div>
 			<div class="campo">
-				<label for="password">password</label>
+				<label for="password">Password</label>
 				<input type="password" name="password"/>
 			</div>
+			<div class="campo">
+				<label for="conferma_password">Conferma password</label>
+				<input type="password" name="conferma_password"/>
+			</div>
+			
+			
 			
 			<div class="campo">
 				<input type="submit" value="Registrati" />
