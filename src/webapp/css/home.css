@@ -170,15 +170,7 @@ body{
 }
 
 
-.sidebar_taglie{
-	padding-top:5px;
-	padding-bottom:5px;
+.item_photo img{
+	width:150px;
+	height:150px;
 }
-
-
-.sidebar_taglie label{
-	display:block;
-}
-
-
-.sidebar_taglie
