@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -14,14 +13,14 @@ import model.ProdottoBean;
 /**
  * Servlet implementation class CatalogoServlet
  */
-@WebServlet("/CatalogoServlet")
-public class CatalogoServlet extends HttpServlet {
+
+public class IndexServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public CatalogoServlet() {
+	public IndexServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -39,7 +38,7 @@ public class CatalogoServlet extends HttpServlet {
 			List<ProdottoBean> prodotti = pdao.doRetrieveAll();
 
 			request.setAttribute("prodotti", prodotti);
-			request.getRequestDispatcher("index.jsp").forward(request, response);
+			request.getRequestDispatcher("home.jsp").forward(request, response);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

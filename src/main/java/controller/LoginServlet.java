@@ -9,7 +9,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
 import model.UtenteBean;
 
 /**
@@ -64,10 +63,10 @@ public class LoginServlet extends HttpServlet {
 			session.setMaxInactiveInterval(30 * 60);
 
 			session.setAttribute("messaggio_benvenuto", utenteLoggato.getUsername());
-			response.sendRedirect("index.jsp");
+			response.sendRedirect("home");
 		} else {
 			request.setAttribute("errorMessage", "email/password non validi");
-			request.getRequestDispatcher("login.jsp").forward(request, response);
+			request.getRequestDispatcher("home").forward(request, response);
 		}
 	}
 

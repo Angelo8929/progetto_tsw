@@ -23,9 +23,9 @@
 			<div class="sidebar_categorie">
 			<label for="categorie">Categorie</label>
 			
-			<button>Categoria 1</button>
-			<button>Categoria 2</button>
-			<button>Categoria 3</button>
+			<button>Alcolici</button>
+			<button>Superalcolici</button>
+			<button>Aanalcolici</button>
 			
 			
 			</div>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="model.UtenteBean"%>
+<% String username=(String) session.getAttribute("messaggio_benvenuto");%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +13,7 @@
 	<div class="header">
 		<div class="title">
 			<h1>
-				<a href="index.jsp">AlcoMarket</a>
+				<a href="<%= request.getContextPath() %>/home">AlcoMarket</a>
 			</h1>
 		</div>
 
@@ -22,9 +23,9 @@
 
 
 		<div class="search">
-		<% String username=(String) session.getAttribute("messaggio_benvenuto"); 
-		String placeholder=(username!=null) ? "benvenuto, " +username : "cerca...";%>
-			<input type="text" name="cerca" id="cerca" placeholder="<%=placeholder %>" />
+		 
+		
+			<input type="text" name="cerca" id="cerca" placeholder="chi cerca trova..." />
 		</div>
 
 		<div class="account">
@@ -43,7 +44,7 @@
 				<button class="dropbtn">Benvenuto, <%=username %></button>
 				<div class="dropdown-content">
 					<a href="#">I miei ordini</a> 
-					<a href="#">Area riservata</a> 
+					<a href="">Area riservata</a> 
 					
 					<form action="LogoutServlet" method="post">
 					

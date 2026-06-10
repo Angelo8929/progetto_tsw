@@ -9,7 +9,7 @@
 <body>
 
 <%@ include file="header.jsp" %>
- <% String username=session.getAttribute("messaggio_benvenuto") %>
+ 
  
  <h1>Benvenuto, <%=username %></h1>
 
