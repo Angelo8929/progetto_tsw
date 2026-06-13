@@ -14,8 +14,16 @@
 
 <%@ include file="header.jsp" %>
 
+<h1>Dettaglio prodotto</h1>
 
 <p>Nome prodotto: <%=prodotto.getNome_prodotto() %></p>
+<p>Prezzo prodotto: <%=prodotto.getPrezzo() %></p>
+
+<form action="AggiungiAlCarrelloServlet">
+	<input type="hidden" name="id_prodotto" value=<%=prodotto.getId_prodotto() %> />
+	<button type="submit">Aggiungi al carrello</button>
+
+</form>
 
 <%@ include file="footer.jsp" %>
 

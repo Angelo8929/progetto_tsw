@@ -13,11 +13,11 @@
 <h1>Login</h1>
 	<div class="form">
 
-		<form action="LoginServlet" method="post">
+		<form action="LoginServlet" method="post" novalidate>
 
 			<div class="campo">
 				<label for="email">email</label>
-				<input type="text" name="email" id="email"/>
+				<input type="email" name="email" id="email"/>
 			
 			</div>
 			<div class="campo">
@@ -36,6 +36,8 @@
 	</div>
 	
 	<%@ include file="footer.jsp" %>
+	
+	<script src="<%=request.getContextPath() %>/js/login.js"></script>
 
 </body>
 </html>

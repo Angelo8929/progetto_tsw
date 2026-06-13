@@ -37,15 +37,7 @@
 			<input type="number" name="" id="" placeholder="max"/>
 			</div>
 			
-			<div class="sidebar_taglie">
-			<label for="taglie">Taglie</label>
-			<button>XS</button>
-			<button>S</button>
-			<button>M</button>
-			<button>L</button>
-			<button>XL</button>
 			
-			</div>
 			
 			<div class="sidebar_submit">
 			<input type="submit" value="Applica filtri" />

@@ -66,7 +66,7 @@ public class LoginServlet extends HttpServlet {
 			response.sendRedirect("home");
 		} else {
 			request.setAttribute("errorMessage", "email/password non validi");
-			request.getRequestDispatcher("home").forward(request, response);
+			request.getRequestDispatcher("login.jsp").forward(request, response);
 		}
 	}
 

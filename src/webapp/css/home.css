@@ -174,3 +174,9 @@ body{
 	width:150px;
 	height:150px;
 }
+
+.campo {
+    display: flex;
+    flex-direction: column; /* Mette Label, Input ed Errore uno sotto l'altro */
+    margin-bottom: 15px;
+}
