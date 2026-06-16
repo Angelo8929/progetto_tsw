@@ -14,7 +14,8 @@
 
 
 <div class="contattaci">
-<h1>Wow.</h1>
+<h1>Contattaci</h1>
+<p>Sezione in allestimento (non è vero)</p>
 
 </div>
 <%@ include file="footer.jsp" %>

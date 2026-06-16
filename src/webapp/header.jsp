@@ -43,6 +43,7 @@
 			<div class="dropdown">
 				<button class="dropbtn">Benvenuto, <%=username %></button>
 				<div class="dropdown-content">
+					<a href="CarrelloServlet">Carrello</a>
 					<a href="#">I miei ordini</a> 
 					<a href="">Area riservata</a> 
 					

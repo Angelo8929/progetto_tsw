@@ -2,7 +2,7 @@ package model;
 
 public class CarrelloBean {
 	public int id_carrello;
-	public int id_utente;
+	public String id_utente;
 
 	public CarrelloBean() {
 
@@ -16,11 +16,11 @@ public class CarrelloBean {
 		this.id_carrello = id_carrello;
 	}
 
-	public int getId_utente() {
+	public String getId_utente() {
 		return id_utente;
 	}
 
-	public void setId_utente(int id_utente) {
+	public void setId_utente(String id_utente) {
 		this.id_utente = id_utente;
 	}
 

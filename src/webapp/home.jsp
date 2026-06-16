@@ -39,6 +39,13 @@
            <div class="item_price"><%= prodotto.getPrezzo() %> euro</div>
            <div class="item_photo"> <img src="${pageContext.request.contextPath}/<%= prodotto.getImgPath() %>" alt="foto prodotto" /></div>
             
+            <form action="AggiungiAlCarrelloServlet">
+            
+            	<input type="hidden" name="id_prodotto" value="<%=prodotto.getId_prodotto() %>" />
+            	 <input type="number" id="quantita" name="quantita" min="0" max="5" step="1" value="1">
+            	<button type="submit">Aggiungi al carrello</button>
+            </form>
+            
             </div>
     <%   } 
        } else { %>

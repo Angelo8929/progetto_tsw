@@ -1,4 +1,4 @@
-package controller;
+package model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,9 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import model.ConnectionPool;
-import model.ProdottoBean;
 
 public class ProdottoDAO {
 	public List<ProdottoBean> doRetrieveAll() throws SQLException {

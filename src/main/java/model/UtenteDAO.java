@@ -1,12 +1,9 @@
-package controller;
+package model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import model.ConnectionPool;
-import model.UtenteBean;
 
 public class UtenteDAO {
 

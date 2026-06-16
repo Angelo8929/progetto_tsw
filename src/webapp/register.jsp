@@ -21,6 +21,12 @@
 
 			</div>
 
+			<div class="campo">
+				<label for="telefono">Telefono</label> <input type="text"
+					name="telefono" id="telefono" />
+
+			</div>
+
 
 			<div class="campo">
 				<label for="username">Username</label> <input type="text"
@@ -36,7 +42,7 @@
 					type="password" id="conferma_password" name="conferma_password" />
 			</div>
 
-
+			<span>Sei già registrato?</span><a href="login.jsp">Accedi</a>
 
 			<div class="campo">
 				<input type="submit" value="Registrati" />

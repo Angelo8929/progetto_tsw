@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.UtenteBean;
+import model.UtenteDAO;
 
 /**
  * Servlet implementation class LoginServlet

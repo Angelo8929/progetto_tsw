@@ -2,12 +2,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const form = document.querySelector(".form form");
     const email = document.getElementById("email");
     const username = document.getElementById("username");
+	const telefono = document.getElementById("telefono");
     const password = document.getElementById("password");
     const conferma_password = document.getElementById("conferma_password");
 
 
     email.placeholder = "Inserisci la tua email";
     username.placeholder = "inserisci il tuo username";
+	telefono.placeholder= "inserisci il tuo numero di telefono";
     password.placeholder = "inserisci password";
     conferma_password.placeholder = "conferma password";
 
@@ -31,23 +33,36 @@ document.addEventListener("DOMContentLoaded", () => {
     const emailError = createErrorElement(email);
     const passwordError = createErrorElement(password);
     const usernameError = createErrorElement(username);
+	const telefonoError= createErrorElement(telefono);
     const confermaPasswordError = createErrorElement(conferma_password);
 
 
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$/;
     const usernameRegex = /^[a-zA-Z0-9_]{5,15}$/;
+	const telefonoRegex= /^\+\d{12}$/;
 
     form.addEventListener("submit", (event) => {
         let isFormValid = true;
         if (!usernameRegex.test(username.value.trim())) {
-            usernameError.textContent = "username deve contenere almeno 5 caratteri";
+            usernameError.textContent = "username deve contenere da 5 fino a 15 aratteri";
             usernameError.style.display = "block";
             isFormValid = false;
         } else {
             usernameError.style.display = "none";
         }
+		
+		
+		if(!telefonoRegex.test(telefono.value.trim())) {
+			telefonoError.textContent="Il telefono deve contenere + ed essere seguito da 12 cifre";
+			telefonoError.style.display="block";
+			isFormValid=false;
+			
+		} else{
+			telefonoError.style.display="none";
+		}
+		
 
 
         if (!emailRegex.test(email.value.trim())) {
