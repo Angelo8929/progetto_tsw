@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class ProdottoCarrelloDAO {
 
@@ -14,7 +15,7 @@ public class ProdottoCarrelloDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 
-		String sql = "INSERT INTO prodotto_carrello (id_prodotto, id_carrello, quantita, img_path) VALUES (?, ?, ?, ?)";
+		String sql = "INSERT INTO prodotto_carrello (id_prodotto, id_carrello, quantita, imgPath) VALUES (?, ?, ?, ?)";
 
 		try {
 			con = ConnectionPool.getConnection();
@@ -41,7 +42,7 @@ public class ProdottoCarrelloDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 
-		String sql = "UPDATE prodotto_carrello SET id_prodotto = ?, id_carrello = ?, quantita = ?, img_path = ? WHERE id = ?";
+		String sql = "UPDATE prodotto_carrello SET id_prodotto = ?, id_carrello = ?, quantita = ?, imgPath = ? WHERE id = ?";
 
 		try {
 			con = ConnectionPool.getConnection();
@@ -87,7 +88,7 @@ public class ProdottoCarrelloDAO {
 				prodottoCarrello.setId_prodotto(rs.getInt("id_prodotto"));
 				prodottoCarrello.setId_carrello(rs.getInt("id_carrello"));
 				prodottoCarrello.setQuantita(rs.getInt("quantita"));
-				prodottoCarrello.setImgPath(rs.getString("img_path"));
+				prodottoCarrello.setImgPath(rs.getString("imgPath"));
 			}
 		} finally {
 			try {
@@ -126,7 +127,7 @@ public class ProdottoCarrelloDAO {
 				prodottoCarrello.setId_prodotto(rs.getInt("id_prodotto"));
 				prodottoCarrello.setId_carrello(rs.getInt("id_carrello"));
 				prodottoCarrello.setQuantita(rs.getInt("quantita"));
-				prodottoCarrello.setImgPath(rs.getString("img_path"));
+				prodottoCarrello.setImgPath(rs.getString("imgPath"));
 
 				lista.add(prodottoCarrello);
 			}
@@ -148,11 +149,11 @@ public class ProdottoCarrelloDAO {
 
 	// 5. BONUS: DO RETRIEVE BY CARRELLO (Molto utile per recuperare il contenuto di
 	// un carrello specifico)
-	public Collection<ProdottoCarrelloBean> doRetrieveByCarrello(int idCarrello) throws SQLException {
+	public List<ProdottoCarrelloBean> doRetrieveByCarrello(int idCarrello) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		Collection<ProdottoCarrelloBean> lista = new ArrayList<>();
+		List<ProdottoCarrelloBean> lista = new ArrayList<>();
 
 		String sql = "SELECT * FROM prodotto_carrello WHERE id_carrello = ?";
 
@@ -170,7 +171,7 @@ public class ProdottoCarrelloDAO {
 				prodottoCarrello.setId_prodotto(rs.getInt("id_prodotto"));
 				prodottoCarrello.setId_carrello(rs.getInt("id_carrello"));
 				prodottoCarrello.setQuantita(rs.getInt("quantita"));
-				prodottoCarrello.setImgPath(rs.getString("img_path"));
+				prodottoCarrello.setImgPath(rs.getString("imgPath"));
 
 				lista.add(prodottoCarrello);
 			}
@@ -188,5 +189,72 @@ public class ProdottoCarrelloDAO {
 			}
 		}
 		return lista;
+	}
+
+	public ProdottoCarrelloBean doRetrieveByProdottoAndCarrello(int id_prodotto, int id_carrello) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ProdottoCarrelloBean prodottoCarrello = null;
+
+		String sql = "select * from prodotto_carrello where id_prodotto=? and id_carrello=?";
+
+		try {
+			con = ConnectionPool.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, id_prodotto);
+			ps.setInt(2, id_carrello);
+
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				prodottoCarrello = new ProdottoCarrelloBean();
+
+				prodottoCarrello.setId(rs.getInt("id"));
+				prodottoCarrello.setId_carrello(rs.getInt("id_carrello"));
+				prodottoCarrello.setId_prodotto(rs.getInt("id_prodotto"));
+				prodottoCarrello.setQuantita(rs.getInt("quantita"));
+				prodottoCarrello.setImgPath(rs.getString("imgPath"));
+
+			}
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+			} finally {
+				try {
+					if (ps != null)
+						ps.close();
+				} finally {
+					ConnectionPool.releaseConnection(con);
+				}
+			}
+		}
+		return prodottoCarrello;
+	}
+
+	public void doDeleteByProdottoAndCarrello(int id_prodotto, int id_carrello) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+
+		String sql = "delete from prodotto_carrello where id_prodotto=? and id_carrello=?";
+
+		try {
+			con = ConnectionPool.getConnection();
+			ps = con.prepareStatement(sql);
+
+			ps.setInt(1, id_prodotto);
+			ps.setInt(2, id_carrello);
+
+			ps.executeUpdate();
+
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+			} finally {
+				ConnectionPool.releaseConnection(con);
+			}
+		}
+
 	}
 }

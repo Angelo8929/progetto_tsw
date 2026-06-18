@@ -17,14 +17,15 @@ import model.ProdottoDAO;
 @WebServlet("/ProdottoServlet")
 public class ProdottoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	ProdottoDAO pdao = new ProdottoDAO();
+	private ProdottoDAO pdao; // Buona norma inizializzarlo nel metodo init()
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public ProdottoServlet() {
 		super();
-		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void init() throws ServletException {
+		pdao = new ProdottoDAO();
 	}
 
 	/**
@@ -35,18 +36,49 @@ public class ProdottoServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		String idParam = request.getParameter("id");
-		// TODO Auto-generated method stub
-		ProdottoBean prodotto = new ProdottoBean();
+		String errorParam = request.getParameter("error"); // <--- Intercettiamo il flag di errore dall'URL
+
+		// Controlliamo se c'è già un messaggio di errore ereditato da un eventuale
+		// forward
+		String errorMessage = (String) request.getAttribute("errorMessage");
+
+		// Se arriviamo da un sendRedirect con "?error=true", creiamo un messaggio
+		// personalizzato
+		if (errorParam != null && errorParam.equals("true")) {
+			errorMessage = "Si è verificato un errore durante l'aggiunta del prodotto al carrello. Riprova.";
+		}
+
+		if (idParam == null || idParam.isEmpty()) {
+			response.sendRedirect(request.getContextPath() + "/index.jsp"); // Evita NumberFormatException se l'id manca
+			return;
+		}
+
 		try {
 			int productId = Integer.parseInt(idParam);
-			prodotto = pdao.doRetrieveByKey(productId);
+			ProdottoBean prodotto = pdao.doRetrieveByKey(productId);
 
-			request.setAttribute("prodotto", prodotto);
-			System.out.println(prodotto.getId_prodotto());
-			request.getRequestDispatcher("prodotto.jsp").forward(request, response);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			if (prodotto != null) {
+				request.setAttribute("prodotto", prodotto);
+
+				// Se esiste un messaggio di errore, lo passiamo alla JSP
+				if (errorMessage != null) {
+					request.setAttribute("errorMessage", errorMessage);
+				}
+
+				request.getRequestDispatcher("prodotto.jsp").forward(request, response);
+			} else {
+				// Prodotto non trovato nel DB
+				request.setAttribute("errorMessage", "Il prodotto richiesto non esiste.");
+				request.getRequestDispatcher("errore.jsp").forward(request, response);
+			}
+
+		} catch (NumberFormatException e) {
 			e.printStackTrace();
+			response.sendRedirect(request.getContextPath() + "/index.jsp");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			request.setAttribute("errorMessage", "Errore di connessione al database: " + e.getMessage());
+			request.getRequestDispatcher("errore.jsp").forward(request, response);
 		}
 	}
 
@@ -56,8 +88,6 @@ public class ProdottoServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
 }

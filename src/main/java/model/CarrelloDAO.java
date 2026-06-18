@@ -4,10 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 public class CarrelloDAO {
-	public CarrelloBean doRetreiveByUtente(String email) throws SQLException {
+	public CarrelloBean doRetrieveByUtente(String email) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -50,23 +51,41 @@ public class CarrelloDAO {
 	public void doSave(CarrelloBean carrello) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
+		ResultSet rs = null; // Ci serve per recuperare l'ID generato dal DB
 
-		String sql = "insert into carrello values (?,?)";
+		// Specifichiamo solo la colonna dell'utente, lasciando l'id_carrello
+		// all'AUTO_INCREMENT del DB
+		String sql = "INSERT INTO carrello (id_utente) VALUES (?)";
 
 		try {
 			con = ConnectionPool.getConnection();
-			ps = con.prepareStatement(sql);
 
-			ps.setInt(1, carrello.getId_carrello());
-			ps.setString(2, carrello.getId_utente());
+			// Passiamo il flag RETURN_GENERATED_KEYS per dire a JDBC di intercettare l'ID
+			// creato da MySQL/PostgreSQL
+			ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+			ps.setString(1, carrello.getId_utente());
 
 			ps.executeUpdate();
+
+			// Recuperiamo l'ID generato automaticamente
+			rs = ps.getGeneratedKeys();
+			if (rs.next()) {
+				int idGenerato = rs.getInt(1);
+				carrello.setId_carrello(idGenerato); // Aggiorna l'oggetto in memoria con il vero ID!
+			}
+
 		} finally {
 			try {
-				if (ps != null)
-					ps.close();
+				if (rs != null)
+					rs.close();
 			} finally {
-				ConnectionPool.releaseConnection(con);
+				try {
+					if (ps != null)
+						ps.close();
+				} finally {
+					ConnectionPool.releaseConnection(con);
+				}
 			}
 		}
 	}

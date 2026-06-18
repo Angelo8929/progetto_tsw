@@ -1,41 +1,96 @@
 package controller;
 
+import java.io.IOException;
+import java.util.List;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import jakarta.servlet.http.HttpSession;
+import model.CarrelloBean;
+import model.CarrelloDAO;
+import model.InfoConsegnaBean;
+import model.InfoConsegnaDAO;
+import model.ProdottoBean;
+import model.ProdottoCarrelloBean;
+import model.ProdottoCarrelloDAO;
+import model.ProdottoDAO;
+import model.UtenteBean;
 
-/**
- * Servlet implementation class CheckoutServlet
- */
 @WebServlet("/CheckoutServlet")
 public class CheckoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CheckoutServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	private CarrelloDAO carrelloDAO;
+	private ProdottoCarrelloDAO prodottoCarrelloDAO;
+	private ProdottoDAO prodottoDAO;
+	private InfoConsegnaDAO infoConsegnaDAO;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+	public void init() throws ServletException {
+		carrelloDAO = new CarrelloDAO();
+		prodottoCarrelloDAO = new ProdottoCarrelloDAO();
+		prodottoDAO = new ProdottoDAO();
+		infoConsegnaDAO = new InfoConsegnaDAO();
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		HttpSession session = request.getSession();
+		UtenteBean utenteLoggato = (UtenteBean) session.getAttribute("user");
+
+		// SICUREZZA: Se l'utente non è loggato, non può fare il checkout. Lo mandiamo
+		// al login.
+		if (utenteLoggato == null) {
+			request.setAttribute("errorMessage", "Devi effettuare il login per procedere al checkout.");
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
+			return;
+		}
+
+		double prezzoTotale = 0.0;
+
+		try {
+			// Ricalcoliamo rapidamente il totale del carrello per sicurezza dall'utente
+			// loggato (dal DB)
+			CarrelloBean carrelloUtente = carrelloDAO.doRetrieveByUtente(utenteLoggato.getEmail());
+			if (carrelloUtente != null) {
+				List<ProdottoCarrelloBean> righeCarrello = prodottoCarrelloDAO
+						.doRetrieveByCarrello(carrelloUtente.getId_carrello());
+				for (ProdottoCarrelloBean riga : righeCarrello) {
+					ProdottoBean prodotto = prodottoDAO.doRetrieveByKey(riga.getId_prodotto());
+					if (prodotto != null) {
+						prezzoTotale += prodotto.getPrezzo() * riga.getQuantita();
+					}
+				}
+				System.out.println("DEBUG - Prezzo Totale Calcolato: " + prezzoTotale);
+			}
+
+			// Se il carrello è vuoto, è inutile fare il checkout. Lo rimandiamo al
+			// carrello.
+			if (prezzoTotale <= 0) {
+				response.sendRedirect(request.getContextPath() + "/CarrelloServlet");
+				return;
+			}
+
+			// RECUPERO INDIRIZZI: Usiamo il tuo nuovo DAO
+			List<InfoConsegnaBean> listaIndirizzi = infoConsegnaDAO.doRetrieveByUtente(utenteLoggato.getEmail());
+
+			// Passiamo i dati alla pagina di checkout
+			request.setAttribute("listaIndirizzi", listaIndirizzi);
+			request.setAttribute("prezzoTotale", prezzoTotale);
+
+			request.getRequestDispatcher("/checkout.jsp").forward(request, response);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			request.setAttribute("errorMessage", "Errore durante la fase di checkout: " + e.getMessage());
+			request.getRequestDispatcher("/errore.jsp").forward(request, response);
+		}
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
-
 }

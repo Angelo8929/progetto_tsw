@@ -45,7 +45,7 @@
 				<div class="dropdown-content">
 					<a href="CarrelloServlet">Carrello</a>
 					<a href="#">I miei ordini</a> 
-					<a href="">Area riservata</a> 
+					<a href="AreaRiservataServlet">Area riservata</a> 
 					
 					<form action="LogoutServlet" method="post">
 					
