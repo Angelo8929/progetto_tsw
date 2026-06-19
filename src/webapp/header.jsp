@@ -22,10 +22,9 @@
 
 
 
-		<div class="search">
-		 
-		
-			<input type="text" name="cerca" id="cerca" placeholder="chi cerca trova..." />
+		<div class="search" style="position: relative;">
+			<input type="text" name="cerca" id="cerca" placeholder="chi cerca trova..." autocomplete="off" />
+			<div id="suggerimenti" class="dropdown-suggerimenti"></div>
 		</div>
 
 		<div class="account">
@@ -71,9 +70,16 @@
 	</div>
 
 	<div class="navbar">
-		<a href="catalogo.jsp">catalogo</a> 
+		<a href="CatalogoServlet">catalogo</a> 
 		<a href="chi_siamo.jsp">chi siamo</a> 
 		<a href="contattaci.jsp">contattaci</a>
 	</div>
+	
+	<script>
+    // Questa variabile globale sarà leggibile da qualsiasi file .js esterno caricato dopo
+    window.contextPath = "<%= request.getContextPath() %>";
+</script>
+
+<script src="js/search.js"></script>
 </body>
 </html>

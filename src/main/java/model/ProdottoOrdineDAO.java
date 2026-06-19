@@ -10,22 +10,22 @@ import java.util.List;
 public class ProdottoOrdineDAO {
 
 	// 1. DO SAVE (Inserimento)
-	public void doSave(ProdottoOrdineBean prodottoOrdine) throws SQLException {
+	public void doSave(ProdottoOrdineBean dettaglio) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 
-		String sql = "INSERT INTO prodotto_ordine (nome_prodotto, id_prodotto, id_ordine, prezzo, quantita, iva) VALUES (?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO prodotto_ordine (nome_prodotto, id_ordine, id_prodotto, prezzo, quantita, iva) VALUES (?, ?, ?, ?, ?, ?)";
 
 		try {
 			con = ConnectionPool.getConnection();
 			ps = con.prepareStatement(sql);
 
-			ps.setString(1, prodottoOrdine.getNome_prodotto());
-			ps.setInt(2, prodottoOrdine.getId_prodotto());
-			ps.setInt(3, prodottoOrdine.getId_ordine());
-			ps.setFloat(4, prodottoOrdine.getPrezzo());
-			ps.setInt(5, prodottoOrdine.getQuantità());
-			ps.setInt(6, prodottoOrdine.getIva());
+			ps.setString(1, dettaglio.getNome_prodotto());
+			ps.setInt(2, dettaglio.getId_ordine());
+			ps.setInt(3, dettaglio.getId_prodotto());
+			ps.setDouble(4, dettaglio.getPrezzo());
+			ps.setInt(5, dettaglio.getQuantita());
+			ps.setInt(6, dettaglio.getIva());
 
 			ps.executeUpdate();
 		} finally {
@@ -52,8 +52,8 @@ public class ProdottoOrdineDAO {
 			ps.setString(1, prodottoOrdine.getNome_prodotto());
 			ps.setInt(2, prodottoOrdine.getId_prodotto());
 			ps.setInt(3, prodottoOrdine.getId_ordine());
-			ps.setFloat(4, prodottoOrdine.getPrezzo());
-			ps.setInt(5, prodottoOrdine.getQuantità());
+			ps.setDouble(4, prodottoOrdine.getPrezzo());
+			ps.setInt(5, prodottoOrdine.getQuantita());
 			ps.setInt(6, prodottoOrdine.getIva());
 			ps.setInt(7, prodottoOrdine.getId());
 
@@ -93,7 +93,7 @@ public class ProdottoOrdineDAO {
 				prodottoOrdine.setId_prodotto(rs.getInt("id_prodotto"));
 				prodottoOrdine.setId_ordine(rs.getInt("id_ordine"));
 				prodottoOrdine.setPrezzo(rs.getFloat("prezzo"));
-				prodottoOrdine.setQuantità(rs.getInt("quantita"));
+				prodottoOrdine.setQuantita(rs.getInt("quantita"));
 				prodottoOrdine.setIva(rs.getInt("iva"));
 			}
 		} finally {
@@ -134,7 +134,7 @@ public class ProdottoOrdineDAO {
 				prodottoOrdine.setId_prodotto(rs.getInt("id_prodotto"));
 				prodottoOrdine.setId_ordine(rs.getInt("id_ordine"));
 				prodottoOrdine.setPrezzo(rs.getFloat("prezzo"));
-				prodottoOrdine.setQuantità(rs.getInt("quantita"));
+				prodottoOrdine.setQuantita(rs.getInt("quantita"));
 				prodottoOrdine.setIva(rs.getInt("iva"));
 
 				lista.add(prodottoOrdine);
@@ -180,7 +180,7 @@ public class ProdottoOrdineDAO {
 				prodottoOrdine.setId_prodotto(rs.getInt("id_prodotto"));
 				prodottoOrdine.setId_ordine(rs.getInt("id_ordine"));
 				prodottoOrdine.setPrezzo(rs.getFloat("prezzo"));
-				prodottoOrdine.setQuantità(rs.getInt("quantita"));
+				prodottoOrdine.setQuantita(rs.getInt("quantita"));
 				prodottoOrdine.setIva(rs.getInt("iva"));
 
 				lista.add(prodottoOrdine);

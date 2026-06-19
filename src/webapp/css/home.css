@@ -180,3 +180,30 @@ body{
     flex-direction: column; /* Mette Label, Input ed Errore uno sotto l'altro */
     margin-bottom: 15px;
 }
+
+
+
+.dropdown-suggerimenti {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-top: none;
+    z-index: 1000;
+    display: none;
+    box-sizing: border-box;
+    max-height: 200px;
+    overflow-y: auto;
+}
+.dropdown-suggerimenti a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+    text-align: left;
+}
+.dropdown-suggerimenti a:hover {
+    background-color: #f1f1f1;
+}

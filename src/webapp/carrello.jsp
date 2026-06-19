@@ -43,7 +43,7 @@
     <% if (elementiCarrello == null || elementiCarrello.isEmpty()) { %>
         <div class="empty-cart">
             <h2>Il tuo carrello è vuoto.</h2>
-            <p>Torna allo <a href="catalogo.jsp">shop</a> per aggiungere prodotti!</p>
+            <p>Torna allo <a href="CatalogoServlet">shop</a> per aggiungere prodotti!</p>
         </div>
     <% } else { %>
         
@@ -73,7 +73,17 @@
                         </td>
                         <td><strong><%= prodotto.getNome_prodotto() %></strong></td>
                         <td><%= prodotto.getPrezzo() %> €</td>
-                        <td><%= quantita %></td>
+                        
+                        <%-- FIX CRUCIALE: L'input ora è racchiuso dentro i tag <td> --%>
+                        <td>
+                            <input type="number" 
+                                   class="input-quantita" 
+                                   value="<%= quantita %>" 
+                                   min="1" 
+                                   data-id="<%= prodotto.getId_prodotto() %>" 
+                                   style="width: 60px; padding: 5px;" />
+                        </td>
+                        
                         <td><%= totaleRiga %> €</td>
                         <td>
                             <%-- Form per la rimozione del prodotto --%>
@@ -97,6 +107,10 @@
         </div>
         
     <% } // Fine del blocco else %>
-
+    <script>
+    // Questa variabile globale sarà leggibile da qualsiasi file .js esterno caricato dopo
+    window.contextPath = "<%= request.getContextPath() %>";
+</script>
+<script src="js/aggiorna_quantita_carrello.js"></script>
 </body>
 </html>

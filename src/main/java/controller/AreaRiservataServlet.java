@@ -45,6 +45,10 @@ public class AreaRiservataServlet extends HttpServlet {
 
 			// 3. Passiamo la lista come attributo della request alla JSP
 			request.setAttribute("listaIndirizzi", listaIndirizzi);
+			model.OrdineDAO ordineDAO = new model.OrdineDAO();
+			// Usiamo il tuo metodo che restituisce una Collection/List di ordini
+			java.util.Collection<model.OrdineBean> listaOrdini = ordineDAO.doRetrieveByUtente(utenteLoggato.getEmail());
+			request.setAttribute("listaOrdini", listaOrdini);
 
 			// Se la SalvaIndirizzoServlet ci ha rimandato qui con un successo, lo
 			// intercettiamo

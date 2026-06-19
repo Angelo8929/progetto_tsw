@@ -63,9 +63,9 @@
 
 
 <div class="categorie_products">
-	<div class="category_item"> <a href="alcolici.jsp">Alcolici</a></div>
-	<div class="category_item">  <a href="superalcolici.jsp">Superalcolici</a></div>
-	<div class="category_item">   <a href="analcolici.jsp">Analcolici</a> </div>
+	<div class="category_item"> <a href="CatalogoServlet?categoria=Alcolici">Alcolici</a></div>
+	<div class="category_item">  <a href="CatalogoServlet?categoria=Superalcolici">Superalcolici</a></div>
+	<div class="category_item">   <a href="CatalogoServlet?categoria=Analcolici">Analcolici</a> </div>
 </div>
 
 </div>

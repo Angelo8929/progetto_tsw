@@ -10,31 +10,45 @@ import java.util.List;
 
 public class OrdineDAO {
 
-	// 1. DO SAVE (Inserimento di un nuovo ordine)
-	public void doSave(OrdineBean ordine) throws SQLException {
+	public int doSave(OrdineBean ordine) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
+		ResultSet rs = null;
+		int idGenerato = -1;
 
-		String sql = "INSERT INTO ordine (data_ordine, costo_totale, num_prodotti, email_utente) VALUES (?, ?, ?, ?)";
+		String sql = "INSERT INTO ordine (data_ordine, costo_totale, num_prodotti, email_utente, id_consegna) VALUES (?, ?, ?, ?, ?)";
 
 		try {
 			con = ConnectionPool.getConnection();
-			ps = con.prepareStatement(sql);
+			// Richiediamo esplicitamente l'ID autoincrementale generato
+			ps = con.prepareStatement(sql, java.sql.Statement.RETURN_GENERATED_KEYS);
 
 			ps.setString(1, ordine.getData_ordine());
 			ps.setLong(2, ordine.getCosto_totale());
 			ps.setInt(3, ordine.getNum_prodotti());
 			ps.setString(4, ordine.getEmail_utente());
+			ps.setInt(5, ordine.getId_consegna());
 
 			ps.executeUpdate();
+
+			rs = ps.getGeneratedKeys();
+			if (rs.next()) {
+				idGenerato = rs.getInt(1);
+			}
 		} finally {
 			try {
-				if (ps != null)
-					ps.close();
+				if (rs != null)
+					rs.close();
 			} finally {
-				ConnectionPool.releaseConnection(con);
+				try {
+					if (ps != null)
+						ps.close();
+				} finally {
+					ConnectionPool.releaseConnection(con);
+				}
 			}
 		}
+		return idGenerato; // Restituisce l'id alla Servlet
 	}
 
 	// 2. DO UPDATE (Aggiornamento di un ordine esistente)

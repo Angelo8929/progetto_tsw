@@ -5,7 +5,7 @@ public class ProdottoOrdineBean {
 	public String nome_prodotto;
 	public int id_prodotto;
 	public int id_ordine;
-	public float prezzo;
+	public double prezzo;
 	public int quantità;
 	public int iva;
 
@@ -44,20 +44,20 @@ public class ProdottoOrdineBean {
 		this.id_ordine = id_ordine;
 	}
 
-	public float getPrezzo() {
+	public double getPrezzo() {
 		return prezzo;
 	}
 
-	public void setPrezzo(float prezzo) {
-		this.prezzo = prezzo;
+	public void setPrezzo(double d) {
+		this.prezzo = d;
 	}
 
-	public int getQuantità() {
+	public int getQuantita() {
 		return quantità;
 	}
 
-	public void setQuantità(int quantità) {
-		this.quantità = quantità;
+	public void setQuantita(int quantita) {
+		this.quantità = quantita;
 	}
 
 	public int getIva() {

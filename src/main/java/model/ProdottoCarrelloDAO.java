@@ -65,6 +65,28 @@ public class ProdottoCarrelloDAO {
 		}
 	}
 
+	public void doUpdateQuantity(int idCarrello, int idProdotto, int nuovaQuantita) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+
+		String sql = "UPDATE prodotto_carrello SET quantita = ? WHERE id_carrello = ? AND id_prodotto = ?";
+
+		try {
+			con = ConnectionPool.getConnection();
+			ps = con.prepareStatement(sql);
+
+			ps.setInt(1, nuovaQuantita);
+			ps.setInt(2, idCarrello);
+			ps.setInt(3, idProdotto);
+
+			ps.executeUpdate();
+		} finally {
+			if (ps != null)
+				ps.close();
+			ConnectionPool.releaseConnection(con);
+		}
+	}
+
 	// 3. DO RETRIEVE BY KEY (Read singola)
 	public ProdottoCarrelloBean doRetrieveByKey(int id) throws SQLException {
 		Connection con = null;
