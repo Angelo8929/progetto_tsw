@@ -8,7 +8,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
 import model.UtenteBean;
 import model.UtenteDAO;
 
@@ -47,9 +46,6 @@ public class RegistrazioneServlet extends HttpServlet {
 		String username = request.getParameter("username");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-		System.out.println("username" + username);
-		System.out.println("email" + email);
-		System.out.println("password" + password);
 
 		UtenteDAO udao = new UtenteDAO();
 
@@ -59,6 +55,7 @@ public class RegistrazioneServlet extends HttpServlet {
 			ub.setEmail(email);
 			ub.setUsername(username);
 			ub.setPassword(Sicurezza.hashPassword(password));
+			ub.setAdmin(false);
 
 			udao.doSave(ub);
 
@@ -66,7 +63,7 @@ public class RegistrazioneServlet extends HttpServlet {
 			String success = "Registrazione avvenuta con successo!";
 			response.sendRedirect("login.jsp");
 		} catch (SQLException e) {
-			System.err.println("sei un fallito" + e.getMessage());
+			System.err.println("Errore durante la registrazione" + e.getMessage());
 			e.printStackTrace();
 		}
 

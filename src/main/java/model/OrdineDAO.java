@@ -204,4 +204,64 @@ public class OrdineDAO {
 		}
 		return lista;
 	}
+
+	public List<OrdineBean> doRetrieveWithFilters(String email, String dataInizio, String dataFine)
+			throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<OrdineBean> ordini = new ArrayList<>();
+
+		// Base della query
+		StringBuilder sql = new StringBuilder("SELECT * FROM ordine WHERE 1=1");
+
+		// Aggiunta dinamica dei filtri se presenti
+		if (email != null && !email.trim().isEmpty()) {
+			sql.append(" AND email_utente LIKE ?");
+		}
+		if (dataInizio != null && !dataInizio.trim().isEmpty()) {
+			sql.append(" AND data_ordine >= ?");
+		}
+		if (dataFine != null && !dataFine.trim().isEmpty()) {
+			sql.append(" AND data_ordine <= ?");
+		}
+
+		sql.append(" ORDER BY data_ordine DESC");
+
+		try {
+			con = ConnectionPool.getConnection();
+			ps = con.prepareStatement(sql.toString());
+
+			int i = 1;
+			if (email != null && !email.trim().isEmpty()) {
+				ps.setString(i++, "%" + email.trim() + "%");
+			}
+			if (dataInizio != null && !dataInizio.trim().isEmpty()) {
+				ps.setString(i++, dataInizio); // Formato standard HTML5 date: YYYY-MM-DD
+			}
+			if (dataFine != null && !dataFine.trim().isEmpty()) {
+				ps.setString(i++, dataFine);
+			}
+
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				OrdineBean ordine = new OrdineBean();
+				ordine.setId_ordine(rs.getInt("id_ordine"));
+				ordine.setEmail_utente(rs.getString("email_utente"));
+				ordine.setData_ordine(rs.getString("data_ordine")); // o rs.getDate a seconda del tuo Bean
+				ordine.setNum_prodotti(rs.getInt("num_prodotti"));
+				ordine.setCosto_totale(rs.getInt("costo_totale")); // o double/int centesimi
+
+				ordini.add(ordine);
+			}
+		} finally {
+			if (rs != null)
+				rs.close();
+			if (ps != null)
+				ps.close();
+			ConnectionPool.releaseConnection(con);
+		}
+		return ordini;
+	}
 }

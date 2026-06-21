@@ -8,11 +8,10 @@ import java.sql.SQLException;
 public class UtenteDAO {
 
 	public void doSave(UtenteBean ub) throws SQLException {
-
 		Connection con = null;
 		PreparedStatement ps = null;
 
-		String sql = "insert into utente (email, username, password) values (?,?,?)";
+		String sql = "insert into utente (email, username, password, isAdmin) values (?,?,?,?)";
 
 		try {
 			con = ConnectionPool.getConnection();
@@ -21,6 +20,7 @@ public class UtenteDAO {
 			ps.setString(1, ub.getEmail());
 			ps.setString(2, ub.getUsername());
 			ps.setString(3, ub.getPassword());
+			ps.setBoolean(4, ub.getIsAdmin());
 
 			ps.executeUpdate();
 
@@ -55,6 +55,7 @@ public class UtenteDAO {
 				ub.setEmail(rs.getString("email"));
 				ub.setUsername(rs.getString("username"));
 				ub.setPassword(rs.getString("password"));
+				ub.setAdmin(rs.getBoolean("isAdmin"));
 			}
 		} finally {
 			try {
@@ -72,4 +73,38 @@ public class UtenteDAO {
 		return ub;
 	}
 
+	public UtenteBean doRetrieveByEmail(String email) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		UtenteBean utente = null;
+
+		// FIX: Cambiato 'email_utente' in 'email' per allinearlo alla tabella utente
+		String sql = "select * from utente where email = ?";
+
+		try {
+			con = ConnectionPool.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setString(1, email);
+
+			rs = ps.executeQuery();
+
+			if (rs.next()) {
+				utente = new UtenteBean();
+				utente.setEmail(rs.getString("email")); // FIX: Anche qui 'email'
+				utente.setUsername(rs.getString("username"));
+				utente.setPassword(rs.getString("password"));
+				utente.setAdmin(rs.getBoolean("isAdmin"));
+			}
+		} finally {
+			if (rs != null) {
+				rs.close();
+			}
+			if (ps != null) {
+				ps.close();
+			}
+			ConnectionPool.releaseConnection(con);
+		}
+		return utente;
+	}
 }

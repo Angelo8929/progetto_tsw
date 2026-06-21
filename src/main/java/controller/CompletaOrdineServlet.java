@@ -90,16 +90,39 @@ public class CompletaOrdineServlet extends HttpServlet {
 			long costoTotaleCentesimi = 0;
 			int numProdottiTotali = 0;
 
-			// Calcolo dettagli costi e quantità sfruttando il DAO riutilizzabile
+			// 5. PRIMO CONTROLLO: Verifichiamo la disponibilità e calcoliamo i costi
 			for (ProdottoCarrelloBean riga : righeCarrello) {
 				ProdottoBean prodotto = prodottoDAO.doRetrieveByKey(riga.getId_prodotto());
 				if (prodotto != null) {
+					// CONTROLLO STOCK IN CODA: l'utente sta chiedendo più pezzi di quanti ne hai?
+					if (prodotto.getDisponibilita() < riga.getQuantita()) {
+						request.setAttribute("errorMessage", "Ci dispiace, il prodotto '" + prodotto.getNome_prodotto()
+								+ "' non ha scorte sufficienti (Disponibili: " + prodotto.getDisponibilita() + " pz).");
+						request.getRequestDispatcher("/CarrelloServlet").forward(request, response);
+						return; // Blocchiamo la servlet prima di salvare l'ordine
+					}
+
 					costoTotaleCentesimi += (long) (prodotto.getPrezzo() * 100) * riga.getQuantita();
 					numProdottiTotali += riga.getQuantita();
 				}
 			}
 
-			// 5. Creazione e salvataggio dell'ordine principale (Tabella: ordine)
+			// 6. SCARICAMENTO EFFETTIVO: Se il controllo sopra è passato per TUTTI i
+			// prodotti, scaliamo lo stock
+			for (ProdottoCarrelloBean riga : righeCarrello) {
+				// Il metodo del DAO restituirà false se la concorrenza (un altro utente) ha
+				// svuotato il magazzino un secondo prima
+				boolean successoScarico = prodottoDAO.scaricaMagazzino(riga.getId_prodotto(), riga.getQuantita());
+
+				if (!successoScarico) {
+					request.setAttribute("errorMessage",
+							"Errore: le scorte di magazzino sono cambiate. Riprova l'acquisto.");
+					request.getRequestDispatcher("/CarrelloServlet").forward(request, response);
+					return;
+				}
+			}
+
+			// 7. Creazione e salvataggio dell'ordine principale (Tabella: ordine)
 			OrdineBean nuovoOrdine = new OrdineBean();
 			java.time.format.DateTimeFormatter dtf = java.time.format.DateTimeFormatter
 					.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -113,7 +136,7 @@ public class CompletaOrdineServlet extends HttpServlet {
 			// Inserisce nella tabella 'ordine' e restituisce la chiave primaria generata
 			int idOrdineGenerato = ordineDAO.doSave(nuovoOrdine);
 
-			// 6. Salviamo i singoli dettagli (Tabella: prodotto_ordine)
+			// 8. Salviamo i singoli dettagli (Tabella: prodotto_ordine)
 			if (idOrdineGenerato != -1) {
 				for (ProdottoCarrelloBean riga : righeCarrello) {
 					ProdottoBean prodotto = prodottoDAO.doRetrieveByKey(riga.getId_prodotto());
@@ -125,20 +148,20 @@ public class CompletaOrdineServlet extends HttpServlet {
 						dettaglio.setId_prodotto(riga.getId_prodotto());
 						dettaglio.setPrezzo(prodotto.getPrezzo());
 						dettaglio.setQuantita(riga.getQuantita());
-						dettaglio.setIva(22); // Default standard italiano
+						dettaglio.setIva(prodotto.getIva() != 0 ? prodotto.getIva() : 22); // Usa l'IVA dinamica del DB!
 
 						prodottoOrdineDAO.doSave(dettaglio);
 					}
 				}
 			}
 
-			// 7. Svuotamento del carrello sul DB (acquisto andato a buon fine)
+			// 9. Svuotamento del carrello sul DB (acquisto andato a buon fine)
 			for (ProdottoCarrelloBean riga : righeCarrello) {
 				prodottoCarrelloDAO.doDeleteByProdottoAndCarrello(riga.getId_prodotto(),
 						carrelloUtente.getId_carrello());
 			}
 
-			// 8. Reindirizzamento sicuro anti-F5
+			// 10. Reindirizzamento sicuro anti-F5
 			response.sendRedirect(request.getContextPath() + "/conferma_ordine.jsp");
 
 		} catch (NumberFormatException e) {

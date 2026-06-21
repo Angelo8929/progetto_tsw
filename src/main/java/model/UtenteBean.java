@@ -11,6 +11,7 @@ public class UtenteBean implements Serializable {
 	String email;
 	String username;
 	String password;
+	boolean isAdmin;
 
 	public UtenteBean() {
 	}
@@ -37,6 +38,14 @@ public class UtenteBean implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public boolean getIsAdmin() {
+		return isAdmin;
+	}
+
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
 	}
 
 }

@@ -5,15 +5,13 @@ public class ProdottoBean {
 	public int id_prodotto;
 	public String nome_prodotto;
 	public double perc_alcol;
-	public String sottocategoria;
-	public String colore;
-	public String profumo;
-	public int annata;
-	public String fermentazione;
 	public String effervescenza;
 	public double prezzo;
+	public int iva;
+	public String descrizione;
 	public String categoria;
 	public String imgPath;
+	int disponibilita;
 
 	public int getId_prodotto() {
 		return id_prodotto;
@@ -37,46 +35,6 @@ public class ProdottoBean {
 
 	public void setPerc_alcol(double perc_alcol) {
 		this.perc_alcol = perc_alcol;
-	}
-
-	public String getSottocategoria() {
-		return sottocategoria;
-	}
-
-	public void setSottocategoria(String sottocategoria) {
-		this.sottocategoria = sottocategoria;
-	}
-
-	public String getColore() {
-		return colore;
-	}
-
-	public void setColore(String colore) {
-		this.colore = colore;
-	}
-
-	public String getProfumo() {
-		return profumo;
-	}
-
-	public void setProfumo(String profumo) {
-		this.profumo = profumo;
-	}
-
-	public int getAnnata() {
-		return annata;
-	}
-
-	public void setAnnata(int annata) {
-		this.annata = annata;
-	}
-
-	public String getFermentazione() {
-		return fermentazione;
-	}
-
-	public void setFermentazione(String fermentazione) {
-		this.fermentazione = fermentazione;
 	}
 
 	public String getEffervescenza() {
@@ -109,6 +67,30 @@ public class ProdottoBean {
 
 	public void setImgPath(String imgPath) {
 		this.imgPath = imgPath;
+	}
+
+	public int getIva() {
+		return iva;
+	}
+
+	public void setIva(int iva) {
+		this.iva = iva;
+	}
+
+	public String getDescrizione() {
+		return descrizione;
+	}
+
+	public void setDescrizione(String descrizione) {
+		this.descrizione = descrizione;
+	}
+
+	public int getDisponibilita() {
+		return disponibilita;
+	}
+
+	public void setDisponibilita(int disponiblita) {
+		this.disponibilita = disponiblita;
 	}
 
 }

@@ -12,27 +12,30 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.InfoConsegnaBean;
 import model.InfoConsegnaDAO;
+import model.OrdineDAO;
+import model.ProdottoDAO;
 import model.UtenteBean;
 
 @WebServlet("/AreaRiservataServlet")
 public class AreaRiservataServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private InfoConsegnaDAO infoConsegnaDAO;
+	private OrdineDAO ordineDAO;
+	private ProdottoDAO prodottoDAO;
 
+	// Inizializziamo tutti i DAO qui, una volta sola all'avvio della servlet
 	public void init() throws ServletException {
 		infoConsegnaDAO = new InfoConsegnaDAO();
+		ordineDAO = new OrdineDAO();
+		prodottoDAO = new ProdottoDAO();
 	}
 
-	/**
-	 * Gestisce l'accesso all'area riservata, caricando i dati dell'utente dal DB
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
 		UtenteBean utenteLoggato = (UtenteBean) session.getAttribute("user");
 
-		// 1. Controllo sicurezza: se non è loggato, va al login
 		if (utenteLoggato == null) {
 			request.setAttribute("errorMessage", "Devi effettuare il login per accedere all'area riservata.");
 			request.getRequestDispatcher("/login.jsp").forward(request, response);
@@ -40,29 +43,50 @@ public class AreaRiservataServlet extends HttpServlet {
 		}
 
 		try {
-			// 2. Recuperiamo gli indirizzi salvati dell'utente dal database
-			List<InfoConsegnaBean> listaIndirizzi = infoConsegnaDAO.doRetrieveByUtente(utenteLoggato.getEmail());
+			// CONTROLLO RUOLO
+			// CONTROLLO RUOLO
+			if (utenteLoggato.getIsAdmin()) {
 
-			// 3. Passiamo la lista come attributo della request alla JSP
-			request.setAttribute("listaIndirizzi", listaIndirizzi);
-			model.OrdineDAO ordineDAO = new model.OrdineDAO();
-			// Usiamo il tuo metodo che restituisce una Collection/List di ordini
-			java.util.Collection<model.OrdineBean> listaOrdini = ordineDAO.doRetrieveByUtente(utenteLoggato.getEmail());
-			request.setAttribute("listaOrdini", listaOrdini);
+				request.setAttribute("isAdmin", true);
 
-			// Se la SalvaIndirizzoServlet ci ha rimandato qui con un successo, lo
-			// intercettiamo
-			String success = request.getParameter("success");
-			if (success != null && success.equals("true")) {
-				request.setAttribute("successMessage", "Indirizzo salvato con successo!");
+				// 1. Carichiamo i dati globali per i pulsanti gestionali dell'admin
+				java.util.List<model.OrdineBean> tuttiGliOrdini = ordineDAO.doRetrieveAll();
+				java.util.List<model.ProdottoBean> tuttiIProdotti = prodottoDAO.doRetrieveAll();
+				request.setAttribute("listaProdotti", tuttiIProdotti);
+				// Passiamo gli ordini totali con un nome diverso per non fare confusione nella
+				// JSP
+				request.setAttribute("listaOrdiniTotali", tuttiGliOrdini);
+
+				// 2. NOVITÀ: Carichiamo ANCHE gli ordini personali fatti dall'account admin
+				// stesso
+				java.util.Collection<model.OrdineBean> ordiniPersonaliAdmin = ordineDAO
+						.doRetrieveByUtente(utenteLoggato.getEmail());
+				request.setAttribute("listaOrdini", ordiniPersonaliAdmin);
+
+			} else {
+				request.setAttribute("isAdmin", false);
+
+				// Carichiamo i dati del cliente normale (resta invariato)
+				List<InfoConsegnaBean> listaIndirizzi = infoConsegnaDAO.doRetrieveByUtente(utenteLoggato.getEmail());
+				java.util.Collection<model.OrdineBean> listaOrdini = ordineDAO
+						.doRetrieveByUtente(utenteLoggato.getEmail());
+
+				request.setAttribute("listaIndirizzi", listaIndirizzi);
+				request.setAttribute("listaOrdini", listaOrdini); // Stesso nome attributo
 			}
 
-			// 4. Inoltriamo la richiesta alla pagina di visualizzazione
+			String success = request.getParameter("success");
+			if (success != null && success.equals("true")) {
+				request.setAttribute("successMessage", "Operazione completata con successo!");
+			}
+
 			request.getRequestDispatcher("/area_riservata.jsp").forward(request, response);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", "Errore nel recupero dei dati del profilo: " + e.getMessage());
+			// Più sicuro deviare su una pagina di errore dedicata per evitare crash
+			// parziali della JSP
 			request.getRequestDispatcher("/errore.jsp").forward(request, response);
 		}
 	}
