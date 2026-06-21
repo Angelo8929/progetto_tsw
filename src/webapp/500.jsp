@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isErrorPage="true"%>
-<% response.setStatus(HttpServletResponse.SC_NOT_FOUND); %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isErrorPage="true" %>
+<% response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Pagina Non Trovata - AlcoMarket</title>
+    <title>Errore Interno - AlcoMarket</title>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; background-color: #f4f7f6; padding: 50px; }
         .error-container { background: white; padding: 40px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); display: inline-block; max-width: 500px; }
@@ -16,10 +16,12 @@
 </head>
 <body>
     <div class="error-container">
-        <h1>404</h1>
-        <h2>Ops! Pagina non trovata</h2>
-        <p>La risorsa o la pagina che stai cercando potrebbe essere stata rimossa, aver cambiato nome o essere momentaneamente non disponibile.</p>
-        <a href="<%= request.getContextPath() %>/" class="btn-home">Torna alla Home</a>
+        <h1>500</h1>
+        <h2>Errore del Server</h2>
+        <p>Si è verificato un problema interno all'applicazione. I nostri tecnici sono stati informati.</p>
+        <a href="<%= request.getContextPath() %>/index.jsp" class="btn-home">Torna alla Home</a>
     </div>
-</body>
+
+    <%-- Dettaglio tecnico nascosto nel sorgente HTML per il debug rapido --%>
+    </body>
 </html>

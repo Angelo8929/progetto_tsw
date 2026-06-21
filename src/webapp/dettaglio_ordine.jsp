@@ -62,6 +62,18 @@
         Totale Complessivo: <%= String.format("%.2f", ordine.getCosto_totale() / 100.0) %> €
     </h3>
 </div>
+<div style="margin-top: 20px; display: flex; gap: 15px;">
+    
+    <a href="<%= request.getContextPath() %>/FatturaServlet?id=<%= ordine.getId_ordine() %>" 
+       style="background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px; font-weight: bold; display: inline-block;">
+       📄 Scarica Fattura PDF
+    </a>
+    
+    <a href="<%= request.getContextPath() %>/AreaRiservataServlet" 
+       style="background-color: #999; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px; font-weight: bold; display: inline-block;">
+       Torna Indietro
+    </a>
+</div>
 
 </body>
 </html>

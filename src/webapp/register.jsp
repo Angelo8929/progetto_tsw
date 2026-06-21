@@ -21,11 +21,7 @@
 
 			</div>
 
-			<div class="campo">
-				<label for="telefono">Telefono</label> <input type="text"
-					name="telefono" id="telefono" />
-
-			</div>
+			
 
 
 			<div class="campo">

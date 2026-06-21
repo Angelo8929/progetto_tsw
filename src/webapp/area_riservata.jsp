@@ -1,41 +1,46 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="model.UtenteBean"%>
 <%@ page import="model.InfoConsegnaBean"%>
-<%@ page import="java.util.List"%>
 <%@ page import="model.OrdineBean"%>
+<%@ page import="java.util.List"%>
 <%@ page import="java.util.Collection"%>
 <%
-// Recuperiamo l'utente loggato dalla sessione
+// 1. Controllo di sicurezza: l'utente deve essere loggato
 UtenteBean utenteLoggato = (UtenteBean) session.getAttribute("user");
-
 if (utenteLoggato == null) {
 	response.sendRedirect(request.getContextPath() + "/login.jsp");
 	return;
 }
 
-// RECUPERO DATI DALLA SERVLET
-List<InfoConsegnaBean> listaIndirizzi = (List<InfoConsegnaBean>) request.getAttribute("listaIndirizzi");
+// 2. Recuperiamo il flag isAdmin passato dalla AreaRiservataServlet
+Boolean isAdmin = (Boolean) request.getAttribute("isAdmin");
+if (isAdmin == null) {
+	isAdmin = false;
+}
+
+// 3. Recuperiamo i messaggi di feedback e le liste
 String successMessage = (String) request.getAttribute("successMessage");
 String errorMessage = (String) request.getAttribute("errorMessage");
 
-// Recuperiamo la lista degli ordini passata dalla servlet
 Collection<OrdineBean> listaOrdini = (Collection<OrdineBean>) request.getAttribute("listaOrdini");
+List<InfoConsegnaBean> listaIndirizzi = (List<InfoConsegnaBean>) request.getAttribute("listaIndirizzi");
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Area Riservata</title>
+<title><%=isAdmin ? "Pannello Admin - AlcoMarket" : "Area Riservata - AlcoMarket"%></title>
+<link rel="stylesheet" href="css/home.css" media="all" />
 <style>
 body {
 	font-family: Arial, sans-serif;
 	margin: 0;
 	padding: 0;
+	background-color: #f4f7f6;
 }
 
 .main-container {
-	max-width: 800px;
+	max-width: 900px;
 	margin: 30px auto;
 	padding: 20px;
 }
@@ -45,7 +50,8 @@ body {
 	padding: 20px;
 	margin-bottom: 20px;
 	border-radius: 5px;
-	background-color: #f9f9f9;
+	background-color: white;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 .form-gruppo {
@@ -58,7 +64,7 @@ body {
 	margin-bottom: 5px;
 }
 
-.form-gruppo input {
+.form-gruppo input, .form-gruppo select, .form-gruppo textarea {
 	width: 100%;
 	padding: 8px;
 	box-sizing: border-box;
@@ -80,25 +86,35 @@ body {
 	background-color: #007399;
 }
 
-.msg-success {
-	color: green;
-	font-weight: bold;
-	margin-bottom: 15px;
+.card-admin {
+	display: block; 
+	text-align: center; 
+	text-decoration: none; 
+	color: white; 
+	padding: 25px; 
+	border-radius: 6px; 
+	font-weight: bold; 
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+	transition: transform 0.2s;
+}
+.card-admin:hover {
+	transform: translateY(-2px);
 }
 
-.msg-error {
-	color: red;
-	font-weight: bold;
-	margin-bottom: 15px;
+table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 15px;
 }
 
-.indirizzo-item {
-	border-bottom: 1px solid #eee;
-	padding: 10px 0;
+th, td {
+	padding: 10px;
+	border-bottom: 1px solid #ddd;
+	text-align: left;
 }
 
-.indirizzo-item:last-child {
-	border-bottom: none;
+th {
+	background-color: #eee;
 }
 </style>
 </head>
@@ -108,72 +124,69 @@ body {
 
 	<div class="main-container">
 
-		<%-- Messaggi di feedback --%>
-		<%
-		if (successMessage != null) {
-		%>
-		<div class="msg-success"><%=successMessage%></div>
-		<%
-		}
-		%>
-		<%
-		if (errorMessage != null) {
-		%>
-		<div class="msg-error"><%=errorMessage%></div>
-		<%
-		}
-		%>
-
-		<%-- Sezione 1: Benvenuto e Dati Personali --%>
+		<%-- SEZIONE 1 (Comune): Dati Personali dell'Account --%>
 		<div class="box">
-			<h1>
-				Benvenuto,
-				<%=utenteLoggato.getUsername()%></h1>
-			<hr>
-			<h3>I tuoi Dati:</h3>
-			<p>
-				<strong>Nome Utente:</strong>
-				<%=utenteLoggato.getUsername()%></p>
-			<p>
-				<strong>Email di registrazione:</strong>
-				<%=utenteLoggato.getEmail()%></p>
+			<h1><%=isAdmin ? "Pannello Amministratore" : "Area Riservata Cliente"%></h1>
+			<hr style="border: 0; border-top: 1px solid #eee; margin: 15px 0;">
+			<p><strong>Nome Utente:</strong> <%=utenteLoggato.getUsername()%></p>
+			<p><strong>Email di registrazione:</strong> <%=utenteLoggato.getEmail()%></p>
 		</div>
 
+		<%
+		// SEZIONE 2 (SOLO ADMIN): Mostra la plancia di comando gestionale
+		if (isAdmin) {
+		%>
 		<div class="box">
-			<h2>I tuoi Ordini</h2>
+			<h2>Pannello di Amministrazione Gestionale</h2>
+			<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-top: 15px;">
+				<a href="<%=request.getContextPath()%>/admin/OrdiniAdminServlet" class="card-admin" style="background-color: #008CBA;">
+					<div style="font-size: 24px; margin-bottom: 10px;">📦</div>
+					Gestione Ordini Totali
+				</a> 
+				<a href="<%=request.getContextPath()%>/admin/aggiungi_prodotto_admin.jsp" class="card-admin" style="background-color: #4CAF50;">
+					<div style="font-size: 24px; margin-bottom: 10px;">➕</div> 
+					Aggiungi Nuovo Prodotto
+				</a> 
+				<a href="<%=request.getContextPath()%>/admin/AdminModificaProdottoServlet" class="card-admin" style="background-color: #f0ad4e;">
+					<div style="font-size: 24px; margin-bottom: 10px;">✏️</div>
+					Modifica Prodotti Esistenti
+				</a>
+			</div>
+		</div>
+		<%
+		} // Fine blocco admin
+		%>
+
+		<%-- SEZIONE 3 (Comune): Cronologia Ordini Personali (la vedono SIA i clienti SIA l'admin per i suoi acquisti) --%>
+		<div class="box">
+			<h2>I tuoi Ordini effettuati</h2>
 			<%
 			if (listaOrdini == null || listaOrdini.isEmpty()) {
 			%>
-			<p>Non hai ancora effettuato nessun ordine.</p>
+			<p>Non hai ancora effettuato nessun ordine con questo account.</p>
 			<%
 			} else {
 			%>
-			<table
-				style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+			<table>
 				<thead>
-					<tr style="background-color: #eee; text-align: left;">
-						<th style="padding: 10px; border-bottom: 2px solid #ddd;">ID
-							Ordine</th>
-						<th style="padding: 10px; border-bottom: 2px solid #ddd;">Data</th>
-						<th style="padding: 10px; border-bottom: 2px solid #ddd;">Prodotti</th>
-						<th style="padding: 10px; border-bottom: 2px solid #ddd;">Totale</th>
+					<tr>
+						<th>ID Ordine</th>
+						<th>Data Ordine</th>
+						<th>Numero Prodotti</th>
+						<th>Totale Pagato</th>
 					</tr>
 				</thead>
 				<tbody>
 					<%
 					for (OrdineBean ordine : listaOrdini) {
 					%>
-					<tr style="border-bottom: 1px solid #eee;">
-						<td style="padding: 10px;"><a
-							href="DettaglioOrdineServlet?id=<%=ordine.getId_ordine()%>"
-							style="color: #008CBA; font-weight: bold; text-decoration: none;">
+					<tr>
+						<td><a href="DettaglioOrdineServlet?id=<%=ordine.getId_ordine()%>" style="color: #008CBA; font-weight: bold; text-decoration: none;">
 								#<%=ordine.getId_ordine()%>
 						</a></td>
-						<td style="padding: 10px;"><%=ordine.getData_ordine()%></td>
-						<td style="padding: 10px;"><%=ordine.getNum_prodotti()%>
-							articoli</td>
-						<td style="padding: 10px; font-weight: bold;"><%=String.format("%.2f", ordine.getCosto_totale() / 100.0)%>
-							€</td>
+						<td><%=ordine.getData_ordine()%></td>
+						<td><%=ordine.getNum_prodotti()%> articoli</td>
+						<td style="font-weight: bold;"><%=String.format("%.2f", ordine.getCosto_totale() / 100.0)%> €</td>
 					</tr>
 					<%
 					}
@@ -185,65 +198,22 @@ body {
 			%>
 		</div>
 
-		<%-- NUOVA SEZIONE: Visualizzazione Indirizzi Esistenti --%>
-		<div class="box">
-			<h2>I tuoi indirizzi salvati</h2>
-			<%
-			if (listaIndirizzi == null || listaIndirizzi.isEmpty()) {
-			%>
-			<p>Non hai ancora salvato alcun indirizzo di consegna.</p>
-			<%
-			} else {
-			%>
-			<%
-			for (InfoConsegnaBean indirizzo : listaIndirizzi) {
-			%>
-			<div class="indirizzo-item">
-				<strong><%=indirizzo.getDestinatario()%></strong> -
-				<%=indirizzo.getVia()%>,
-				<%=indirizzo.getCivico()%>
-			</div>
-			<%
-			}
-			%>
-			<%
-			}
-			%>
-		</div>
-
-		<%-- Sezione 2: Form Aggiunta Nuovo Indirizzo --%>
-		<div class="box">
-			<h2>Aggiungi un nuovo indirizzo di consegna</h2>
-			<p style="color: #666; font-size: 14px;">Inserisci un indirizzo
-				valido da poter selezionare durante i tuoi prossimi acquisti.</p>
-
-			<form action="<%=request.getContextPath()%>/SalvaIndirizzoServlet"
-				method="post">
-
-				<div class="form-gruppo">
-					<label for="destinatario">Nome e Cognome Destinatario</label> <input
-						type="text" id="destinatario" name="destinatario"
-						placeholder="Es. Mario Rossi" required>
+		<%
+		// SEZIONE 4 (SOLO CLIENTE NORMALE): Indirizzi di consegna (opzionale: se vuoi puoi lasciarli anche all'admin togliendo l'if)
+		if (!isAdmin) {
+		%>
+			<%-- Elenco Indirizzi Salvati --%>
+			<div class="box">
+				<h2>I tuoi indirizzi di consegna salvati</h2>
 				</div>
 
-				<div class="form-gruppo">
-					<label for="via">Via / Piazza</label> <input type="text" id="via"
-						name="via" placeholder="Es. Via Garibaldi" required>
+			<%-- Form per Aggiungere un nuovo Indirizzo --%>
+			<div class="box">
+				<h2>Aggiungi un nuovo indirizzo di consegna</h2>
 				</div>
-
-				<div class="form-gruppo">
-					<label for="via">Citta</label> <input type="text" id="citta"
-						name="citta" placeholder="Es. Roma" required>
-				</div>
-
-				<div class="form-gruppo">
-					<label for="civico">Numero Civico</label> <input type="number"
-						id="civico" name="civico" placeholder="Es. 7" min="1" required>
-				</div>
-
-				<button type="submit" class="btn-salva">Salva Indirizzo</button>
-			</form>
-		</div>
+		<%
+		} // Fine blocco utente normale
+		%>
 
 	</div>
 
