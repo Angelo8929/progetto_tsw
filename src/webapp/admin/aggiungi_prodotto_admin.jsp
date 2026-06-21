@@ -4,17 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Aggiungi Prodotto - Admin</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 30px; background-color: #f4f7f6; }
-        .form-container { max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .form-gruppo { margin-bottom: 15px; }
-        .form-gruppo label { display: block; font-weight: bold; margin-bottom: 5px; }
-        .form-gruppo input, .form-gruppo select { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
-        .btn-salva { background-color: #4CAF50; color: white; border: none; padding: 10px 15px; cursor: pointer; border-radius: 4px; font-weight: bold; }
-        .back-link { display: inline-block; margin-bottom: 20px; color: #008CBA; text-decoration: none; }
-    </style>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/aggiungi_prodotto_admin.css" media="all" />
+    
 </head>
 <body>
+
+<%@ include file="../header.jsp"  %>
 
 <div class="form-container">
     <a href="<%= request.getContextPath() %>/AreaRiservataServlet" class="back-link">← Torna al Pannello Admin</a>
@@ -68,6 +63,6 @@
         <button type="submit" class="btn-salva">Carica Prodotto</button>
     </form>
 </div>
-
+<%@ include file="../footer.jsp" %>
 </body>
 </html>

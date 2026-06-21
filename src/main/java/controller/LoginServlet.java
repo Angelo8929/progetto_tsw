@@ -55,6 +55,7 @@ public class LoginServlet extends HttpServlet {
 			utenteLoggato = udao.doLogin(email, Sicurezza.hashPassword(password));
 		} catch (SQLException e) {
 			e.printStackTrace();
+			request.setAttribute("errorMessage", "Errore interno del server. Riprova più tardi.");
 			request.getRequestDispatcher("login.jsp").forward(request, response);
 		}
 

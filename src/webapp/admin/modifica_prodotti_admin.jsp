@@ -13,137 +13,11 @@ ProdottoBean prodSelezionato = (ProdottoBean) request.getAttribute("prodottoSele
 <head>
 <meta charset="UTF-8">
 <title>Gestione e Modifica Prodotti - AlcoMarket</title>
-<style>
-body {
-	font-family: Arial, sans-serif;
-	margin: 30px;
-	background-color: #f4f7f6;
-}
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/modifica_prodotti_admin.css" media="all" />
 
-.container {
-	max-width: 1000px;
-	margin: 0 auto;
-}
-
-.box {
-	background: white;
-	padding: 25px;
-	border-radius: 8px;
-	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-	margin-bottom: 25px;
-}
-
-.grid-form {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	gap: 15px;
-}
-
-.form-gruppo {
-	margin-bottom: 15px;
-	transition: all 0.3s ease;
-}
-
-.form-gruppo label {
-	display: block;
-	font-weight: bold;
-	margin-bottom: 5px;
-	font-size: 14px;
-}
-
-.form-gruppo input, .form-gruppo select {
-	width: 100%;
-	padding: 8px;
-	box-sizing: border-box;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-}
-
-.btn-salva {
-	background-color: #f0ad4e;
-	color: white;
-	border: none;
-	padding: 10px 20px;
-	cursor: pointer;
-	border-radius: 4px;
-	font-weight: bold;
-	font-size: 15px;
-}
-
-.btn-salva:hover {
-	background-color: #ec971f;
-}
-
-.btn-annulla {
-	background-color: #999;
-	color: white;
-	text-decoration: none;
-	padding: 10px 15px;
-	border-radius: 4px;
-	font-size: 15px;
-	margin-left: 10px;
-	display: inline-block;
-}
-
-table {
-	width: 100%;
-	border-collapse: collapse;
-	margin-top: 15px;
-}
-
-th, td {
-	padding: 12px;
-	border-bottom: 1px solid #ddd;
-	text-align: left;
-}
-
-th {
-	background-color: #eee;
-}
-
-.btn-azione {
-	background-color: #008CBA;
-	color: white;
-	padding: 5px 10px;
-	text-decoration: none;
-	border-radius: 4px;
-	font-weight: bold;
-	font-size: 13px;
-}
-
-.btn-azione:hover {
-	background-color: #007399;
-}
-
-.btn-cancella {
-	background-color: #d9534f;
-	color: white;
-	padding: 5px 10px;
-	text-decoration: none;
-	border-radius: 4px;
-	font-weight: bold;
-	font-size: 13px;
-	margin-left: 5px;
-}
-
-.btn-cancella:hover {
-	background-color: #c9302c;
-}
-
-.back-link {
-	display: inline-block;
-	margin-bottom: 20px;
-	color: #008CBA;
-	text-decoration: none;
-	font-weight: bold;
-}
-
-.nascosto {
-	display: none !important;
-}
-</style>
 </head>
 <body>
+<%@ include file="../header.jsp"  %>
 
 	<div class="container">
 		<a href="<%=request.getContextPath()%>/AreaRiservataServlet" class="back-link">← Torna al Pannello Admin</a>
@@ -306,6 +180,6 @@ th {
 			gestisciCampiDinamici();
 		};
 	</script>
-
+<%@ include file="../footer.jsp" %>
 </body>
 </html>

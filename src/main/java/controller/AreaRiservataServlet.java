@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.List;
 
 import jakarta.servlet.ServletException;
@@ -12,7 +13,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.InfoConsegnaBean;
 import model.InfoConsegnaDAO;
+import model.OrdineBean;
 import model.OrdineDAO;
+import model.ProdottoBean;
 import model.ProdottoDAO;
 import model.UtenteBean;
 
@@ -23,7 +26,6 @@ public class AreaRiservataServlet extends HttpServlet {
 	private OrdineDAO ordineDAO;
 	private ProdottoDAO prodottoDAO;
 
-	// Inizializziamo tutti i DAO qui, una volta sola all'avvio della servlet
 	public void init() throws ServletException {
 		infoConsegnaDAO = new InfoConsegnaDAO();
 		ordineDAO = new OrdineDAO();
@@ -43,38 +45,32 @@ public class AreaRiservataServlet extends HttpServlet {
 		}
 
 		try {
-			// CONTROLLO RUOLO
-			// CONTROLLO RUOLO
-			if (utenteLoggato.getIsAdmin()) {
+			// 1. CARICAMENTO COMUNE (Sia per Admin che per Cliente normale)
+			// Estraiamo gli ordini personali e gli indirizzi personali legati all'email di
+			// chi è loggato
+			Collection<OrdineBean> ordiniPersonali = ordineDAO.doRetrieveByUtente(utenteLoggato.getEmail());
+			List<InfoConsegnaBean> indirizziPersonali = infoConsegnaDAO.doRetrieveByUtente(utenteLoggato.getEmail());
 
+			// Settiamo gli attributi comuni che la JSP si aspetta in ogni caso
+			request.setAttribute("listaOrdini", ordiniPersonali);
+			request.setAttribute("listaIndirizzi", indirizziPersonali); // FIX: Ora viene passato SEMPRE, anche
+																		// all'admin!
+
+			// 2. CONTROLLO RUOLO (Caricamento dati aggiuntivi solo se Admin)
+			if (utenteLoggato.getIsAdmin()) {
 				request.setAttribute("isAdmin", true);
 
-				// 1. Carichiamo i dati globali per i pulsanti gestionali dell'admin
-				java.util.List<model.OrdineBean> tuttiGliOrdini = ordineDAO.doRetrieveAll();
-				java.util.List<model.ProdottoBean> tuttiIProdotti = prodottoDAO.doRetrieveAll();
+				// Carichiamo i dati globali per la plancia di comando dell'admin
+				List<OrdineBean> tuttiGliOrdini = ordineDAO.doRetrieveAll();
+				List<ProdottoBean> tuttiIProdotti = prodottoDAO.doRetrieveAll();
+
 				request.setAttribute("listaProdotti", tuttiIProdotti);
-				// Passiamo gli ordini totali con un nome diverso per non fare confusione nella
-				// JSP
 				request.setAttribute("listaOrdiniTotali", tuttiGliOrdini);
-
-				// 2. NOVITÀ: Carichiamo ANCHE gli ordini personali fatti dall'account admin
-				// stesso
-				java.util.Collection<model.OrdineBean> ordiniPersonaliAdmin = ordineDAO
-						.doRetrieveByUtente(utenteLoggato.getEmail());
-				request.setAttribute("listaOrdini", ordiniPersonaliAdmin);
-
 			} else {
 				request.setAttribute("isAdmin", false);
-
-				// Carichiamo i dati del cliente normale (resta invariato)
-				List<InfoConsegnaBean> listaIndirizzi = infoConsegnaDAO.doRetrieveByUtente(utenteLoggato.getEmail());
-				java.util.Collection<model.OrdineBean> listaOrdini = ordineDAO
-						.doRetrieveByUtente(utenteLoggato.getEmail());
-
-				request.setAttribute("listaIndirizzi", listaIndirizzi);
-				request.setAttribute("listaOrdini", listaOrdini); // Stesso nome attributo
 			}
 
+			// Gestione di un eventuale parametro di successo nell'URL
 			String success = request.getParameter("success");
 			if (success != null && success.equals("true")) {
 				request.setAttribute("successMessage", "Operazione completata con successo!");
@@ -85,8 +81,6 @@ public class AreaRiservataServlet extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", "Errore nel recupero dei dati del profilo: " + e.getMessage());
-			// Più sicuro deviare su una pagina di errore dedicata per evitare crash
-			// parziali della JSP
 			request.getRequestDispatcher("/errore.jsp").forward(request, response);
 		}
 	}

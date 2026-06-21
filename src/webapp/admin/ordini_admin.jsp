@@ -14,23 +14,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Pannello Admin - Gestione Ordini</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 30px; background-color: #f4f7f6; }
-        .container { max-width: 950px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .box-filtri { background: #f9f9f9; padding: 15px; border: 1px solid #e0e0e0; border-radius: 6px; margin-bottom: 20px; }
-        .form-filtri { display: flex; flex-wrap: wrap; gap: 15px; align-items: flex-end; }
-        .filtro-gruppo { display: flex; flex-direction: column; }
-        .filtro-gruppo label { font-size: 13px; font-weight: bold; margin-bottom: 5px; color: #333; }
-        .filtro-gruppo input { padding: 6px 10px; border: 1px solid #ccc; border-radius: 4px; }
-        .btn-filtra { background-color: #008CBA; color: white; border: none; padding: 7px 15px; cursor: pointer; border-radius: 4px; font-weight: bold; height: 32px; }
-        .btn-reset { background-color: #e7e7e7; color: black; text-decoration: none; padding: 6px 12px; border-radius: 4px; font-size: 14px; text-align: center; height: 18px; line-height: 18px; border: 1px solid #ccc; }
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        th, td { padding: 10px; border-bottom: 1px solid #ddd; text-align: left; }
-        th { background-color: #eee; }
-        .back-link { display: inline-block; margin-bottom: 20px; color: #008CBA; text-decoration: none; font-weight: bold; }
-    </style>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/ordini_admin.css" media="all" />
+    
+    
+    
 </head>
 <body>
+<%@ include file="../header.jsp"  %>
 
 <div class="container">
     <a href="<%= request.getContextPath() %>/AreaRiservataServlet" class="back-link">← Torna al Pannello Admin</a>
@@ -77,7 +67,11 @@
             <tbody>
                 <% for (OrdineBean ordine : tuttiGliOrdini) { %>
                     <tr>
-                        <td><strong>#<%= ordine.getId_ordine() %></strong></td>
+                        <td><a
+							href="../DettaglioOrdineServlet?id=<%=ordine.getId_ordine()%>"
+							>
+								#<%=ordine.getId_ordine()%>
+						</a></td>
                         <td><%= ordine.getEmail_utente() %></td>
                         <td><%= ordine.getData_ordine() %></td>
                         <td><%= ordine.getNum_prodotti() %> pezzi</td>
@@ -88,6 +82,6 @@
         </table>
     <% } %>
 </div>
-
+<%@ include file="../footer.jsp" %>
 </body>
 </html>

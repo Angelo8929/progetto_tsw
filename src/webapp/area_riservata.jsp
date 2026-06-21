@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ page import="model.UtenteBean"%>
 <%@ page import="model.InfoConsegnaBean"%>
 <%@ page import="model.OrdineBean"%>
@@ -30,93 +31,8 @@ List<InfoConsegnaBean> listaIndirizzi = (List<InfoConsegnaBean>) request.getAttr
 <head>
 <meta charset="UTF-8">
 <title><%=isAdmin ? "Pannello Admin - AlcoMarket" : "Area Riservata - AlcoMarket"%></title>
-<link rel="stylesheet" href="css/home.css" media="all" />
-<style>
-body {
-	font-family: Arial, sans-serif;
-	margin: 0;
-	padding: 0;
-	background-color: #f4f7f6;
-}
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/area_riservata.css" media="all" />
 
-.main-container {
-	max-width: 900px;
-	margin: 30px auto;
-	padding: 20px;
-}
-
-.box {
-	border: 1px solid #ddd;
-	padding: 20px;
-	margin-bottom: 20px;
-	border-radius: 5px;
-	background-color: white;
-	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-}
-
-.form-gruppo {
-	margin-bottom: 15px;
-}
-
-.form-gruppo label {
-	display: block;
-	font-weight: bold;
-	margin-bottom: 5px;
-}
-
-.form-gruppo input, .form-gruppo select, .form-gruppo textarea {
-	width: 100%;
-	padding: 8px;
-	box-sizing: border-box;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-}
-
-.btn-salva {
-	background-color: #008CBA;
-	color: white;
-	border: none;
-	padding: 10px 15px;
-	cursor: pointer;
-	border-radius: 4px;
-	font-weight: bold;
-}
-
-.btn-salva:hover {
-	background-color: #007399;
-}
-
-.card-admin {
-	display: block; 
-	text-align: center; 
-	text-decoration: none; 
-	color: white; 
-	padding: 25px; 
-	border-radius: 6px; 
-	font-weight: bold; 
-	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
-	transition: transform 0.2s;
-}
-.card-admin:hover {
-	transform: translateY(-2px);
-}
-
-table {
-	width: 100%;
-	border-collapse: collapse;
-	margin-top: 15px;
-}
-
-th, td {
-	padding: 10px;
-	border-bottom: 1px solid #ddd;
-	text-align: left;
-}
-
-th {
-	background-color: #eee;
-}
-</style>
 </head>
 <body>
 
@@ -124,12 +40,32 @@ th {
 
 	<div class="main-container">
 
+		<%-- Banner per Messaggi di Esito --%>
+		<%
+		if (errorMessage != null) {
+		%>
+		<div class="alert-error"><%=errorMessage%></div>
+		<%
+		}
+		%>
+		<%
+		if (successMessage != null) {
+		%>
+		<div class="alert-success"><%=successMessage%></div>
+		<%
+		}
+		%>
+
 		<%-- SEZIONE 1 (Comune): Dati Personali dell'Account --%>
 		<div class="box">
 			<h1><%=isAdmin ? "Pannello Amministratore" : "Area Riservata Cliente"%></h1>
-			<hr style="border: 0; border-top: 1px solid #eee; margin: 15px 0;">
-			<p><strong>Nome Utente:</strong> <%=utenteLoggato.getUsername()%></p>
-			<p><strong>Email di registrazione:</strong> <%=utenteLoggato.getEmail()%></p>
+			<hr >
+			<p>
+				<strong>Nome Utente:</strong>
+				<%=utenteLoggato.getUsername()%></p>
+			<p>
+				<strong>Email di registrazione:</strong>
+				<%=utenteLoggato.getEmail()%></p>
 		</div>
 
 		<%
@@ -138,17 +74,20 @@ th {
 		%>
 		<div class="box">
 			<h2>Pannello di Amministrazione Gestionale</h2>
-			<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-top: 15px;">
-				<a href="<%=request.getContextPath()%>/admin/OrdiniAdminServlet" class="card-admin" style="background-color: #008CBA;">
-					<div style="font-size: 24px; margin-bottom: 10px;">📦</div>
+			<div>
+				<a href="<%=request.getContextPath()%>/admin/OrdiniAdminServlet"
+					class="card-admin" >
+					<div>📦</div>
 					Gestione Ordini Totali
-				</a> 
-				<a href="<%=request.getContextPath()%>/admin/aggiungi_prodotto_admin.jsp" class="card-admin" style="background-color: #4CAF50;">
-					<div style="font-size: 24px; margin-bottom: 10px;">➕</div> 
-					Aggiungi Nuovo Prodotto
-				</a> 
-				<a href="<%=request.getContextPath()%>/admin/AdminModificaProdottoServlet" class="card-admin" style="background-color: #f0ad4e;">
-					<div style="font-size: 24px; margin-bottom: 10px;">✏️</div>
+				</a> <a
+					href="<%=request.getContextPath()%>/admin/aggiungi_prodotto_admin.jsp"
+					class="card-admin" >
+					<div>➕</div> Aggiungi
+					Nuovo Prodotto
+				</a> <a
+					href="<%=request.getContextPath()%>/admin/AdminModificaProdottoServlet"
+					class="card-admin" >
+					<div >✏️</div>
 					Modifica Prodotti Esistenti
 				</a>
 			</div>
@@ -157,7 +96,7 @@ th {
 		} // Fine blocco admin
 		%>
 
-		<%-- SEZIONE 3 (Comune): Cronologia Ordini Personali (la vedono SIA i clienti SIA l'admin per i suoi acquisti) --%>
+		<%-- SEZIONE 3 (Comune): Cronologia Ordini Personali --%>
 		<div class="box">
 			<h2>I tuoi Ordini effettuati</h2>
 			<%
@@ -181,12 +120,15 @@ th {
 					for (OrdineBean ordine : listaOrdini) {
 					%>
 					<tr>
-						<td><a href="DettaglioOrdineServlet?id=<%=ordine.getId_ordine()%>" style="color: #008CBA; font-weight: bold; text-decoration: none;">
+						<td><a
+							href="DettaglioOrdineServlet?id=<%=ordine.getId_ordine()%>"
+							>
 								#<%=ordine.getId_ordine()%>
 						</a></td>
 						<td><%=ordine.getData_ordine()%></td>
 						<td><%=ordine.getNum_prodotti()%> articoli</td>
-						<td style="font-weight: bold;"><%=String.format("%.2f", ordine.getCosto_totale() / 100.0)%> €</td>
+						<td ><%=String.format("%.2f", ordine.getCosto_totale() / 100.0)%>
+							€</td>
 					</tr>
 					<%
 					}
@@ -198,22 +140,80 @@ th {
 			%>
 		</div>
 
-		<%
-		// SEZIONE 4 (SOLO CLIENTE NORMALE): Indirizzi di consegna (opzionale: se vuoi puoi lasciarli anche all'admin togliendo l'if)
-		if (!isAdmin) {
-		%>
-			<%-- Elenco Indirizzi Salvati --%>
-			<div class="box">
-				<h2>I tuoi indirizzi di consegna salvati</h2>
+		<%-- SEZIONE 4 (Comune): Elenco Indirizzi Salvati --%>
+		<div class="box">
+			<h2>I tuoi indirizzi di consegna salvati</h2>
+			<%
+			if (listaIndirizzi == null || listaIndirizzi.isEmpty()) {
+			%>
+			<p>Non hai ancora salvato nessun indirizzo di consegna.</p>
+			<%
+			} else {
+			%>
+			<table>
+				<thead>
+					<tr>
+						<th>Nome Destinatario</th>
+						<th>Via</th>
+						<th>Civico</th>
+						<th>Città</th>
+						
+					</tr>
+				</thead>
+				<tbody>
+					<%
+					for (InfoConsegnaBean indirizzo : listaIndirizzi) {
+					%>
+					<tr>
+						<td><%=indirizzo.getDestinatario()%></td>
+						<td><%=indirizzo.getVia()%></td>
+						<td><%=indirizzo.getCivico()%></td>
+						<td><%=indirizzo.getCitta()%></td>
+					</tr>
+					<%
+					}
+					%>
+				</tbody>
+			</table>
+			<%
+			}
+			%>
+		</div>
+
+		<%-- SEZIONE 5 (Comune): Form per Aggiungere un nuovo Indirizzo --%>
+		<div class="box">
+			<h2>Aggiungi un nuovo indirizzo di consegna</h2>
+
+			<form action="SalvaIndirizzoServlet" method="post">
+				<div class="form-gruppo">
+					<label for="nome_cognome">Nome e Cognome Destinatario</label> <input
+						type="text" id="destinatario" name="destinatario"
+						placeholder="Es. Mario Rossi" required />
 				</div>
 
-			<%-- Form per Aggiungere un nuovo Indirizzo --%>
-			<div class="box">
-				<h2>Aggiungi un nuovo indirizzo di consegna</h2>
+				<div class="form-gruppo">
+					<label for="via">Via</label> <input type="text" id="indirizzo_via"
+						name="via" placeholder="Es. Via Roma 12" required />
 				</div>
-		<%
-		} // Fine blocco utente normale
-		%>
+
+
+				<div class="form-gruppo">
+					<label for="civico">Civico</label> <input type="text" id="civico"
+						name="civico" placeholder="104" required />
+				</div>
+
+				<div class="form-gruppo">
+					<label for="citta">Città</label> <input type="text" id="citta"
+						name="citta" placeholder="teverola" required />
+				</div>
+
+
+
+				<div style="margin-top: 20px; text-align: right;">
+					<input type="submit" class="btn-salva" value="Salva Indirizzo" />
+				</div>
+			</form>
+		</div>
 
 	</div>
 

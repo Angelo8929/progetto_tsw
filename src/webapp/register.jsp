@@ -1,16 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
+	<% String errorMessage=(String) request.getAttribute("errorMessage"); %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="css/auth.css" media="all" />
 </head>
 <body>
 	<%@ include file="header.jsp"%>
 
 	<h1>Registrazione</h1>
-
+	
+	<% if (errorMessage!= null) {%>
+		<p><%=errorMessage%></p>
+	<%} %>
 	<div class="form">
 
 		<form action="RegistrazioneServlet" method="post">

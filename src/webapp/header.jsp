@@ -7,7 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="css/home.css" />
+<!-- Dentro header.jsp -->
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/home.css" />
 </head>
 <body>
 	<div class="header">
@@ -23,7 +24,7 @@
 
 
 		<div class="search" style="position: relative;">
-			<input type="text" name="cerca" id="cerca" placeholder="chi cerca trova..." autocomplete="off" />
+			<input type="text" name="cerca" id="cerca" placeholder="BEVI RESPONSABILMENTE" autocomplete="off" />
 			<div id="suggerimenti" class="dropdown-suggerimenti"></div>
 		</div>
 
@@ -75,11 +76,10 @@
 		<a href="contattaci.jsp">contattaci</a>
 	</div>
 	
-	<script>
-    // Questa variabile globale sarà leggibile da qualsiasi file .js esterno caricato dopo
+	<!-- In fondo a header.jsp -->
+<script>
     window.contextPath = "<%= request.getContextPath() %>";
 </script>
-
-<script src="js/search.js"></script>
+<script src="<%= request.getContextPath() %>/js/search.js"></script>
 </body>
 </html>

@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const password = document.getElementById("password");
     const conferma_password = document.getElementById("conferma_password");
     
-    // Recuperiamo il pulsante di submit all'interno del form
     const submitBtn = form.querySelector("input[type='submit']");
 
     email.placeholder = "Inserisci la tua email";
@@ -13,8 +12,9 @@ document.addEventListener("DOMContentLoaded", () => {
     password.placeholder = "inserisci password";
     conferma_password.placeholder = "conferma password";
 
-    if (email) {
-        email.focus();
+    // Mettiamo il focus iniziale sul primo campo all'apertura della pagina
+    if (username) {
+        username.focus();
     }
 
     const createErrorElement = (inputElement) => {
@@ -33,17 +33,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const usernameError = createErrorElement(username);
     const confermaPasswordError = createErrorElement(conferma_password);
 
+    const usernameRegex = /^[a-zA-Z0-9._]{5,15}$/;
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$/;
-    const usernameRegex = /^[a-zA-Z0-9._]{5,15}$/;
 
-    // STATO DEL FORM: Variabili booleane per tracciare la validità di ogni singolo campo
     let isUsernameValid = false;
     let isEmailValid = false;
     let isPasswordValid = false;
     let isConfermaValid = false;
 
-    // --- FUNZIONE CENTRALE DI ABILITAZIONE BOTTONE ---
     const validaFormGenerale = () => {
         if (isUsernameValid && isEmailValid && isPasswordValid && isConfermaValid) {
             submitBtn.disabled = false;
@@ -51,15 +49,34 @@ document.addEventListener("DOMContentLoaded", () => {
             submitBtn.style.cursor = "pointer";
         } else {
             submitBtn.disabled = true;
-            submitBtn.style.opacity = "0.5"; // Effetto grafico disabilitato
+            submitBtn.style.opacity = "0.5"; 
             submitBtn.style.cursor = "not-allowed";
         }
     };
 
-    // Impostiamo lo stato iniziale del bottone a disabilitato all'apertura della pagina
     validaFormGenerale();
 
-    // --- 1. VALIDAZIONE USERNAME (INPUT) ---
+    const aggiungiGestioneFocusGenerica = (inputElement, errorElement) => {
+        inputElement.addEventListener("focus", () => {
+            if (inputElement.style.borderColor !== "green" && inputElement.style.borderColor !== "red") {
+                inputElement.style.borderColor = "#008CBA";
+            }
+        });
+        
+        inputElement.addEventListener("blur", () => {
+            if (inputElement.value.trim() === "") {
+                inputElement.style.borderColor = "#ccc";
+                errorElement.style.display = "none";
+            }
+        });
+    };
+
+    aggiungiGestioneFocusGenerica(username, usernameError);
+    aggiungiGestioneFocusGenerica(email, emailError);
+    aggiungiGestioneFocusGenerica(password, passwordError);
+    aggiungiGestioneFocusGenerica(conferma_password, confermaPasswordError);
+
+    // --- 1. VALIDAZIONE USERNAME (Bordi reattivi, il cursore non si sposta) ---
     username.addEventListener("input", () => {
         const val = username.value.trim();
         if (val === "") {
@@ -78,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
         validaFormGenerale();
     });
 
-    // --- 2. VALIDAZIONE EMAIL + AJAX (INPUT) ---
+    // --- 2. VALIDAZIONE EMAIL + AJAX ---
     email.addEventListener("input", () => {
         const emailValue = email.value.trim();
 
@@ -100,7 +117,6 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // Se supera la regex, facciamo il controllo AJAX di disponibilità
         fetch(`ControllaEmailServlet?email=${encodeURIComponent(emailValue)}`)
             .then(response => response.json())
             .then(data => {
@@ -117,14 +133,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     email.style.borderColor = "green";
                     isEmailValid = true;
                 }
-                validaFormGenerale(); // Chiamata dentro il ramo asincrono
+                validaFormGenerale();
             })
             .catch(error => {
                 console.error("Errore AJAX:", error);
             });
     });
 
-    // --- 3. VALIDAZIONE PASSWORD (INPUT) ---
+    // --- 3. VALIDAZIONE PASSWORD ---
     password.addEventListener("input", () => {
         const val = password.value.trim();
         if (val === "") {
@@ -141,12 +157,11 @@ document.addEventListener("DOMContentLoaded", () => {
             isPasswordValid = true;
         }
         
-        // Se l'utente modifica la password principale, dobbiamo rinfrescare il controllo sulla conferma
         controlloConfermaPassword();
         validaFormGenerale();
     });
 
-    // --- 4. FUNZIONE E ASCOLTATORE CONFERMA PASSWORD (INPUT) ---
+    // --- 4. FUNZIONE E ASCOLTATORE CONFERMA PASSWORD ---
     const controlloConfermaPassword = () => {
         const valConf = conferma_password.value.trim();
         const valPass = password.value.trim();
@@ -171,9 +186,7 @@ document.addEventListener("DOMContentLoaded", () => {
         validaFormGenerale();
     });
 
-    // --- BLOCCO AL SUBMIT (SICUREZZA EXTRA) ---
     form.addEventListener("submit", (event) => {
-        // Se per qualche motivo viene forzato il submit (es. via console), blocca se non valido
         if (!(isUsernameValid && isEmailValid && isPasswordValid && isConfermaValid)) {
             event.preventDefault();
         }

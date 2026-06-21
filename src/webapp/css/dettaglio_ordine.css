@@ -1,0 +1,255 @@
+/* ==========================================================================
+   1. Contenitore Principale e Struttura Layout
+   ========================================================================== */
+.details-container {
+    max-width: 900px;
+    margin: 40px auto 20px auto;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 35px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(212, 175, 55, 0.08);
+    box-sizing: border-box;
+}
+
+/* Link di ritorno rapido in alto */
+.back-link {
+    display: inline-block;
+    color: var(--accent-gold);
+    text-decoration: none;
+    font-weight: 500;
+    margin-bottom: 25px;
+    transition: color 0.2s ease;
+}
+
+.back-link:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+/* Titoli delle sezioni */
+.details-container h2 {
+    font-size: 1.8rem;
+    color: var(--accent-gold);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-top: 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #3a3a4a;
+    padding-bottom: 10px;
+}
+
+.details-container h3 {
+    font-size: 1.3rem;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 35px;
+    margin-bottom: 15px;
+}
+
+.details-container p {
+    color: var(--text-light);
+    font-size: 1.05rem;
+    margin: 8px 0;
+}
+
+.details-container p strong {
+    color: var(--text-muted);
+    font-weight: 500;
+    margin-right: 5px;
+}
+
+/* ==========================================================================
+   2. Tabella Riepilogo Prodotti Acquistati
+   ========================================================================== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background-color: rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 14px 18px;
+    text-align: left;
+    border-bottom: 1px solid #3a3a4a;
+}
+
+th {
+    background-color: #141419;
+    color: var(--accent-gold);
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+td {
+    color: var(--text-light);
+    font-size: 0.95rem;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+td strong {
+    font-size: 1.05rem;
+    color: var(--text-light);
+}
+
+/* Allineamento a destra per i totali di riga */
+th:last-child, td:last-child {
+    text-align: right;
+}
+
+/* Evidenziazione del Prezzo Complessivo Finale */
+.details-container h3[style*="text-align: right"] {
+    text-align: right !important;
+    font-size: 1.6rem !important;
+    color: var(--text-light) !important;
+    margin-top: 30px !important;
+    font-weight: bold;
+}
+
+.details-container h3[style*="text-align: right"]::after {
+    display: none; /* Rimuove sovrapposizioni insolite */
+}
+
+/* ==========================================================================
+   3. Pulsanti di Azione Inferiori (Scarica PDF / Indietro)
+   ========================================================================== */
+/* Contenitore flessibile dei bottoni esterni al box */
+div[style*="display: flex"] {
+    display: flex !important;
+    gap: 15px !important;
+    max-width: 900px;
+    margin: 25px auto 80px auto !important;
+    padding: 0 35px; /* Allineato al padding interno del container principale */
+    box-sizing: border-box;
+}
+
+/* Struttura base condivisa dei link-bottone */
+div[style*="display: flex"] a {
+    padding: 12px 24px !important;
+    text-decoration: none;
+    border-radius: 6px !important;
+    font-weight: bold !important;
+    font-size: 1rem;
+    display: inline-block !important;
+    text-align: center;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-sizing: border-box;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Bottone 📄 Scarica Fattura PDF */
+div[style*="display: flex"] a[href*="FatturaServlet"] {
+    background-color: var(--accent-wine) !important;
+    color: white !important;
+    flex-grow: 1; /* Rende il tasto della fattura principale e più largo */
+    max-width: 250px;
+}
+
+div[style*="display: flex"] a[href*="FatturaServlet"]:hover {
+    background-color: var(--accent-wine-hover) !important;
+    transform: translateY(-1px);
+}
+
+/* Bottone Torna Indietro */
+div[style*="display: flex"] a[href*="AreaRiservataServlet"] {
+    background-color: #3a3a4a !important;
+    color: var(--text-light) !important;
+    border: 1px solid #555;
+}
+
+div[style*="display: flex"] a[href*="AreaRiservataServlet"]:hover {
+    background-color: #4e4e64 !important;
+    color: #fff !important;
+}
+
+div[style*="display: flex"] a:active {
+    transform: scale(0.98);
+}
+
+/* ==========================================================================
+   4. Ottimizzazione Mobile (Responsive Avanzato)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .details-container {
+        padding: 20px;
+        margin: 20px 15px;
+    }
+
+    div[style*="display: flex"] {
+        flex-direction: column;
+        padding: 0 15px;
+        margin-bottom: 60px !important;
+        gap: 12px !important;
+    }
+    
+    div[style*="display: flex"] a {
+        width: 100%;
+        max-width: none !important;
+    }
+
+    /* Trasformazione strutturale della tabella */
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr {
+        margin-bottom: 15px;
+        border: 1px solid #3a3a4a;
+        border-radius: 8px;
+        padding: 10px;
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    td {
+        border: none;
+        padding: 10px 8px;
+        text-align: right;
+        position: relative;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    td:last-child {
+        border-bottom: none;
+    }
+    
+    th:last-child, td:last-child {
+        text-align: right;
+    }
+
+    /* Etichette fittizie per non perdere la corrispondenza dei dati */
+    td::before {
+        position: absolute;
+        left: 8px;
+        font-weight: 600;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        letter-spacing: 0.5px;
+    }
+
+    td:nth-of-type(1)::before { content: "Prodotto"; }
+    td:nth-of-type(2)::before { content: "Prezzo Unitario"; }
+    td:nth-of-type(3)::before { content: "Quantità"; }
+    td:nth-of-type(4)::before { content: "Totale"; }
+
+    .details-container h3[style*="text-align: right"] {
+        text-align: center !important;
+        font-size: 1.4rem !important;
+        margin-top: 20px !important;
+    }
+}

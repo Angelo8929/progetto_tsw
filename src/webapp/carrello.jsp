@@ -6,19 +6,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Il tuo Carrello</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 30px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
-        th { background-color: #f4f4f4; }
-        .totale-container { text-align: right; margin-top: 20px; }
-        .btn-rimuovi { background-color: #ff4d4d; color: white; border: none; padding: 6px 12px; cursor: pointer; border-radius: 4px; }
-        .btn-rimuovi:hover { background-color: #ff1a1a; }
-        .error-message { color: red; font-weight: bold; }
-        .empty-cart { text-align: center; margin-top: 50px; color: #777; }
-    </style>
+    <link rel="stylesheet" href="css/carrello.css" media="all" />
+    
 </head>
 <body>
+<%@ include file="header.jsp"  %>
 
     <h1>Il tuo Carrello Shopping</h1>
 
@@ -107,6 +99,7 @@
         </div>
         
     <% } // Fine del blocco else %>
+    <%@ include file="footer.jsp" %>
     <script>
     // Questa variabile globale sarà leggibile da qualsiasi file .js esterno caricato dopo
     window.contextPath = "<%= request.getContextPath() %>";

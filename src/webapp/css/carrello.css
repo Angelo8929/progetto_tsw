@@ -1,0 +1,269 @@
+/* ==========================================================================
+   1. Titoli e Messaggi di Errore
+   ========================================================================== */
+h1 {
+    font-size: 2.2rem;
+    color: var(--accent-gold);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin: 40px auto 25px auto;
+    max-width: 1200px;
+    padding: 0 20px;
+}
+
+.error-message {
+    color: #ff4d4d;
+    background-color: rgba(255, 77, 77, 0.1);
+    border: 1px solid #ff4d4d;
+    padding: 12px 20px;
+    border-radius: 6px;
+    max-width: 1200px;
+    margin: 20px auto;
+    font-weight: 500;
+}
+
+/* ==========================================================================
+   2. Struttura della Tabella Carrello
+   ========================================================================== */
+table {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto 40px auto;
+    border-collapse: collapse;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    overflow: hidden; /* Mantiene gli angoli arrotondati della tabella */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+th, td {
+    padding: 18px 20px;
+    text-align: left;
+    border-bottom: 1px solid #3a3a4a;
+}
+
+th {
+    background-color: #141419;
+    color: var(--accent-gold);
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+td {
+    color: var(--text-light);
+    vertical-align: middle;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+/* Allineamento e stile elementi della tabella */
+td img {
+    background: #fff;
+    padding: 5px;
+    border-radius: 6px;
+    display: block;
+    object-fit: contain;
+    height: 60px;
+    width: 60px;
+    box-sizing: border-box;
+}
+
+td strong {
+    font-size: 1.1rem;
+}
+
+/* Gestione input quantità asincrono */
+.input-quantita {
+    background-color: #1e1e24 !important;
+    border: 1px solid #444 !important;
+    color: #fff !important;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+.input-quantita:focus {
+    outline: none;
+    border-color: var(--accent-gold);
+}
+
+/* Pulsante Rimuovi Riga */
+.btn-rimuovi {
+    background: none;
+    border: 1px solid #ff4d4d;
+    color: #ff4d4d;
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.btn-rimuovi:hover {
+    background-color: #ff4d4d;
+    color: #fff;
+}
+
+/* ==========================================================================
+   3. Box Totale e Pulsante di Checkout
+   ========================================================================== */
+.totale-container {
+    max-width: 1200px;
+    margin: 0 auto 80px auto;
+    padding: 0 20px;
+    text-align: right;
+}
+
+.totale-container h2 {
+    font-size: 1.6rem;
+    color: var(--text-light);
+    margin-bottom: 20px;
+}
+
+.totale-container h2 span {
+    color: var(--accent-gold);
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+/* Sostituisce lo stile inline del pulsante "Procedi al Checkout" */
+.totale-container a {
+    display: inline-block;
+    background-color: var(--accent-wine) !important; /* Manteniamo la coerenza bordeaux */
+    color: white !important;
+    padding: 14px 30px !important;
+    text-decoration: none;
+    border-radius: 6px !important;
+    font-weight: bold;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    transition: background-color 0.2s ease, transform 0.1s ease !important;
+    box-shadow: 0 4px 12px rgba(107, 29, 47, 0.3);
+}
+
+.totale-container a:hover {
+    background-color: var(--accent-wine-hover) !important;
+    transform: translateY(-2px);
+}
+
+.totale-container a:active {
+    transform: translateY(0);
+}
+
+/* ==========================================================================
+   4. Schermata Carrello Vuoto
+   ========================================================================== */
+.empty-cart {
+    max-width: 600px;
+    margin: 80px auto;
+    text-align: center;
+    background-color: var(--card-bg);
+    padding: 40px;
+    border-radius: 12px;
+    border: 1px solid rgba(212, 175, 55, 0.1);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.empty-cart h2 {
+    color: var(--text-light);
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+}
+
+.empty-cart p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+}
+
+.empty-cart a {
+    color: var(--accent-gold);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.empty-cart a:hover {
+    text-decoration: underline;
+    color: #fff;
+}
+
+/* ==========================================================================
+   5. Ottimizzazione Mobile (Tabella Responsive)
+   ========================================================================== */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.8rem;
+        text-align: center;
+    }
+
+    table, thead, tbody, th, td, tr {
+        display: block; /* Trasforma la tabella in blocchi verticali su mobile */
+    }
+
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr {
+        margin: 0 15px 20px 15px;
+        background-color: var(--card-bg);
+        border: 1px solid #3a3a4a;
+        border-radius: 8px;
+        padding: 12px;
+    }
+
+    td {
+        border: none;
+        position: relative;
+        padding-left: 50%;
+        text-align: right;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        min-height: 45px;
+    }
+    
+    td:last-child {
+        border-bottom: none;
+    }
+
+    /* Generazione dinamica delle label di intestazione per le schede mobile */
+    td::before {
+        position: absolute;
+        left: 15px;
+        font-weight: bold;
+        color: var(--accent-gold);
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        letter-spacing: 0.5px;
+    }
+
+    td:nth-of-type(1)::before { content: "Immagine"; }
+    td:nth-of-type(2)::before { content: "Prodotto"; }
+    td:nth-of-type(3)::before { content: "Prezzo"; }
+    td:nth-of-type(4)::before { content: "Quantità"; }
+    td:nth-of-type(5)::before { content: "Totale"; }
+    td:nth-of-type(6)::before { content: "Azioni"; }
+
+    td img {
+        margin-left: auto;
+    }
+
+    .totale-container {
+        text-align: center;
+        padding: 0 30px;
+    }
+    
+    .totale-container a {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}

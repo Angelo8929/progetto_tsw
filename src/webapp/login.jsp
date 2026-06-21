@@ -1,16 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
+	<% String errorMessage=(String) request.getAttribute("errorMessage");
+		String successMessage=(String) request.getAttribute("successMessage");
+	
+	%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Login</title>
 
-<link rel="stylesheet" href="css/home.css" media="all" />
+<link rel="stylesheet" href="css/auth.css" media="all" />
 </head>
 <body>
 <%@ include file="header.jsp"  %>
 <h1>Login</h1>
+
+<% if (errorMessage != null) {%>
+	<p><%=errorMessage %></p>
+	
+	
+	<% } else if(successMessage!=null) {%>
+	<p><%=successMessage %></p>
+	<%} %>
+	
 	<div class="form">
 
 		<form action="LoginServlet" method="post" novalidate>

@@ -16,16 +16,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Dettaglio Ordine #<%= ordine.getId_ordine() %></title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 30px; background-color: #f4f7f6; }
-        .details-container { max-width: 700px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
-        th { background-color: #eee; }
-        .back-link { display: inline-block; margin-bottom: 20px; color: #008CBA; text-decoration: none; font-weight: bold; }
-    </style>
+    <link rel="stylesheet" href="css/dettaglio_ordine.css" media="all" />
+    
 </head>
 <body>
+<%@ include file="header.jsp"  %>
 
 <div class="details-container">
     <a href="AreaRiservataServlet" class="back-link">← Torna all'Area Riservata</a>
@@ -74,6 +69,7 @@
        Torna Indietro
     </a>
 </div>
+<%@ include file="footer.jsp" %>
 
 </body>
 </html>

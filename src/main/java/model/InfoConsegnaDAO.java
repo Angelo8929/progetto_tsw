@@ -83,6 +83,7 @@ public class InfoConsegnaDAO {
 				info.setId_consegna(rs.getInt("id_consegna"));
 				info.setVia(rs.getString("via"));
 				info.setCivico(rs.getInt("civico"));
+				info.setCitta(rs.getString("citta"));
 				info.setDestinatario(rs.getString("destinatario"));
 				info.setId_utente(rs.getString("id_utente"));
 

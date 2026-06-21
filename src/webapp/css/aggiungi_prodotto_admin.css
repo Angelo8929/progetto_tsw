@@ -1,0 +1,145 @@
+/* ==========================================================================
+   1. Contenitore Principale e Struttura Layout
+   ========================================================================== */
+.form-container {
+    max-width: 600px;
+    margin: 40px auto 80px auto;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(212, 175, 55, 0.08);
+    box-sizing: border-box;
+}
+
+.back-link {
+    display: inline-block;
+    color: var(--accent-gold);
+    text-decoration: none;
+    font-weight: 500;
+    margin-bottom: 25px;
+    transition: color 0.2s ease;
+}
+
+.back-link:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.form-container h2 {
+    font-size: 1.8rem;
+    color: var(--accent-gold);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-top: 0;
+    margin-bottom: 30px;
+    border-bottom: 2px solid var(--accent-gold);
+    padding-bottom: 10px;
+}
+
+/* ==========================================================================
+   2. Campi del Form (Gruppi, Label e Input)
+   ========================================================================== */
+.form-gruppo {
+    margin-bottom: 22px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-gruppo label {
+    color: var(--text-light);
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+}
+
+/* Stile unico per tutti i tipi di input e per la select */
+.form-gruppo input[type="text"],
+.form-gruppo input[type="number"],
+.form-gruppo select {
+    background-color: #1e1e24;
+    border: 1px solid #444;
+    color: #fff;
+    padding: 12px 14px;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+/* Ottimizzazione specifica per il menu a tendina (Select) */
+.form-gruppo select {
+    cursor: pointer;
+    appearance: none; /* Rimuove lo stile nativo del browser */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    /* Freccia personalizzata minimale a destra */
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23d4af37'><path d='M1 4l5 5 5-5H1z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: calc(100% - 15px) center;
+    padding-right: 40px;
+}
+
+.form-gruppo select option {
+    background-color: var(--card-bg);
+    color: #fff;
+}
+
+/* Effetto Focus al click del mouse e navigazione da tastiera */
+.form-gruppo input:focus,
+.form-gruppo select:focus,
+.form-gruppo input:focus-visible,
+.form-gruppo select:focus-visible {
+    outline: none;
+    border-color: var(--accent-gold);
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
+}
+
+/* Placeholder interni più visibili ma discreti */
+.form-gruppo input::placeholder {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   3. Bottone di Invio (Carica Prodotto)
+   ========================================================================== */
+.btn-salva {
+    width: 100%;
+    background-color: var(--accent-wine);
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 4px 12px rgba(107, 29, 47, 0.2);
+    margin-top: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-salva:hover {
+    background-color: var(--accent-wine-hover);
+}
+
+.btn-salva:active {
+    transform: scale(0.98);
+}
+
+/* ==========================================================================
+   4. Ottimizzazione Mobile (Responsive)
+   ========================================================================== */
+@media (max-width: 650px) {
+    .form-container {
+        margin: 20px 15px 60px 15px;
+        padding: 25px 20px; /* Ridotto leggermente il padding laterale per massimizzare lo spazio */
+    }
+    .form-container h2 {
+        font-size: 1.5rem;
+    }
+}

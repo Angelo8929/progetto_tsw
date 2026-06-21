@@ -1,0 +1,277 @@
+/* ==========================================================================
+   1. Contenitore Principale e Struttura Layout
+   ========================================================================== */
+.container {
+    max-width: 1200px;
+    margin: 40px auto 80px auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.back-link {
+    display: inline-block;
+    color: var(--accent-gold);
+    text-decoration: none;
+    font-weight: 500;
+    margin-bottom: 25px;
+    transition: color 0.2s ease;
+}
+
+.back-link:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.container h2 {
+    font-size: 2rem;
+    color: var(--accent-gold);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-top: 0;
+    margin-bottom: 30px;
+    border-bottom: 2px solid var(--accent-gold);
+    padding-bottom: 10px;
+}
+
+/* ==========================================================================
+   2. Barra Avanzata dei Filtri (Inline e Responsive)
+   ========================================================================== */
+.box-filtri {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 35px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(212, 175, 55, 0.08);
+}
+
+.form-filtri {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 20px;
+}
+
+.filtro-gruppo {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 160px;
+}
+
+.filtro-gruppo label {
+    color: var(--text-light);
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Input di testo e Date Picker nativi */
+.filtro-gruppo input[type="text"],
+.filtro-gruppo input[type="date"] {
+    background-color: #1e1e24;
+    border: 1px solid #444;
+    color: #fff;
+    padding: 11px 14px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+/* Personalizzazione icona del calendario nei browser moderni */
+.filtro-gruppo input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1) sepia(1) saturate(5) hue-rotate(5deg); /* Rende l'icona dorata/bianca */
+    cursor: pointer;
+}
+
+.filtro-gruppo input[type="text"]:focus,
+.filtro-gruppo input[type="date"]:focus {
+    outline: none;
+    border-color: var(--accent-gold);
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
+}
+
+/* Bottoni di Azione (Filtra e Reset) */
+.btn-filtra {
+    background-color: var(--accent-wine);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    height: 44px; /* Allineamento perfetto con gli input */
+    box-sizing: border-box;
+}
+
+.btn-filtra:hover {
+    background-color: var(--accent-wine-hover);
+}
+
+.btn-reset {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    color: var(--text-muted);
+    border: 1px solid #444;
+    padding: 12px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    height: 44px;
+    box-sizing: border-box;
+}
+
+.btn-reset:hover {
+    border-color: #ff4d4d;
+    color: #ff4d4d;
+    background-color: rgba(255, 77, 77, 0.05);
+}
+
+.btn-filtra:active, .btn-reset:active {
+    transform: scale(0.98);
+}
+
+/* Messaggio di Errore / Nessun Risultato */
+.container > p[style*="color: #ff0000"] {
+    color: #ff4d4d !important;
+    background-color: rgba(255, 77, 77, 0.1);
+    border: 1px solid #ff4d4d;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* ==========================================================================
+   3. Tabella Registri degli Ordini Globali
+   ========================================================================== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(212, 175, 55, 0.05);
+}
+
+th, td {
+    padding: 16px 20px;
+    text-align: left;
+    border-bottom: 1px solid #3a3a4a;
+}
+
+th {
+    background-color: #141419;
+    color: var(--accent-gold);
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+td {
+    color: var(--text-light);
+    font-size: 0.95rem;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+/* Evidenziazioni specifiche delle celle */
+td strong {
+    color: var(--accent-gold);
+}
+
+/* Sostituzione dello stile inline del Totale Incassato */
+td[style*="color: #4CAF50"] {
+    color: #4cd137 !important; /* Verde smeraldo brillante che stacca dal dark */
+    font-size: 1.05rem;
+}
+
+/* Effetto alternato righe opzionale per migliorare la leggibilità di moli di dati */
+tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+/* ==========================================================================
+   4. Ottimizzazione Mobile (Responsive Avanzato)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .container h2 {
+        font-size: 1.6rem;
+    }
+
+    .form-filtri {
+        flex-direction: column;
+        align-items: initial;
+        gap: 15px;
+    }
+    
+    .filtro-gruppo {
+        width: 100%;
+    }
+
+    .btn-filtra, .btn-reset {
+        width: 100%;
+    }
+
+    /* Trasformazione della tabella in blocchi impilati */
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr {
+        margin-bottom: 20px;
+        border: 1px solid #3a3a4a;
+        border-radius: 8px;
+        padding: 12px;
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    td {
+        border: none;
+        padding: 10px 8px;
+        text-align: right;
+        position: relative;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    }
+    
+    td:last-child {
+        border-bottom: none;
+    }
+
+    /* Struttura per visualizzare le intestazioni simulando una riga */
+    td::before {
+        position: absolute;
+        left: 8px;
+        font-weight: 600;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        letter-spacing: 0.5px;
+    }
+    
+    /* Mappatura concettuale dei campi per non perdere il riferimento */
+    td:nth-of-type(1)::before { content: "ID Ordine"; }
+    td:nth-of-type(2)::before { content: "Email Cliente"; }
+    td:nth-of-type(3)::before { content: "Data Acquisto"; }
+    td:nth-of-type(4)::before { content: "Articoli"; }
+    td:nth-of-type(5)::before { content: "Totale Incassato"; }
+}

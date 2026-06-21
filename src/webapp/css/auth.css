@@ -1,0 +1,152 @@
+/* ==========================================================================
+   1. Contenitore Principale (Centratura del Form)
+   ========================================================================== */
+h1 {
+    text-align: center;
+    font-size: 2.2rem;
+    color: var(--accent-gold);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+.form {
+    max-width: 450px;
+    margin: 0 auto 80px auto; /* Centra nella pagina e stacca dal footer */
+    background-color: var(--card-bg);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(212, 175, 55, 0.1);
+    box-sizing: border-box;
+}
+
+/* ==========================================================================
+   2. Gestione Messaggi di Errore e Successo (Java request attributes)
+   ========================================================================== */
+body > p, .form p {
+    text-align: center;
+    padding: 12px;
+    border-radius: 6px;
+    max-width: 450px;
+    margin: 20px auto;
+    font-weight: 500;
+    box-sizing: border-box;
+}
+
+/* Messaggio di Errore (Rosso) */
+.error-msg { 
+    color: #ff4d4d !important;
+    background-color: rgba(255, 77, 77, 0.1) !important;
+    border: 1px solid #ff4d4d !important;
+}
+
+/* Messaggio di Successo (Verde) */
+.success-msg {
+    color: #4cd137 !important;
+    background-color: rgba(76, 209, 55, 0.1) !important;
+    border: 1px solid #4cd137 !important;
+}
+
+/* ==========================================================================
+   3. Campi di Input (Label e Input)
+   ========================================================================== */
+.campo {
+    margin-bottom: 22px;
+    display: flex;
+    flex-direction: column;
+}
+
+.campo label {
+    color: var(--text-light);
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+}
+
+.campo input[type="text"],
+.campo input[type="email"],
+.campo input[type="password"] {
+    background-color: #1e1e24;
+    border: 1px solid #444;
+    color: #fff;
+    padding: 12px 14px;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.campo input[type="text"]:focus,
+.campo input[type="email"]:focus,
+.campo input[type="password"]:focus {
+    outline: none;
+    border-color: var(--accent-gold);
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
+}
+
+/* ==========================================================================
+   4. Link Alternativo (Fallo / Accedi)
+   ========================================================================== */
+.form span {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    display: inline-block;
+    margin-bottom: 20px; /* Spazia rispetto al bottone sotto */
+}
+
+.form a {
+    color: var(--accent-gold);
+    text-decoration: none;
+    font-weight: 600;
+    margin-left: 6px;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+}
+
+.form a:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+/* ==========================================================================
+   5. Bottoni di Invio (Accedi / Registrati)
+   ========================================================================== */
+.form input[type="submit"] {
+    width: 100%;
+    background-color: var(--accent-wine);
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    margin-top: 10px;
+}
+
+.form input[type="submit"]:hover {
+    background-color: var(--accent-wine-hover);
+}
+
+.form input[type="submit"]:active {
+    transform: scale(0.98);
+}
+
+/* ==========================================================================
+   6. Ottimizzazione Mobile (Responsive)
+   ========================================================================== */
+@media (max-width: 500px) {
+    .form {
+        margin: 20px 15px 60px 15px;
+        padding: 25px 20px; /* Ridotto leggermente il padding laterale per massimizzare lo spazio */
+    }
+    h1 {
+        font-size: 1.8rem;
+        margin-top: 30px;
+    }
+}

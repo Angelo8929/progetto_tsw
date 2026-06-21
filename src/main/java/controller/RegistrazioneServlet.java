@@ -61,9 +61,12 @@ public class RegistrazioneServlet extends HttpServlet {
 
 			System.out.println("daje");
 			String success = "Registrazione avvenuta con successo!";
-			response.sendRedirect("login.jsp");
+			request.setAttribute("successMessage", success);
+			request.getRequestDispatcher("login.jsp").forward(request, response);
+
 		} catch (SQLException e) {
-			System.err.println("Errore durante la registrazione" + e.getMessage());
+			request.setAttribute("errorMessage", "errore del server durante la registrazione");
+			request.getRequestDispatcher("register.jsp").forward(request, response);
 			e.printStackTrace();
 		}
 

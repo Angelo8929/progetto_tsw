@@ -6,18 +6,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Checkout - Spedizione e Pagamento</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 30px; line-height: 1.6; }
-        .container { max-width: 800px; margin: 0 auto; }
-        .box { border: 1px solid #ddd; padding: 20px; margin-bottom: 20px; border-radius: 5px; background-color: #f9f9f9; }
-        .indirizzo-item { margin-bottom: 12px; padding: 10px; border: 1px solid #eee; background: white; border-radius: 4px; }
-        .btn-conferma { background-color: #4CAF50; color: white; border: none; padding: 12px 24px; font-size: 16px; cursor: pointer; border-radius: 4px; font-weight: bold; width: 100%; }
-        .btn-conferma:hover { background-color: #45a049; }
-        .form-nuovo-indirizzo input { display: block; width: 95%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; }
-        .error-message { color: red; font-weight: bold; }
-    </style>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/checkout.css" media="all" />
+    
 </head>
 <body>
+<%@ include file="header.jsp"%>
 <div class="container">
 
     <h1>Checkout</h1>
@@ -81,5 +74,6 @@
     </div>
 
 </div>
+<%@ include file="footer.jsp"%>
 </body>
 </html>

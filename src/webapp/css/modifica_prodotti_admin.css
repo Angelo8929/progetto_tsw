@@ -1,0 +1,336 @@
+/* ==========================================================================
+   1. Contenitore Principale e Layout
+   ========================================================================== */
+.container {
+    max-width: 1200px;
+    margin: 40px auto 80px auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.back-link {
+    display: inline-block;
+    color: var(--accent-gold);
+    text-decoration: none;
+    font-weight: 500;
+    margin-bottom: 25px;
+    transition: color 0.2s ease;
+}
+
+.back-link:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.container h1 {
+    font-size: 2.2rem;
+    color: var(--accent-gold);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-top: 0;
+    margin-bottom: 30px;
+}
+
+.box {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 35px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(212, 175, 55, 0.08);
+}
+
+.box h2 {
+    font-size: 1.4rem;
+    color: var(--accent-gold);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #3a3a4a;
+    padding-bottom: 10px;
+}
+
+/* ==========================================================================
+   2. Struttura del Form a Griglia (Layout Multicolonna)
+   ========================================================================== */
+.grid-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.form-gruppo {
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+}
+
+.form-gruppo label {
+    color: var(--text-light);
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+.form-gruppo input[type="text"],
+.form-gruppo input[type="number"],
+.form-gruppo select {
+    background-color: #1e1e24;
+    border: 1px solid #444;
+    color: #fff;
+    padding: 12px 14px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.form-gruppo input:focus,
+.form-gruppo select:focus {
+    outline: none;
+    border-color: var(--accent-gold);
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
+}
+
+/* Select personalizzata per la Categoria */
+.form-gruppo select {
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23d4af37'><path d='M1 4l5 5 5-5H1z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: calc(100% - 15px) center;
+    padding-right: 40px;
+}
+
+.form-gruppo select option {
+    background-color: var(--card-bg);
+}
+
+/* CLASSE DI SUPPORTO JAVASCRIPT: Nasconde i campi dinamicamente */
+.nascosto {
+    display: none !important;
+}
+
+/* ==========================================================================
+   3. Pulsanti del Form (Salva, Annulla)
+   ========================================================================== */
+.btn-salva {
+    background-color: var(--accent-wine);
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    box-shadow: 0 4px 12px rgba(107, 29, 47, 0.2);
+    text-transform: uppercase;
+}
+
+.btn-salva:hover {
+    background-color: var(--accent-wine-hover);
+}
+
+.btn-annulla {
+    display: inline-block;
+    background-color: transparent;
+    color: var(--text-muted);
+    border: 1px solid #444;
+    padding: 11px 24px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-left: 10px;
+    transition: all 0.2s ease;
+}
+
+.btn-annulla:hover {
+    border-color: #fff;
+    color: #fff;
+}
+
+/* ==========================================================================
+   4. Tabella Inventario Prodotti
+   ========================================================================== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background-color: rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 14px 18px;
+    text-align: left;
+    border-bottom: 1px solid #3a3a4a;
+    vertical-align: middle;
+}
+
+th {
+    background-color: #141419;
+    color: var(--accent-gold);
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+td {
+    color: var(--text-light);
+    font-size: 0.95rem;
+}
+
+/* Righe speciali */
+tr:last-child td {
+    border-bottom: none;
+}
+
+/* Sostituisce lo stile in-line inline del record in modifica attiva */
+tr[style*="background-color"] {
+    background-color: rgba(212, 175, 55, 0.08) !important;
+    border-left: 4px solid var(--accent-gold);
+}
+
+tr[style*="background-color"] td {
+    color: #fff;
+}
+
+/* Badge Categoria */
+td span[style*="background: #eee"] {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+    color: var(--accent-gold) !important;
+    font-size: 0.8rem !important;
+    padding: 4px 10px !important;
+    border-radius: 12px !important;
+    font-weight: 600;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+/* Bottoni d'Azione Tabella (Seleziona, Cancella) */
+.btn-azione {
+    display: inline-block;
+    background-color: #3a3a4a;
+    color: var(--text-light);
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: background-color 0.2s;
+    border: 1px solid #555;
+}
+
+.btn-azione:hover {
+    background-color: #4e4e64;
+    color: #fff;
+}
+
+/* Quando il bottone si disattiva perché il prodotto è "In modifica..." */
+.btn-azione[style*="background-color: #999"] {
+    background-color: var(--accent-gold) !important;
+    color: var(--bg-dark) !important;
+    border-color: var(--accent-gold) !important;
+    font-weight: bold;
+    pointer-events: none; /* Impedisce click multipli */
+}
+
+.btn-cancella {
+    display: inline-block;
+    background-color: transparent;
+    color: #ff4d4d;
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border: 1px solid #ff4d4d;
+    margin-left: 5px;
+    transition: all 0.2s ease;
+}
+
+.btn-cancella:hover {
+    background-color: #ff4d4d;
+    color: white;
+}
+
+/* ==========================================================================
+   5. Ottimizzazione Mobile (Responsive)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .container h1 {
+        font-size: 1.8rem;
+    }
+    
+    .box {
+        padding: 20px;
+    }
+
+    /* Trasformazione della tabella in blocchi verticali */
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr {
+        margin-bottom: 20px;
+        border: 1px solid #3a3a4a;
+        border-radius: 8px;
+        padding: 10px;
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    td {
+        border: none;
+        padding: 10px 8px;
+        text-align: right;
+        position: relative;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    }
+    
+    td:last-child {
+        border-bottom: none;
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+    }
+
+    td::before {
+        position: absolute;
+        left: 8px;
+        font-weight: 600;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        font-size: 0.75rem;
+    }
+
+    td:nth-of-type(1)::before { content: "ID"; }
+    td:nth-of-type(2)::before { content: "Nome Articolo"; }
+    td:nth-of-type(3)::before { content: "Categoria"; }
+    td:nth-of-type(4)::before { content: "Prezzo"; }
+    td:nth-of-type(5)::before { content: "Disponibilità"; }
+    td:nth-of-type(6)::before { content: "Azioni"; }
+    
+    .btn-salva, .btn-annulla {
+        width: 100%;
+        margin-left: 0;
+        text-align: center;
+        box-sizing: border-box;
+    }
+    
+    .btn-annulla {
+        margin-top: 10px;
+    }
+}
