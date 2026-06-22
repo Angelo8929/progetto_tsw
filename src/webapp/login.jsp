@@ -11,7 +11,7 @@
 <meta charset="UTF-8">
 <title>Login</title>
 
-<link rel="stylesheet" href="css/auth.css" media="all" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/auth.css" media="all" />
 </head>
 <body>
 <%@ include file="header.jsp"  %>

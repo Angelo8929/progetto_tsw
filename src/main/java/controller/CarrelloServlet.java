@@ -129,7 +129,7 @@ public class CarrelloServlet extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", "Errore nel caricamento del carrello: " + e.getMessage());
-			request.getRequestDispatcher("/errore.jsp").forward(request, response);
+			request.getRequestDispatcher("/500.jsp").forward(request, response);
 		}
 	}
 

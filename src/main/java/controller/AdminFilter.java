@@ -42,8 +42,6 @@ public class AdminFilter implements Filter {
 			if (utente != null) {
 				loggedIn = true;
 
-				// Controlla il flag isAdmin sul tuo Bean.
-				// Se nel DB è un INT (0 o 1), ricordati di mutarlo in: utente.getIsAdmin() == 1
 				if (utente.getIsAdmin()) {
 					isAdmin = true;
 				}
@@ -57,8 +55,8 @@ public class AdminFilter implements Filter {
 		} else {
 			// FIX: Usiamo il forward al posto del sendRedirect per non perdere l'attributo
 			// errorMessage
-			request.setAttribute("errorMessage", "Accesso negato: area riservata agli amministratori.");
-			request.getRequestDispatcher("/login.jsp").forward(request, response);
+			httpResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
+			request.getRequestDispatcher("/403.jsp").forward(request, response);
 		}
 	}
 }

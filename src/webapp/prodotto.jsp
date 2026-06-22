@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Dettaglio Prodotto</title>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/prodotto.css" media="all" />
 </head>
 <body>
 
@@ -14,18 +15,30 @@
 
 <%@ include file="header.jsp" %>
 
-<h1>Dettaglio prodotto</h1>
-
-<p>Nome prodotto: <%=prodotto.getNome_prodotto() %></p>
+<div class="product-container">
+	<div class="product-image">
+		<img src="<%= request.getContextPath() %>/<%= prodotto.getImgPath() %>" alt="foto prodotto" />
+	</div>
+	<div class="product-details">
+	<h1>Dettaglio prodotto</h1>
+	<p>Nome prodotto: <%=prodotto.getNome_prodotto() %></p>
+	<p>Descrizione prodotto: <%=prodotto.getDescrizione() %></p>
 <p>Prezzo prodotto: <%=prodotto.getPrezzo() %></p>
-
-<form action="AggiungiAlCarrelloServlet" method="post">
+	<form action="AggiungiAlCarrelloServlet" method="post">
 	<input type="hidden" name="id_prodotto" value="<%=prodotto.getId_prodotto() %>" />
 	<label for="quantita">Quantità:</label>
         <input type="number" id="quantita" name="quantita" min="1" max="5" step="1" value="1">
 	<button type="submit">Aggiungi al carrello</button>
 
 </form>
+	</div>
+	
+</div>
+
+
+
+
+
 
 <%@ include file="footer.jsp" %>
 

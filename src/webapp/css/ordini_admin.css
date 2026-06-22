@@ -192,7 +192,20 @@ tr:last-child td {
 td strong {
     color: var(--accent-gold);
 }
-
+td a {
+    color: var(--accent-gold);
+    text-decoration: none;
+    padding: 5px 10px;
+    background-color: rgba(212, 175, 55, 0.1);
+    border-radius: 4px;
+    font-weight: bold;
+    transition: all 0.2s ease;
+    display: inline-block;
+}
+td a:hover {
+    background-color: var(--accent-gold);
+    color: var(--bg-dark);
+}
 /* Sostituzione dello stile inline del Totale Incassato */
 td[style*="color: #4CAF50"] {
     color: #4cd137 !important; /* Verde smeraldo brillante che stacca dal dark */

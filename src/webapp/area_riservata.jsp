@@ -97,7 +97,7 @@ List<InfoConsegnaBean> listaIndirizzi = (List<InfoConsegnaBean>) request.getAttr
 		%>
 
 		<%-- SEZIONE 3 (Comune): Cronologia Ordini Personali --%>
-		<div class="box">
+		<div class="box box-ordini">
 			<h2>I tuoi Ordini effettuati</h2>
 			<%
 			if (listaOrdini == null || listaOrdini.isEmpty()) {

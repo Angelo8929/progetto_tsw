@@ -79,8 +79,8 @@ public class FatturaServlet extends HttpServlet {
 
 			// Intestazione Azienda
 			document.add(new Paragraph("AlcoMarket S.r.l.", fontTitolo));
-			document.add(new Paragraph("Via dell'Università, Fisciano (SA)", fontSub));
-			document.add(new Paragraph("Email: info@alcomarket.it | P.IVA: 01234567890", fontSub));
+			document.add(new Paragraph("Via giovanni paolo II, Fisciano (SA)", fontSub));
+			document.add(new Paragraph("Email: {a.verolla, m.korovskyy}@studenti.unisa.it", fontSub));
 			document.add(new Paragraph(" ", fontSub)); // Spazio vuoto
 			document.add(new Paragraph(
 					"---------------------------------------------------------------------------------------------------------------------------------"));

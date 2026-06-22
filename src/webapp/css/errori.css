@@ -1,0 +1,105 @@
+/* ==========================================================================
+   1. Centratura Assoluta dello Schermo
+   ========================================================================== */
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; /* Forza il contenitore a centrarsi verticalmente nell'intera pagina */
+    background-color: var(--bg-dark);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.error-container {
+    max-width: 500px;
+    padding: 50px 40px;
+    text-align: center;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(212, 175, 55, 0.1);
+    box-sizing: border-box;
+    margin: 20px;
+}
+
+/* ==========================================================================
+   2. Grafica del Codice di Errore (403, 404, 500, ecc.)
+   ========================================================================== */
+.error-container h1 {
+    font-size: 6rem; /* Numero imponente per l'impatto visivo dell'errore */
+    font-weight: 800;
+    color: var(--accent-gold);
+    margin: 0 0 10px 0;
+    line-height: 1;
+    letter-spacing: 2px;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.error-container h2 {
+    font-size: 1.8rem;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.error-container p {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: 35px;
+}
+
+/* ==========================================================================
+   3. Pulsante di Ritorno alla Home (Identità Bordeaux)
+   ========================================================================== */
+.btn-home {
+    display: inline-block;
+    background-color: var(--accent-wine);
+    color: white;
+    padding: 14px 32px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 12px rgba(107, 29, 47, 0.3);
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-home:hover {
+    background-color: var(--accent-wine-hover);
+    color: white;
+}
+
+.btn-home:active {
+    transform: scale(0.98); /* Effetto click dinamico */
+}
+
+/* ==========================================================================
+   4. Ottimizzazione Mobile (Responsive)
+   ========================================================================== */
+@media (max-width: 550px) {
+    .error-container {
+        padding: 40px 25px;
+        margin: 15px;
+    }
+
+    .error-container h1 {
+        font-size: 4.5rem; /* Rimpicciolisce il codice numerico su schermi molto stretti */
+    }
+
+    .error-container h2 {
+        font-size: 1.5rem;
+    }
+
+    .btn-home {
+        width: 100%;
+        box-sizing: border-box;
+        text-align: center;
+    }
+}
