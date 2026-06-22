@@ -44,7 +44,6 @@
 				<button class="dropbtn">Benvenuto, <%=username %></button>
 				<div class="dropdown-content">
 					<a href="CarrelloServlet">Carrello</a>
-					<a href="#">I miei ordini</a> 
 					<a href="AreaRiservataServlet">Area riservata</a> 
 					
 					<form action="LogoutServlet" method="post">

@@ -218,6 +218,8 @@ List<InfoConsegnaBean> listaIndirizzi = (List<InfoConsegnaBean>) request.getAttr
 	</div>
 
 	<%@ include file="footer.jsp"%>
+	
+	<script src="<%=request.getContextPath() %>/js/indirizzi.js"></script>
 
 </body>
 </html>
