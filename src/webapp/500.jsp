@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Errore Interno - AlcoMarket</title>ù
+    <title>Errore Interno - AlcoMarket</title>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/css/errori.css" media="all" />
     <link rel="stylesheet" href="<%= request.getContextPath() %>/css/home.css" media="all" />
     

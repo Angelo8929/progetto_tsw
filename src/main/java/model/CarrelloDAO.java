@@ -55,7 +55,7 @@ public class CarrelloDAO {
 
 		// Specifichiamo solo la colonna dell'utente, lasciando l'id_carrello
 		// all'AUTO_INCREMENT del DB
-		String sql = "INSERT INTO carrello (id_utente) VALUES (?)";
+		String sql = "INSERT INTO carrello (email_utente) VALUES (?)";
 
 		try {
 			con = ConnectionPool.getConnection();

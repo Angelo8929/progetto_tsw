@@ -7,9 +7,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div class="footer">
-		<p>Tutti i diritti (forse) riservati</p> 
+<div class="footer">
+
+		<footer>
+			<p>Tutti i diritti (forse) riservati</p>
+
+		</footer>
 
 	</div>
+	
 </body>
 </html>

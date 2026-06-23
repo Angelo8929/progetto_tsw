@@ -68,6 +68,10 @@
 
             <label>Numero Civico</label>
             <input type="number" name="civico" placeholder="Es. 12" required>
+            
+            
+            <label for="citta">Città</label>
+            <input type="text" name="citta" id="citta" />
 
             <button type="submit" style="background-color: #008CBA; color: white; border: none; padding: 10px 15px; cursor: pointer; border-radius: 4px;">Salva Indirizzo</button>
         </form>
