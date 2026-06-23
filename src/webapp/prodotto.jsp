@@ -17,13 +17,12 @@
 
 <div class="product-container">
 	<div class="product-image">
-		<img src="<%= request.getContextPath() %>/<%= prodotto.getImgPath() %>" alt="foto prodotto" />
+		<img src="<%= request.getContextPath() %>/images/<%= prodotto.getImgPath() %>" alt="foto prodotto" />
 	</div>
 	<div class="product-details">
-	<h1>Dettaglio prodotto</h1>
-	<p>Nome prodotto: <%=prodotto.getNome_prodotto() %></p>
-	<p>Descrizione prodotto: <%=prodotto.getDescrizione() %></p>
-<p>Prezzo prodotto: <%=prodotto.getPrezzo() %></p>
+	<h1><%=prodotto.getNome_prodotto() %></h1>
+	<p><%=prodotto.getDescrizione() %></p>
+<strong><%=prodotto.getPrezzo() %> euro</strong>
 	<form action="AggiungiAlCarrelloServlet" method="post">
 	<input type="hidden" name="id_prodotto" value="<%=prodotto.getId_prodotto() %>" />
 	<label for="quantita">Quantità:</label>

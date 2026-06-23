@@ -61,7 +61,7 @@
                 %>
                     <tr>
                         <td>
-                            <img src="<%= request.getContextPath() %>/<%= prodotto.getImgPath() %>" alt="<%= prodotto.getNome_prodotto() %>" width="60">
+                            <img src="<%= request.getContextPath() %>/images/<%= prodotto.getImgPath() %>" alt="<%= prodotto.getNome_prodotto() %>" width="60">
                         </td>
                         <td><strong><%= prodotto.getNome_prodotto() %></strong></td>
                         <td><%= prodotto.getPrezzo() %> €</td>

@@ -37,7 +37,7 @@
             <a href="ProdottoServlet?id=<%=prodotto.getId_prodotto()%>"><%=prodotto.getId_prodotto()%></a>
            <div class="item_title"><%= prodotto.getNome_prodotto() %></div> 
            <div class="item_price"><%= prodotto.getPrezzo() %> euro</div>
-           <div class="item_photo"> <img src="<%= request.getContextPath() %>/<%= prodotto.getImgPath() %>" alt="foto prodotto" /></div>
+           <div class="item_photo"> <img src="<%= request.getContextPath() %>/images/<%= prodotto.getImgPath() %>" alt="foto prodotto" /></div>
             
             <form action="AggiungiAlCarrelloServlet" method="post">
             
