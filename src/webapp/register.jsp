@@ -18,6 +18,26 @@
 		<p><%=errorMessage%></p>
 	<%} %>
 	<div class="form">
+	
+	<%-- RECUPERO E STAMPA ERRORI APPROCCIO 2 --%>
+		<% 
+			java.util.List<String> errori = (java.util.List<String>) request.getAttribute("errori");
+			String oldUsername = request.getAttribute("oldUsername") != null ? (String) request.getAttribute("oldUsername") : "";
+			String oldEmail = request.getAttribute("oldEmail") != null ? (String) request.getAttribute("oldEmail") : "";
+			
+			if (errori != null && !errori.isEmpty()) {
+		%>
+			<div style="background-color: #f2dede; color: #a94442; border: 1px solid #ebccd1; padding: 15px; border-radius: 4px; margin-bottom: 20px;">
+				<strong style="display: block; margin-bottom: 5px;">Risolvi i seguenti errori prima di procedere:</strong>
+				<ul style="margin: 0; padding-left: 20px; font-size: 14px;">
+					<% for (String errore : errori) { %>
+						<li><%= errore %></li>
+					<% } %>
+				</ul>
+			</div>
+		<% 
+			} 
+		%>
 
 		<form action="RegistrazioneServlet" method="post">
 

@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Dentro header.jsp -->
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/home.css" />
 </head>
@@ -38,6 +39,7 @@
 		%>
 
 			<a href="login.jsp">Accedi</a>
+			<a href="CarrelloServlet">Carrello</a>
 			<% } else{ %>
 
 			<div class="dropdown">

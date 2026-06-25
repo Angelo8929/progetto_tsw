@@ -12,6 +12,7 @@
 <meta charset="UTF-8">
 <title>Home page</title>
 <link rel="stylesheet" href="css/home.css" media="all" />
+
 </head>
 <body>
 
@@ -34,10 +35,17 @@
             <div class="item">
             
             
-            <a href="ProdottoServlet?id=<%=prodotto.getId_prodotto()%>"><%=prodotto.getId_prodotto()%></a>
+            
            <div class="item_title"><%= prodotto.getNome_prodotto() %></div> 
            <div class="item_price"><%= prodotto.getPrezzo() %> euro</div>
-           <div class="item_photo"> <img src="<%= request.getContextPath() %>/images/<%= prodotto.getImgPath() %>" alt="foto prodotto" /></div>
+           <div class="item_photo"> 
+           
+            <a class="item_link"href="ProdottoServlet?id=<%=prodotto.getId_prodotto()%>"><img src="<%= request.getContextPath() %>/images/<%= prodotto.getImgPath() %>" alt="foto prodotto" /></a>
+           
+           
+           
+           
+           </div>
             
             <form action="AggiungiAlCarrelloServlet" method="post">
             

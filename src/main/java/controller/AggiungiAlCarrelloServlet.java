@@ -123,6 +123,7 @@ public class AggiungiAlCarrelloServlet extends HttpServlet {
 				}
 
 				int quantitaEsistente = carrelloOspite.getOrDefault(id_prodotto, 0);
+				System.out.println("[DEBUG] quantità esistente nel carrello ospite: " + quantitaEsistente);
 				carrelloOspite.put(id_prodotto, quantitaEsistente + quantita);
 
 				session.setAttribute("carrelloOspite", carrelloOspite);
