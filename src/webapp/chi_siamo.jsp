@@ -12,7 +12,8 @@
 <div class="chi_siamo">
 <h1>Chi siamo</h1>
 
-<p>Chi sono, vorrai dire</p>
+<p>Angelo Verolla - 0512121295</p>
+<p>Massimo Korovskyy - 0512122828 </p>
 
 </div>
 <%@ include file="footer.jsp" %>
