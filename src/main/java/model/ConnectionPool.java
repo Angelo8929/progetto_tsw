@@ -14,7 +14,7 @@ public class ConnectionPool {
 			+ "?useUnicode=true&useJDBCCompliantTimezoneShift=true" + "&useLegacyDatetimecode=false&serverTimezone=UTC";
 
 	static String username = "root";
-	static String password = "root";
+	static String password = "Angelo1!";
 
 	static {
 		freeDbConnections = new LinkedList<Connection>();
