@@ -102,7 +102,16 @@ public class CompletaOrdineServlet extends HttpServlet {
 						return;
 					}
 
-					costoTotaleCentesimi += (long) (prodotto.getPrezzo() * 100) * riga.getQuantita();
+					
+					double iva = prodotto.getIva() != 0 ? prodotto.getIva() : 22.0;
+
+					
+					double prezzoUnitarioConIva = prodotto.getPrezzo() + (prodotto.getPrezzo() * (iva / 100.0));
+
+					
+					long prezzoIvatoInCentesimi = Math.round(prezzoUnitarioConIva * 100.0);
+
+					costoTotaleCentesimi += prezzoIvatoInCentesimi * riga.getQuantita();
 					numProdottiTotali += riga.getQuantita();
 				}
 			}

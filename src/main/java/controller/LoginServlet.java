@@ -47,7 +47,7 @@ public class LoginServlet extends HttpServlet {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", "Errore interno del server. Riprova più tardi.");
 			request.getRequestDispatcher("login.jsp").forward(request, response);
-			return; // FIX: Evita di far proseguire l'esecuzione se il DB fallisce
+			return; 
 		}
 
 		if (utenteLoggato != null) {

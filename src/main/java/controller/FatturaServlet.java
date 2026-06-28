@@ -92,13 +92,14 @@ public class FatturaServlet extends HttpServlet {
 			document.add(new Paragraph(" ", fontSub));
 
 			
-			PdfPTable table = new PdfPTable(4); // 4 colonne
+			PdfPTable table = new PdfPTable(5); // 4 colonne
 			table.setWidthPercentage(100);
-			table.setWidths(new float[] { 40f, 20f, 20f, 20f }); // Proporzioni colonne
+			table.setWidths(new float[] { 40f, 20f,20f,  20f, 20f }); // Proporzioni colonne
 
 			
 			table.addCell(new PdfPCell(new Phrase("Prodotto", fontBold)));
 			table.addCell(new PdfPCell(new Phrase("Prezzo Unitario", fontBold)));
+			table.addCell(new PdfPCell(new Phrase("Iva", fontBold)));
 			table.addCell(new PdfPCell(new Phrase("Quantità", fontBold)));
 			table.addCell(new PdfPCell(new Phrase("Totale", fontBold)));
 
@@ -109,9 +110,10 @@ public class FatturaServlet extends HttpServlet {
 				for (ProdottoOrdineBean articolo : articoliOrdinati) {
 					table.addCell(articolo.getNome_prodotto());
 					table.addCell(String.format("%.2f €", articolo.getPrezzo()));
+					table.addCell(String.valueOf(articolo.getIva()));
 					table.addCell(String.valueOf(articolo.getQuantita()));
 
-					double totaleArticolo = articolo.getPrezzo() * articolo.getQuantita();
+					double totaleArticolo = (articolo.getPrezzo()+(articolo.getPrezzo()*(articolo.getIva()/100.0))) * articolo.getQuantita();
 					table.addCell(String.format("%.2f €", totaleArticolo));
 				}
 			}

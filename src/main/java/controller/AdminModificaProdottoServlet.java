@@ -69,19 +69,16 @@ public class AdminModificaProdottoServlet extends HttpServlet {
 			int iva = Integer.parseInt(request.getParameter("iva"));
 			int disponibilita = Integer.parseInt(request.getParameter("disponibilita"));
 
-			// GESTIONE SICURA DELLA GRADAZIONE:
-			// Se il prodotto è analcolico, il parametro nel form potrebbe non esserci o
-			// essere vuoto.
+			
 			String percAlcolParam = request.getParameter("percAlcol");
 			double percAlcol = 0;
 
 			if (percAlcolParam != null && !percAlcolParam.trim().isEmpty() && !"Analcolici".equals(categoria)) {
-				// Il tuo DB ha un INT su questa colonna, quindi facciamo il cast corretto a
-				// Integer
+				
 				percAlcol = Double.parseDouble(percAlcolParam);
 			}
 
-			// Costruiamo il Bean completo con tutti i campi del tuo DB
+			
 			ProdottoBean prodottoAggiornato = new ProdottoBean();
 			prodottoAggiornato.setId_prodotto(idProdotto);
 			prodottoAggiornato.setNome_prodotto(nome);
@@ -89,15 +86,14 @@ public class AdminModificaProdottoServlet extends HttpServlet {
 			prodottoAggiornato.setCategoria(categoria);
 			prodottoAggiornato.setImgPath(imgPath);
 
-			// Se è un analcolico salviamo l'effervescenza, altrimenti lasciamo stringa
-			// vuota o null
+			
 			prodottoAggiornato.setEffervescenza("Analcolici".equals(categoria) ? effervescenza : "");
 			prodottoAggiornato.setPerc_alcol(percAlcol);
 			prodottoAggiornato.setDescrizione(descrizione);
 			prodottoAggiornato.setIva(iva);
 			prodottoAggiornato.setDisponibilita(disponibilita);
 
-			// Eseguiamo l'UPDATE strutturato sul database
+			
 			prodottoDAO.doUpdate(prodottoAggiornato);
 
 			request.setAttribute("successMessage", "Prodotto aggiornato con successo!");
