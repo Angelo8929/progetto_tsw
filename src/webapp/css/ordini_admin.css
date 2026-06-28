@@ -1,6 +1,4 @@
-/* ==========================================================================
-   1. Contenitore Principale e Struttura Layout
-   ========================================================================== */
+
 .container {
     max-width: 1200px;
     margin: 40px auto 80px auto;
@@ -33,9 +31,7 @@
     padding-bottom: 10px;
 }
 
-/* ==========================================================================
-   2. Barra Avanzata dei Filtri (Inline e Responsive)
-   ========================================================================== */
+
 .box-filtri {
     background-color: var(--card-bg);
     border-radius: 12px;
@@ -68,7 +64,7 @@
     letter-spacing: 0.5px;
 }
 
-/* Input di testo e Date Picker nativi */
+
 .filtro-gruppo input[type="text"],
 .filtro-gruppo input[type="date"] {
     background-color: #1e1e24;
@@ -82,9 +78,9 @@
     width: 100%;
 }
 
-/* Personalizzazione icona del calendario nei browser moderni */
+
 .filtro-gruppo input[type="date"]::-webkit-calendar-picker-indicator {
-    filter: invert(1) sepia(1) saturate(5) hue-rotate(5deg); /* Rende l'icona dorata/bianca */
+    filter: invert(1) sepia(1) saturate(5) hue-rotate(5deg); 
     cursor: pointer;
 }
 
@@ -95,7 +91,7 @@
     box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
 }
 
-/* Bottoni di Azione (Filtra e Reset) */
+
 .btn-filtra {
     background-color: var(--accent-wine);
     color: white;
@@ -106,7 +102,7 @@
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.2s ease, transform 0.1s ease;
-    height: 44px; /* Allineamento perfetto con gli input */
+    height: 44px; 
     box-sizing: border-box;
 }
 
@@ -141,7 +137,7 @@
     transform: scale(0.98);
 }
 
-/* Messaggio di Errore / Nessun Risultato */
+
 .container > p[style*="color: #ff0000"] {
     color: #ff4d4d !important;
     background-color: rgba(255, 77, 77, 0.1);
@@ -151,9 +147,7 @@
     text-align: center;
 }
 
-/* ==========================================================================
-   3. Tabella Registri degli Ordini Globali
-   ========================================================================== */
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -188,7 +182,7 @@ tr:last-child td {
     border-bottom: none;
 }
 
-/* Evidenziazioni specifiche delle celle */
+
 td strong {
     color: var(--accent-gold);
 }
@@ -206,20 +200,18 @@ td a:hover {
     background-color: var(--accent-gold);
     color: var(--bg-dark);
 }
-/* Sostituzione dello stile inline del Totale Incassato */
+
 td[style*="color: #4CAF50"] {
-    color: #4cd137 !important; /* Verde smeraldo brillante che stacca dal dark */
+    color: #4cd137 !important; 
     font-size: 1.05rem;
 }
 
-/* Effetto alternato righe opzionale per migliorare la leggibilità di moli di dati */
+
 tbody tr:hover {
     background-color: rgba(255, 255, 255, 0.02);
 }
 
-/* ==========================================================================
-   4. Ottimizzazione Mobile (Responsive Avanzato)
-   ========================================================================== */
+
 @media (max-width: 768px) {
     .container h2 {
         font-size: 1.6rem;
@@ -239,7 +231,7 @@ tbody tr:hover {
         width: 100%;
     }
 
-    /* Trasformazione della tabella in blocchi impilati */
+    
     table, thead, tbody, th, td, tr {
         display: block;
     }
@@ -270,7 +262,7 @@ tbody tr:hover {
         border-bottom: none;
     }
 
-    /* Struttura per visualizzare le intestazioni simulando una riga */
+    
     td::before {
         position: absolute;
         left: 8px;
@@ -281,7 +273,7 @@ tbody tr:hover {
         letter-spacing: 0.5px;
     }
     
-    /* Mappatura concettuale dei campi per non perdere il riferimento */
+    
     td:nth-of-type(1)::before { content: "ID Ordine"; }
     td:nth-of-type(2)::before { content: "Email Cliente"; }
     td:nth-of-type(3)::before { content: "Data Acquisto"; }

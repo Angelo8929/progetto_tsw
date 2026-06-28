@@ -13,10 +13,7 @@ import java.util.List;
 
 public class InfoConsegnaDAO {
 
-	/**
-	 * Salva un nuovo indirizzo di consegna nel database. Lascia che l'id_consegna
-	 * venga generato automaticamente (AUTO_INCREMENT).
-	 */
+	
 	public synchronized void doSave(InfoConsegnaBean info) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -60,9 +57,7 @@ public class InfoConsegnaDAO {
 		}
 	}
 
-	/**
-	 * Recupera tutti gli indirizzi di consegna associati a uno specifico utente.
-	 */
+	
 	public synchronized List<InfoConsegnaBean> doRetrieveByUtente(String emailUtente) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;

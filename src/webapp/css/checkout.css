@@ -1,6 +1,4 @@
-/* ==========================================================================
-   1. Contenitore Principale e Struttura Layout
-   ========================================================================== */
+
 .container {
     max-width: 800px;
     margin: 40px auto 80px auto;
@@ -19,7 +17,7 @@
     padding-bottom: 10px;
 }
 
-/* Blocchi Sezione (Box) */
+
 .box {
     background-color: var(--card-bg);
     border-radius: 12px;
@@ -46,7 +44,7 @@
     margin: 0;
 }
 
-/* Riepilogo Ordine (Prezzo Evidenziato) */
+
 .box p strong {
     color: var(--accent-gold);
     font-size: 1.3rem;
@@ -63,9 +61,7 @@
     font-weight: 500;
 }
 
-/* ==========================================================================
-   2. Selezione Indirizzo Esistente (Radio Button Card)
-   ========================================================================== */
+
 .indirizzo-item {
     display: flex;
     align-items: center;
@@ -82,7 +78,7 @@
     border-color: rgba(212, 175, 55, 0.5);
 }
 
-/* Input Radio custom color */
+
 .indirizzo-item input[type="radio"] {
     accent-color: var(--accent-gold);
     margin-right: 15px;
@@ -104,16 +100,14 @@
     font-size: 1.05rem;
 }
 
-/* Evidenzia il box quando il radio button associato è selezionato */
+
 .indirizzo-item:has(input[type="radio"]:checked) {
     border-color: var(--accent-gold);
     box-shadow: 0 0 10px rgba(212, 175, 55, 0.15);
     background-color: rgba(212, 175, 55, 0.02);
 }
 
-/* ==========================================================================
-   3. Form di inserimento Nuovo Indirizzo
-   ========================================================================== */
+
 .form-nuovo-indirizzo form {
     display: flex;
     flex-direction: column;
@@ -150,10 +144,8 @@
     box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
 }
 
-/* ==========================================================================
-   4. Pulsanti di Invio / Conferma
-   ========================================================================== */
-/* Bottone 1: Completa l'ordine e paga (Principale / Bordeaux) */
+
+
 .btn-conferma {
     width: 100%;
     background-color: var(--accent-wine);
@@ -175,7 +167,7 @@
     background-color: var(--accent-wine-hover);
 }
 
-/* Bottone 2: Salva Indirizzo (Secondario / Neutro scuro - Sostituisce lo stile inline) */
+
 .form-nuovo-indirizzo button[type="submit"] {
     background-color: transparent !important;
     color: var(--text-light) !important;
@@ -187,7 +179,7 @@
     border-radius: 6px !important;
     margin-top: 25px;
     transition: all 0.2s ease;
-    align-self: flex-start; /* Non lo fa allungare a tutta pagina */
+    align-self: flex-start; 
 }
 
 .form-nuovo-indirizzo button[type="submit"]:hover {
@@ -200,9 +192,7 @@
     transform: scale(0.98);
 }
 
-/* ==========================================================================
-   5. Ottimizzazione Mobile (Responsive)
-   ========================================================================== */
+
 @media (max-width: 768px) {
     .container {
         margin: 20px auto 40px auto;
@@ -218,7 +208,7 @@
     }
 
     .form-nuovo-indirizzo button[type="submit"] {
-        width: 100%; /* Sui telefoni anche il salva indirizzo diventa a larghezza intera */
+        width: 100%; 
         align-self: stretch;
     }
 }
