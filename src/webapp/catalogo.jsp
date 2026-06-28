@@ -78,14 +78,15 @@ List<ProdottoBean> prodotti = (List<ProdottoBean>) request.getAttribute("prodott
 				for (ProdottoBean prod : prodotti) {
 				%>
 				<div class="item">
-					<img src="<%=prod.getImgPath()%>"
-						alt="<%=prod.getNome_prodotto()%>"
-						style="width: 100%; max-height: 150px; object-fit: contain;">
+					<div class="item_photo"> 
+                   <a class="item_link" href="ProdottoServlet?id=<%=prod.getId_prodotto()%>">
+                       <img src="<%= request.getContextPath() %>/images/<%= prod.getImgPath() %>" alt="foto prodotto" />
+                   </a>
+               </div>
 					<h4><%=prod.getNome_prodotto()%></h4>
 					<p><%=String.format("%.2f", prod.getPrezzo())%>
 					</p>
-					<a href="ProdottoServlet?id=<%=prod.getId_prodotto()%>"
-						class="btn-dettaglio">Vedi Prodotto</a>
+					
 				</div>
 				<%
 				}
