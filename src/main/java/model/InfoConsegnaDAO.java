@@ -8,8 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-// Sostituisci con il nome esatto della tua classe di connessione (es. ConnessioneDB, DriverManagerConnectionPool)
-// import model.ConnectionPool; 
+ 
 
 public class InfoConsegnaDAO {
 
@@ -19,12 +18,11 @@ public class InfoConsegnaDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 
-		// Specifichiamo solo le colonne dei dati, lasciando l'id all'AUTO_INCREMENT del
-		// DB
+		
 		String sql = "INSERT INTO info_consegna (via, civico, citta, destinatario, id_utente) VALUES (?, ?, ?,?, ?)";
 
 		try {
-			con = ConnectionPool.getConnection(); // Adatta con la tua classe ConnectionPool
+			con = ConnectionPool.getConnection(); 
 			ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
 			ps.setString(1, info.getVia());
@@ -35,11 +33,11 @@ public class InfoConsegnaDAO {
 
 			ps.executeUpdate();
 
-			// Recuperiamo l'ID generato automaticamente dal database
+			
 			rs = ps.getGeneratedKeys();
 			if (rs.next()) {
 				int idGenerato = rs.getInt(1);
-				info.setId_consegna(idGenerato); // Aggiorna il Bean in memoria
+				info.setId_consegna(idGenerato); 
 			}
 
 		} finally {

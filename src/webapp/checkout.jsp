@@ -25,15 +25,15 @@
         <p class="error-message"><%= errorMessage %></p>
     <% } %>
 
-    <%-- Ripilogo del costo --%>
+    
     <div class="box">
         <h2>Riepilogo Ordine</h2>
         <p>Totale da pagare: <strong><%= prezzoTotale %> €</strong></p>
     </div>
 
-    <%-- SEZIONE 1: SELEZIONE INDIRIZZO ESISTENTE --%>
+    
     <div class="box">
-        <h2>1. Scegli un indirizzo di spedizione</h2>
+        <h2>Scegli un indirizzo di spedizione</h2>
         
         <% if (listaIndirizzi == null || listaIndirizzi.isEmpty()) { %>
             <p>Non hai ancora indirizzi salvati. Compila il modulo sottostante per aggiungerne uno.</p>
@@ -56,7 +56,7 @@
         <% } %>
     </div>
 
-    <%-- SEZIONE 2: FORM PER AGGIUNGERE UN NUOVO INDIRIZZO --%>
+    
     <div class="box form-nuovo-indirizzo">
         <h2>O aggiungi un nuovo indirizzo</h2>
         <form action="<%= request.getContextPath() %>/SalvaIndirizzoServlet" method="post">

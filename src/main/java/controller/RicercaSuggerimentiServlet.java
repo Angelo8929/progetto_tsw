@@ -27,7 +27,7 @@ public class RicercaSuggerimentiServlet extends HttpServlet {
 
 		String prefisso = request.getParameter("term");
 
-		// Impostiamo il tipo di contenuto come JSON con codifica UTF-8
+		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 
@@ -39,18 +39,17 @@ public class RicercaSuggerimentiServlet extends HttpServlet {
 		}
 
 		try {
-			// Chiediamo al DAO i prodotti che corrispondono al testo digitato
+			
 			List<ProdottoBean> suggeriti = prodottoDAO.doRetrieveByPrefix(prefisso.trim());
 
-			// Costruiamo manualmente l'array JSON [{ "id": 1, "nome": "..." }, ...]
+			
 			StringBuilder json = new StringBuilder("[");
 			for (int i = 0; i < suggeriti.size(); i++) {
 				ProdottoBean prod = suggeriti.get(i);
 
 				json.append("{");
 				json.append("\"id\":").append(prod.getId_prodotto()).append(",");
-				// Escape dei doppi apici per evitare problemi di sintassi JSON se il nome
-				// contiene virgolette
+				
 				String nomeSanificato = prod.getNome_prodotto().replace("\"", "\\\"");
 				json.append("\"nome\":\"").append(nomeSanificato).append("\"");
 				json.append("}");

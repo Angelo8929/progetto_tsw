@@ -6,20 +6,20 @@
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.Collection"%>
 <%
-// 1. Controllo di sicurezza: l'utente deve essere loggato
+
 UtenteBean utenteLoggato = (UtenteBean) session.getAttribute("user");
 if (utenteLoggato == null) {
 	response.sendRedirect(request.getContextPath() + "/login.jsp");
 	return;
 }
 
-// 2. Recuperiamo il flag isAdmin passato dalla AreaRiservataServlet
+
 Boolean isAdmin = (Boolean) request.getAttribute("isAdmin");
 if (isAdmin == null) {
 	isAdmin = false;
 }
 
-// 3. Recuperiamo i messaggi di feedback e le liste
+
 String successMessage = (String) request.getAttribute("successMessage");
 String errorMessage = (String) request.getAttribute("errorMessage");
 
@@ -40,7 +40,7 @@ List<InfoConsegnaBean> listaIndirizzi = (List<InfoConsegnaBean>) request.getAttr
 
 	<div class="main-container">
 
-		<%-- Banner per Messaggi di Esito --%>
+		
 		<%
 		if (errorMessage != null) {
 		%>
@@ -56,7 +56,7 @@ List<InfoConsegnaBean> listaIndirizzi = (List<InfoConsegnaBean>) request.getAttr
 		}
 		%>
 
-		<%-- SEZIONE 1 (Comune): Dati Personali dell'Account --%>
+		
 		<div class="box">
 			<h1><%=isAdmin ? "Pannello Amministratore" : "Area Riservata Cliente"%></h1>
 			<hr >
@@ -69,7 +69,7 @@ List<InfoConsegnaBean> listaIndirizzi = (List<InfoConsegnaBean>) request.getAttr
 		</div>
 
 		<%
-		// SEZIONE 2 (SOLO ADMIN): Mostra la plancia di comando gestionale
+		
 		if (isAdmin) {
 		%>
 		<div class="box">
@@ -93,10 +93,10 @@ List<InfoConsegnaBean> listaIndirizzi = (List<InfoConsegnaBean>) request.getAttr
 			</div>
 		</div>
 		<%
-		} // Fine blocco admin
+		} 
 		%>
 
-		<%-- SEZIONE 3 (Comune): Cronologia Ordini Personali --%>
+		
 		<div class="box box-ordini">
 			<h2>I tuoi Ordini effettuati</h2>
 			<%
@@ -140,7 +140,7 @@ List<InfoConsegnaBean> listaIndirizzi = (List<InfoConsegnaBean>) request.getAttr
 			%>
 		</div>
 
-		<%-- SEZIONE 4 (Comune): Elenco Indirizzi Salvati --%>
+		
 		<div class="box">
 			<h2>I tuoi indirizzi di consegna salvati</h2>
 			<%
@@ -180,7 +180,7 @@ List<InfoConsegnaBean> listaIndirizzi = (List<InfoConsegnaBean>) request.getAttr
 			%>
 		</div>
 
-		<%-- SEZIONE 5 (Comune): Form per Aggiungere un nuovo Indirizzo --%>
+		
 		<div class="box">
 			<h2>Aggiungi un nuovo indirizzo di consegna</h2>
 

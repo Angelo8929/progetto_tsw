@@ -26,7 +26,7 @@
 	<form action="AggiungiAlCarrelloServlet" method="post">
 	<input type="hidden" name="id_prodotto" value="<%=prodotto.getId_prodotto() %>" />
 	<label for="quantita">Quantità:</label>
-        <input type="number" id="quantita" name="quantita" min="1" max="5" step="1" value="1">
+        <input type="number" id="quantita" name="quantita" min="1" max="<%= prodotto.getDisponibilita() %>" step="1" value="1">
 	<button type="submit">Aggiungi al carrello</button>
 
 </form>

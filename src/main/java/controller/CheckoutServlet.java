@@ -40,8 +40,7 @@ public class CheckoutServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		UtenteBean utenteLoggato = (UtenteBean) session.getAttribute("user");
 
-		// SICUREZZA: Se l'utente non è loggato, non può fare il checkout. Lo mandiamo
-		// al login.
+		
 		if (utenteLoggato == null) {
 			request.setAttribute("errorMessage", "Devi effettuare il login per procedere al checkout.");
 			request.getRequestDispatcher("/login.jsp").forward(request, response);
@@ -51,8 +50,7 @@ public class CheckoutServlet extends HttpServlet {
 		double prezzoTotale = 0.0;
 
 		try {
-			// Ricalcoliamo rapidamente il totale del carrello per sicurezza dall'utente
-			// loggato (dal DB)
+			
 			CarrelloBean carrelloUtente = carrelloDAO.doRetrieveByUtente(utenteLoggato.getEmail());
 			if (carrelloUtente != null) {
 				List<ProdottoCarrelloBean> righeCarrello = prodottoCarrelloDAO
@@ -66,17 +64,16 @@ public class CheckoutServlet extends HttpServlet {
 				System.out.println("DEBUG - Prezzo Totale Calcolato: " + prezzoTotale);
 			}
 
-			// Se il carrello è vuoto, è inutile fare il checkout. Lo rimandiamo al
-			// carrello.
+			
 			if (prezzoTotale <= 0) {
 				response.sendRedirect(request.getContextPath() + "/CarrelloServlet");
 				return;
 			}
 
-			// RECUPERO INDIRIZZI: Usiamo il tuo nuovo DAO
+			
 			List<InfoConsegnaBean> listaIndirizzi = infoConsegnaDAO.doRetrieveByUtente(utenteLoggato.getEmail());
 
-			// Passiamo i dati alla pagina di checkout
+			
 			request.setAttribute("listaIndirizzi", listaIndirizzi);
 			request.setAttribute("prezzoTotale", prezzoTotale);
 

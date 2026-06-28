@@ -44,7 +44,7 @@ public class AdminModificaProdottoServlet extends HttpServlet {
 				request.setAttribute("successMessage", msgSuccess);
 			if (msgError != null)
 				request.setAttribute("errorMessage", msgError);
-			// FIX: Allineato il nome esatto della JSP unificata al singolare
+			
 			request.getRequestDispatcher("/admin/modifica_prodotti_admin.jsp").forward(request, response);
 
 		} catch (NumberFormatException | SQLException e) {

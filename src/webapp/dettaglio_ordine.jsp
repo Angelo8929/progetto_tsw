@@ -45,7 +45,9 @@
             %>
                 <tr>
                     <td><strong><%= item.getNome_prodotto() %></strong></td>
-                    <td><%= String.format("%.2f", item.getPrezzo()) %> €</td>
+                    <td><%= String.format("%.2f", item.getPrezzo())%> €</td>
+                   
+                    
                     <td>x<%= item.getQuantita() %></td>
                     <td><%= String.format("%.2f", totaleRiga) %> €</td>
                 </tr>

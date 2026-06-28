@@ -19,7 +19,7 @@
 	<%} %>
 	<div class="form">
 	
-	<%-- RECUPERO E STAMPA ERRORI APPROCCIO 2 --%>
+	
 		<% 
 			java.util.List<String> errori = (java.util.List<String>) request.getAttribute("errori");
 			String oldUsername = request.getAttribute("oldUsername") != null ? (String) request.getAttribute("oldUsername") : "";

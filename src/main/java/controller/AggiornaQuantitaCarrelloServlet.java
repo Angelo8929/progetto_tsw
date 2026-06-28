@@ -54,7 +54,7 @@ public class AggiornaQuantitaCarrelloServlet extends HttpServlet {
 				return;
 			}
 
-			// Recuperiamo il carrello dell'utente
+			
 			CarrelloBean carrello = carrelloDAO.doRetrieveByUtente(utenteLoggato.getEmail());
 			if (carrello == null) {
 				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -62,12 +62,9 @@ public class AggiornaQuantitaCarrelloServlet extends HttpServlet {
 				return;
 			}
 
-			// Aggiorniamo la quantità nel DB
+			
 			prodottoCarrelloDAO.doUpdateQuantity(carrello.getId_carrello(), idProdotto, quantita);
 
-			// Qui potresti ricalcolare il nuovo totale complessivo del carrello per
-			// mandarlo al frontend
-			// Esempio risposta di successo:
 			out.print("{\"status\": \"success\", \"message\": \"Quantità aggiornata\"}");
 
 		} catch (NumberFormatException | SQLException e) {

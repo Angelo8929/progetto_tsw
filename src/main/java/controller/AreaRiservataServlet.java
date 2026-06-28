@@ -45,22 +45,19 @@ public class AreaRiservataServlet extends HttpServlet {
 		}
 
 		try {
-			// 1. CARICAMENTO COMUNE (Sia per Admin che per Cliente normale)
-			// Estraiamo gli ordini personali e gli indirizzi personali legati all'email di
-			// chi è loggato
+			
 			Collection<OrdineBean> ordiniPersonali = ordineDAO.doRetrieveByUtente(utenteLoggato.getEmail());
 			List<InfoConsegnaBean> indirizziPersonali = infoConsegnaDAO.doRetrieveByUtente(utenteLoggato.getEmail());
 
-			// Settiamo gli attributi comuni che la JSP si aspetta in ogni caso
+			
 			request.setAttribute("listaOrdini", ordiniPersonali);
-			request.setAttribute("listaIndirizzi", indirizziPersonali); // FIX: Ora viene passato SEMPRE, anche
-																		// all'admin!
+			request.setAttribute("listaIndirizzi", indirizziPersonali); 
 
-			// 2. CONTROLLO RUOLO (Caricamento dati aggiuntivi solo se Admin)
+			
 			if (utenteLoggato.getIsAdmin()) {
 				request.setAttribute("isAdmin", true);
 
-				// Carichiamo i dati globali per la plancia di comando dell'admin
+				
 				List<OrdineBean> tuttiGliOrdini = ordineDAO.doRetrieveAll();
 				List<ProdottoBean> tuttiIProdotti = prodottoDAO.doRetrieveAll();
 
@@ -70,7 +67,7 @@ public class AreaRiservataServlet extends HttpServlet {
 				request.setAttribute("isAdmin", false);
 			}
 
-			// Gestione di un eventuale parametro di successo nell'URL
+			
 			String success = request.getParameter("success");
 			if (success != null && success.equals("true")) {
 				request.setAttribute("successMessage", "Operazione completata con successo!");

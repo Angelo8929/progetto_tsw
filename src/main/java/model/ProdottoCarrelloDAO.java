@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ProdottoCarrelloDAO {
 
-	// 1. DO SAVE (Create)
+	
 	public void doSave(ProdottoCarrelloBean prodottoCarrello) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -37,7 +37,7 @@ public class ProdottoCarrelloDAO {
 		}
 	}
 
-	// 2. DO UPDATE (Update)
+	
 	public void doUpdate(ProdottoCarrelloBean prodottoCarrello) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -87,7 +87,7 @@ public class ProdottoCarrelloDAO {
 		}
 	}
 
-	// 3. DO RETRIEVE BY KEY (Read singola)
+	
 	public ProdottoCarrelloBean doRetrieveByKey(int id) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -105,7 +105,7 @@ public class ProdottoCarrelloDAO {
 			rs = ps.executeQuery();
 
 			if (rs.next()) {
-				prodottoCarrello = new ProdottoCarrelloBean(); // Inizializzazione corretta
+				prodottoCarrello = new ProdottoCarrelloBean(); 
 				prodottoCarrello.setId(rs.getInt("id"));
 				prodottoCarrello.setId_prodotto(rs.getInt("id_prodotto"));
 				prodottoCarrello.setId_carrello(rs.getInt("id_carrello"));
@@ -128,7 +128,7 @@ public class ProdottoCarrelloDAO {
 		return prodottoCarrello;
 	}
 
-	// 4. DO RETRIEVE ALL (Read totale)
+	
 	public Collection<ProdottoCarrelloBean> doRetrieveAll() throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -169,8 +169,7 @@ public class ProdottoCarrelloDAO {
 		return lista;
 	}
 
-	// 5. BONUS: DO RETRIEVE BY CARRELLO (Molto utile per recuperare il contenuto di
-	// un carrello specifico)
+	
 	public List<ProdottoCarrelloBean> doRetrieveByCarrello(int idCarrello) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;

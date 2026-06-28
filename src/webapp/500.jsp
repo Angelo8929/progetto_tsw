@@ -17,6 +17,6 @@
         <a href="<%= request.getContextPath() %>/" class="btn-home">Torna alla Home</a>
     </div>
 
-    <%-- Dettaglio tecnico nascosto nel sorgente HTML per il debug rapido --%>
+    
     </body>
 </html>
