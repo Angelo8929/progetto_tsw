@@ -29,13 +29,29 @@ public class IndexServlet extends HttpServlet {
 		ProdottoDAO pdao = new ProdottoDAO();
 
 		try {
-			List<ProdottoBean> prodotti = pdao.doRetrieveAll();
+			ProdottoDAO prodottoDAO = new ProdottoDAO();
+			
+			List<ProdottoBean> tuttiIProdotti = prodottoDAO.doRetrieveAll();
 
-			request.setAttribute("prodotti", prodotti);
+			List<ProdottoBean> prodottiInEvidenza = null;
+
+			if (tuttiIProdotti != null && !tuttiIProdotti.isEmpty()) {
+				
+				java.util.Collections.shuffle(tuttiIProdotti);
+
+				
+				int limite = Math.min(tuttiIProdotti.size(), 4);
+				prodottiInEvidenza = tuttiIProdotti.subList(0, limite);
+			}
+
+			
+			request.setAttribute("prodotti", prodottiInEvidenza);
+
 			request.getRequestDispatcher("home.jsp").forward(request, response);
+
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			response.sendRedirect("errore.jsp");
 		}
 	}
 

@@ -30,33 +30,29 @@
 
 <div class="in_evidenza_products">
 	
-	<% if (prodotti != null) { 
-        for (ProdottoBean prodotto : prodotti) { %>
+	<% 
+	if (prodotti != null && !prodotti.isEmpty()) { 
+        for (ProdottoBean prodotto : prodotti) { 
+	%>
             <div class="item">
-            
-            
-            
-           <div class="item_title"><%= prodotto.getNome_prodotto() %></div> 
-           <div class="item_price"><%= prodotto.getPrezzo() %> euro</div>
-           <div class="item_photo"> 
-           
-            <a class="item_link"href="ProdottoServlet?id=<%=prodotto.getId_prodotto()%>"><img src="<%= request.getContextPath() %>/images/<%= prodotto.getImgPath() %>" alt="foto prodotto" /></a>
-           
-           
-           
-           
-           </div>
-            
-            <form action="AggiungiAlCarrelloServlet" method="post">
-            
-            	<input type="hidden" name="id_prodotto" value="<%=prodotto.getId_prodotto() %>" />
-            	 <input type="number" name="quantita" value="1" min="1" max="<%= prodotto.getDisponibilita() %>">
-            	<button type="submit">Aggiungi al carrello</button>
-            </form>
-            
+               <div class="item_title"><%= prodotto.getNome_prodotto() %></div> 
+               <div class="item_price"><%= String.format("%.2f", prodotto.getPrezzo()) %> €</div>
+               <div class="item_photo"> 
+                   <a class="item_link" href="ProdottoServlet?id=<%=prodotto.getId_prodotto()%>">
+                       <img src="<%= request.getContextPath() %>/images/<%= prodotto.getImgPath() %>" alt="foto prodotto" />
+                   </a>
+               </div>
+                
+                <form action="AggiungiAlCarrelloServlet" method="post">
+                	<input type="hidden" name="id_prodotto" value="<%=prodotto.getId_prodotto() %>" />
+                	<input type="number" name="quantita" value="1" min="1" max="<%= prodotto.getDisponibilita() %>">
+                	<button type="submit">Aggiungi al carrello</button>
+                </form>
             </div>
-    <%   } 
-       } else { %>
+    <%   
+		} 
+	} else { 
+	%>
         <div>Nessun prodotto in evidenza.</div>
     <% } %>
 
