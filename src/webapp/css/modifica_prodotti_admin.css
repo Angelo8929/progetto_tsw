@@ -1,6 +1,4 @@
-/* ==========================================================================
-   1. Contenitore Principale e Layout
-   ========================================================================== */
+
 .container {
     max-width: 1200px;
     margin: 40px auto 80px auto;
@@ -51,9 +49,7 @@
     padding-bottom: 10px;
 }
 
-/* ==========================================================================
-   2. Struttura del Form a Griglia (Layout Multicolonna)
-   ========================================================================== */
+
 .grid-form {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -95,7 +91,7 @@
     box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
 }
 
-/* Select personalizzata per la Categoria */
+
 .form-gruppo select {
     cursor: pointer;
     appearance: none;
@@ -110,14 +106,12 @@
     background-color: var(--card-bg);
 }
 
-/* CLASSE DI SUPPORTO JAVASCRIPT: Nasconde i campi dinamicamente */
+
 .nascosto {
     display: none !important;
 }
 
-/* ==========================================================================
-   3. Pulsanti del Form (Salva, Annulla)
-   ========================================================================== */
+
 .btn-salva {
     background-color: var(--accent-wine);
     color: white;
@@ -155,9 +149,7 @@
     color: #fff;
 }
 
-/* ==========================================================================
-   4. Tabella Inventario Prodotti
-   ========================================================================== */
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -188,12 +180,12 @@ td {
     font-size: 0.95rem;
 }
 
-/* Righe speciali */
+
 tr:last-child td {
     border-bottom: none;
 }
 
-/* Sostituisce lo stile in-line inline del record in modifica attiva */
+
 tr[style*="background-color"] {
     background-color: rgba(212, 175, 55, 0.08) !important;
     border-left: 4px solid var(--accent-gold);
@@ -203,7 +195,7 @@ tr[style*="background-color"] td {
     color: #fff;
 }
 
-/* Badge Categoria */
+
 td span[style*="background: #eee"] {
     background-color: rgba(255, 255, 255, 0.08) !important;
     color: var(--accent-gold) !important;
@@ -214,7 +206,7 @@ td span[style*="background: #eee"] {
     border: 1px solid rgba(212, 175, 55, 0.2);
 }
 
-/* Bottoni d'Azione Tabella (Seleziona, Cancella) */
+
 .btn-azione {
     display: inline-block;
     background-color: #3a3a4a;
@@ -233,13 +225,13 @@ td span[style*="background: #eee"] {
     color: #fff;
 }
 
-/* Quando il bottone si disattiva perché il prodotto è "In modifica..." */
+
 .btn-azione[style*="background-color: #999"] {
     background-color: var(--accent-gold) !important;
     color: var(--bg-dark) !important;
     border-color: var(--accent-gold) !important;
     font-weight: bold;
-    pointer-events: none; /* Impedisce click multipli */
+    pointer-events: none; 
 }
 
 .btn-cancella {
@@ -261,9 +253,7 @@ td span[style*="background: #eee"] {
     color: white;
 }
 
-/* ==========================================================================
-   5. Ottimizzazione Mobile (Responsive)
-   ========================================================================== */
+
 @media (max-width: 768px) {
     .container h1 {
         font-size: 1.8rem;
@@ -273,7 +263,7 @@ td span[style*="background: #eee"] {
         padding: 20px;
     }
 
-    /* Trasformazione della tabella in blocchi verticali */
+    
     table, thead, tbody, th, td, tr {
         display: block;
     }

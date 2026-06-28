@@ -19,9 +19,7 @@ import model.ProdottoCarrelloDAO;
 import model.ProdottoDAO;
 import model.UtenteBean;
 
-/**
- * Servlet implementation class CarrelloServlet
- */
+
 @WebServlet("/CarrelloServlet")
 public class CarrelloServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -29,9 +27,7 @@ public class CarrelloServlet extends HttpServlet {
 	private ProdottoCarrelloDAO prodottoCarrelloDAO;
 	private ProdottoDAO prodottoDAO;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
+	
 	public CarrelloServlet() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -43,10 +39,7 @@ public class CarrelloServlet extends HttpServlet {
 		prodottoDAO = new ProdottoDAO();
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
@@ -133,10 +126,7 @@ public class CarrelloServlet extends HttpServlet {
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();

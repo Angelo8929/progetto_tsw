@@ -1,11 +1,9 @@
-/* ==========================================================================
-   1. Centratura Assoluta dello Schermo
-   ========================================================================== */
+
 body {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 100vh; /* Forza il contenitore a centrarsi verticalmente nell'intera pagina */
+    min-height: 100vh; 
     background-color: var(--bg-dark);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
@@ -24,11 +22,9 @@ body {
     margin: 20px;
 }
 
-/* ==========================================================================
-   2. Grafica del Codice di Errore (403, 404, 500, ecc.)
-   ========================================================================== */
+
 .error-container h1 {
-    font-size: 6rem; /* Numero imponente per l'impatto visivo dell'errore */
+    font-size: 6rem; 
     font-weight: 800;
     color: var(--accent-gold);
     margin: 0 0 10px 0;
@@ -53,9 +49,7 @@ body {
     margin-bottom: 35px;
 }
 
-/* ==========================================================================
-   3. Pulsante di Ritorno alla Home (Identità Bordeaux)
-   ========================================================================== */
+
 .btn-home {
     display: inline-block;
     background-color: var(--accent-wine);
@@ -77,12 +71,10 @@ body {
 }
 
 .btn-home:active {
-    transform: scale(0.98); /* Effetto click dinamico */
+    transform: scale(0.98); 
 }
 
-/* ==========================================================================
-   4. Ottimizzazione Mobile (Responsive)
-   ========================================================================== */
+
 @media (max-width: 550px) {
     .error-container {
         padding: 40px 25px;
@@ -90,7 +82,7 @@ body {
     }
 
     .error-container h1 {
-        font-size: 4.5rem; /* Rimpicciolisce il codice numerico su schermi molto stretti */
+        font-size: 4.5rem; 
     }
 
     .error-container h2 {

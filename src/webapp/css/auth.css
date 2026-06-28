@@ -1,6 +1,4 @@
-/* ==========================================================================
-   1. Contenitore Principale (Centratura del Form)
-   ========================================================================== */
+
 h1 {
     text-align: center;
     font-size: 2.2rem;
@@ -13,7 +11,7 @@ h1 {
 
 .form {
     max-width: 450px;
-    margin: 0 auto 80px auto; /* Centra nella pagina e stacca dal footer */
+    margin: 0 auto 80px auto; 
     background-color: var(--card-bg);
     padding: 40px;
     border-radius: 12px;
@@ -22,9 +20,7 @@ h1 {
     box-sizing: border-box;
 }
 
-/* ==========================================================================
-   2. Gestione Messaggi di Errore e Successo (Java request attributes)
-   ========================================================================== */
+
 body > p, .form p {
     text-align: center;
     padding: 12px;
@@ -35,23 +31,21 @@ body > p, .form p {
     box-sizing: border-box;
 }
 
-/* Messaggio di Errore (Rosso) */
+
 .error-msg { 
     color: #ff4d4d !important;
     background-color: rgba(255, 77, 77, 0.1) !important;
     border: 1px solid #ff4d4d !important;
 }
 
-/* Messaggio di Successo (Verde) */
+
 .success-msg {
     color: #4cd137 !important;
     background-color: rgba(76, 209, 55, 0.1) !important;
     border: 1px solid #4cd137 !important;
 }
 
-/* ==========================================================================
-   3. Campi di Input (Label e Input)
-   ========================================================================== */
+
 .campo {
     margin-bottom: 22px;
     display: flex;
@@ -88,14 +82,12 @@ body > p, .form p {
     box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
 }
 
-/* ==========================================================================
-   4. Link Alternativo (Fallo / Accedi)
-   ========================================================================== */
+
 .form span {
     color: var(--text-muted);
     font-size: 0.95rem;
     display: inline-block;
-    margin-bottom: 20px; /* Spazia rispetto al bottone sotto */
+    margin-bottom: 20px; 
 }
 
 .form a {
@@ -112,9 +104,7 @@ body > p, .form p {
     text-decoration: underline;
 }
 
-/* ==========================================================================
-   5. Bottoni di Invio (Accedi / Registrati)
-   ========================================================================== */
+
 .form input[type="submit"] {
     width: 100%;
     background-color: var(--accent-wine);
@@ -137,13 +127,11 @@ body > p, .form p {
     transform: scale(0.98);
 }
 
-/* ==========================================================================
-   6. Ottimizzazione Mobile (Responsive)
-   ========================================================================== */
+
 @media (max-width: 500px) {
     .form {
         margin: 20px 15px 60px 15px;
-        padding: 25px 20px; /* Ridotto leggermente il padding laterale per massimizzare lo spazio */
+        padding: 25px 20px; 
     }
     h1 {
         font-size: 1.8rem;
