@@ -79,7 +79,7 @@ public class UtenteDAO {
 		ResultSet rs = null;
 		UtenteBean utente = null;
 
-		// FIX: Cambiato 'email_utente' in 'email' per allinearlo alla tabella utente
+		
 		String sql = "select * from utente where email = ?";
 
 		try {
@@ -91,7 +91,7 @@ public class UtenteDAO {
 
 			if (rs.next()) {
 				utente = new UtenteBean();
-				utente.setEmail(rs.getString("email")); // FIX: Anche qui 'email'
+				utente.setEmail(rs.getString("email")); 
 				utente.setUsername(rs.getString("username"));
 				utente.setPassword(rs.getString("password"));
 				utente.setAdmin(rs.getBoolean("isAdmin"));

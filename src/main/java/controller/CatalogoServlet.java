@@ -25,7 +25,7 @@ public class CatalogoServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		try {
-			// 1. Recupero dei parametri di filtraggio inviati dal form della sidebar
+			
 			String[] categorieSelezionate = request.getParameterValues("categoria");
 			String prezzoMinParam = request.getParameter("prezzoMin");
 			String prezzoMaxParam = request.getParameter("prezzoMax");
@@ -39,26 +39,21 @@ public class CatalogoServlet extends HttpServlet {
 					? Double.parseDouble(prezzoMaxParam)
 					: Double.MAX_VALUE;
 
-			// 2. Controllo della logica dei filtri
-			// Se ci sono filtri attivi, deleghiamo una ricerca mirata, altrimenti prendiamo
-			// tutto il catalogo
+			
 			if ((categorieSelezionate != null && categorieSelezionate.length > 0)
 					|| (prezzoMinParam != null && !prezzoMinParam.isEmpty())
 					|| (prezzoMaxParam != null && !prezzoMaxParam.isEmpty())) {
 
-				// Passiamo l'array delle categorie al nuovo metodo del DAO
+				
 				prodotti = prodottoDAO.doRetrieveAllFiltered(categorieSelezionate, prezzoMin, prezzoMax);
 			} else {
 				prodotti = prodottoDAO.doRetrieveAll();
 			}
 
-			// 3. Passiamo la lista dei prodotti come attributo della request
+			
 			request.setAttribute("prodotti", prodotti);
 
-			// 4. Inoltriamo la richiesta alla tua pagina del catalogo (es. catalogo.jsp o
-			// index.jsp)
-			// Assicurati che il nome del file .jsp qui sotto sia identico a quello reale
-			// del tuo progetto
+			
 			request.getRequestDispatcher("/catalogo.jsp").forward(request, response);
 
 		} catch (SQLException e) {
@@ -67,8 +62,7 @@ public class CatalogoServlet extends HttpServlet {
 			request.getRequestDispatcher("/errore.jsp").forward(request, response);
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
-			// Se l'utente scrive valori non numerici nei campi prezzo, ricarichiamo senza
-			// filtri
+			
 			response.sendRedirect(request.getContextPath() + "/CatalogoServlet");
 		}
 	}

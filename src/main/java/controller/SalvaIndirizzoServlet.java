@@ -24,7 +24,7 @@ public class SalvaIndirizzoServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// FIX: Puntiamo alla Servlet del profilo, non alla JSP nuda
+		
 		response.sendRedirect(request.getContextPath() + "/AreaRiservataServlet");
 	}
 
@@ -34,14 +34,14 @@ public class SalvaIndirizzoServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		UtenteBean utenteLoggato = (UtenteBean) session.getAttribute("user");
 
-		// 1. Controllo sicurezza
+		
 		if (utenteLoggato == null) {
 			request.setAttribute("errorMessage", "Devi effettuare il login per salvare un indirizzo.");
 			request.getRequestDispatcher("/login.jsp").forward(request, response);
 			return;
 		}
 
-		// 2. Recupero dei parametri inviati dal form HTML
+		
 		String destinatario = request.getParameter("destinatario");
 		String via = request.getParameter("via");
 		String civicoParam = request.getParameter("civico");
@@ -51,7 +51,6 @@ public class SalvaIndirizzoServlet extends HttpServlet {
 				|| via.isEmpty() || civicoParam.isEmpty() || citta.isEmpty()) {
 
 			request.setAttribute("errorMessage", "Tutti i campi dell'indirizzo sono obbligatori.");
-			// FIX: Cambiato in /area_riservata.jsp
 			request.getRequestDispatcher("/area_riservata.jsp").forward(request, response);
 			return;
 		}
@@ -59,7 +58,7 @@ public class SalvaIndirizzoServlet extends HttpServlet {
 		try {
 			int civico = Integer.parseInt(civicoParam);
 
-			// 3. Creazione del Bean e popolamento dei dati
+			
 			InfoConsegnaBean nuovoIndirizzo = new InfoConsegnaBean();
 			nuovoIndirizzo.setDestinatario(destinatario);
 			nuovoIndirizzo.setVia(via);
@@ -67,26 +66,22 @@ public class SalvaIndirizzoServlet extends HttpServlet {
 			nuovoIndirizzo.setCitta(citta);
 			nuovoIndirizzo.setId_utente(utenteLoggato.getEmail());
 
-			// 4. Salvataggio su Database tramite DAO
+			
 			infoConsegnaDAO.doSave(nuovoIndirizzo);
 
-			// 5. Gestione intelligente del Reindirizzamento
+			
 			String provenienza = request.getHeader("Referer");
 			if (provenienza != null
 					&& (provenienza.contains("CheckoutServlet") || provenienza.contains("checkout.jsp"))) {
 				response.sendRedirect(request.getContextPath() + "/CheckoutServlet");
 			} else {
-				// FIX FONDAMENTALE: Reindirizziamo alla Servlet passandogli il parametro
-				// success.
-				// Sarà lei a ricaricare la lista aggiornata dal DB e a fare il forward a
-				// area_riservata.jsp
 				response.sendRedirect(request.getContextPath() + "/AreaRiservataServlet?success=true");
 			}
 
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", "Il numero civico deve essere un valore numerico valido.");
-			// FIX: Cambiato in /area_riservata.jsp
+			
 			request.getRequestDispatcher("/area_riservata.jsp").forward(request, response);
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -24,17 +24,16 @@ public class OrdiniAdminServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// Recuperiamo i parametri di filtraggio dal form
+		
 		String filtroEmail = request.getParameter("filtroEmail");
 		String dataInizio = request.getParameter("dataInizio");
 		String dataFine = request.getParameter("dataFine");
 
 		try {
-			// Eseguiamo la query filtrata
+			
 			List<OrdineBean> tuttiGliOrdini = ordineDAO.doRetrieveWithFilters(filtroEmail, dataInizio, dataFine);
 
-			// Passiamo sia la lista che i valori attuali dei filtri (per mantenerli scritti
-			// negli input della JSP)
+			
 			request.setAttribute("tuttiGliOrdini", tuttiGliOrdini);
 			request.setAttribute("filtroEmail", filtroEmail != null ? filtroEmail : "");
 			request.setAttribute("dataInizio", dataInizio != null ? dataInizio : "");

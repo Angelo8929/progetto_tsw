@@ -53,8 +53,7 @@ public class FatturaServlet extends HttpServlet {
 			int idOrdine = Integer.parseInt(idParam);
 			OrdineBean ordine = ordineDAO.doRetrieveByKey(idOrdine);
 
-			// Controllo sicurezza: Un cliente normale può scaricare solo le SUE fatture.
-			// L'admin tutte.
+			
 			if (ordine == null
 					|| (!utenteLoggato.getIsAdmin() && !ordine.getEmail_utente().equals(utenteLoggato.getEmail()))) {
 				response.sendError(HttpServletResponse.SC_FORBIDDEN,
@@ -62,22 +61,22 @@ public class FatturaServlet extends HttpServlet {
 				return;
 			}
 
-			// PREPARAZIONE RISPOSTA HTTP PER IL DOWNLOAD DEL PDF
+			
 			response.setContentType("application/pdf");
 			response.setHeader("Content-Disposition", "attachment; filename=Fattura_AlcoMarket_#" + idOrdine + ".pdf");
 
-			// CREAZIONE DOCUMENTO PDF CON OPENPDF
+			
 			Document document = new Document();
 			PdfWriter.getInstance(document, response.getOutputStream());
 
 			document.open();
 
-			// Stili dei Font
+			
 			Font fontTitolo = new Font(Font.HELVETICA, 20, Font.BOLD);
 			Font fontSub = new Font(Font.HELVETICA, 12, Font.NORMAL);
 			Font fontBold = new Font(Font.HELVETICA, 11, Font.BOLD);
 
-			// Intestazione Azienda
+			
 			document.add(new Paragraph("AlcoMarket S.r.l.", fontTitolo));
 			document.add(new Paragraph("Via giovanni paolo II, Fisciano (SA)", fontSub));
 			document.add(new Paragraph("Email: {a.verolla, m.korovskyy}@studenti.unisa.it", fontSub));
@@ -86,26 +85,24 @@ public class FatturaServlet extends HttpServlet {
 					"---------------------------------------------------------------------------------------------------------------------------------"));
 			document.add(new Paragraph(" ", fontSub));
 
-			// Dettagli Fattura / Cliente
+			
 			document.add(new Paragraph("FATTURA ORDINE RELATIVA AL DOCUMENTO N. #" + ordine.getId_ordine(), fontBold));
 			document.add(new Paragraph("Data Spedizione: " + ordine.getData_ordine(), fontSub));
 			document.add(new Paragraph("Cliente: " + ordine.getEmail_utente(), fontSub));
 			document.add(new Paragraph(" ", fontSub));
 
-			// TABELLA DEI PRODOTTI ACQUISTATI
+			
 			PdfPTable table = new PdfPTable(4); // 4 colonne
 			table.setWidthPercentage(100);
 			table.setWidths(new float[] { 40f, 20f, 20f, 20f }); // Proporzioni colonne
 
-			// Intestazioni della tabella
+			
 			table.addCell(new PdfPCell(new Phrase("Prodotto", fontBold)));
 			table.addCell(new PdfPCell(new Phrase("Prezzo Unitario", fontBold)));
 			table.addCell(new PdfPCell(new Phrase("Quantità", fontBold)));
 			table.addCell(new PdfPCell(new Phrase("Totale", fontBold)));
 
-			// Recuperiamo gli articoli legati a questo ordine dal tuo DAO
-			// NOTA: adatta questo metodo e il Bean a come recuperi i singoli articoli
-			// ordinati
+			
 			Collection<ProdottoOrdineBean> articoliOrdinati = prodottoOrdineDAO.doRetrieveByOrdine(idOrdine);
 
 			if (articoliOrdinati != null) {
@@ -122,13 +119,13 @@ public class FatturaServlet extends HttpServlet {
 			document.add(table);
 			document.add(new Paragraph(" ", fontSub));
 
-			// Totale Complessivo Speso
+			
 			Paragraph totaleFinale = new Paragraph(
 					"TOTALE PAGATO: " + String.format("%.2f", ordine.getCosto_totale() / 100.0) + " €", fontTitolo);
 			totaleFinale.setAlignment(Element.ALIGN_RIGHT);
 			document.add(totaleFinale);
 
-			// Chiusura Scrittura Documento
+			
 			document.close();
 
 		} catch (NumberFormatException | SQLException | DocumentException e) {

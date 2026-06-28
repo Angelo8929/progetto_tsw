@@ -61,8 +61,7 @@ public class AggiungiAlCarrelloServlet extends HttpServlet {
 			quantita = Integer.parseInt(request.getParameter("quantita"));
 
 			if (quantita <= 0) {
-				// FIX: Meglio usare un sendRedirect alla Servlet se possibile, o assicurarsi
-				// che la servlet ProdottoServlet gestisca l'errore
+				
 				request.setAttribute("errorMessage", "La quantità deve essere almeno 1.");
 				request.getRequestDispatcher("/ProdottoServlet?id=" + id_prodotto).forward(request, response);
 				return;
@@ -105,7 +104,7 @@ public class AggiungiAlCarrelloServlet extends HttpServlet {
 				}
 
 			} else {
-				@SuppressWarnings("unchecked")
+				
 				Map<Integer, Integer> carrelloOspite = (Map<Integer, Integer>) session.getAttribute("carrelloOspite");
 
 				if (carrelloOspite == null) {
@@ -123,9 +122,7 @@ public class AggiungiAlCarrelloServlet extends HttpServlet {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			// FIX FONDAMENTALE: Reindirizziamo alla Servlet passandogli l'id del prodotto.
-			// La Servlet ricaricherà l'attributo "prodotto" salvando la pagina di dettaglio
-			// dal crash.
+			
 			response.sendRedirect(request.getContextPath() + "/ProdottoServlet?id="
 					+ (id_prodotto != null ? id_prodotto : "") + "&error=true");
 		}

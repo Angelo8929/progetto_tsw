@@ -42,11 +42,10 @@ public class AdminCancellaProdottoServlet extends HttpServlet {
 				return;
 			}
 
-			// Esecuzione della cancellazione
+			
 			prodottoDAO.doDelete(id_prodotto);
 
-			// Inviamo il messaggio di successo nell'URL in modo che l'altra servlet possa
-			// intercettarlo
+			
 			String successMessage = "Prodotto '" + prodottoDaCancellare.getNome_prodotto()
 					+ "' eliminato con successo.";
 			response.sendRedirect(redirectUrl + "?successMessage=" + URLEncoder.encode(successMessage, "UTF-8"));

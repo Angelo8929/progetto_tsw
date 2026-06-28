@@ -51,28 +51,24 @@ public class CarrelloDAO {
 	public void doSave(CarrelloBean carrello) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
-		ResultSet rs = null; // Ci serve per recuperare l'ID generato dal DB
-
-		// Specifichiamo solo la colonna dell'utente, lasciando l'id_carrello
-		// all'AUTO_INCREMENT del DB
+		ResultSet rs = null; 
 		String sql = "INSERT INTO carrello (email_utente) VALUES (?)";
 
 		try {
 			con = ConnectionPool.getConnection();
 
-			// Passiamo il flag RETURN_GENERATED_KEYS per dire a JDBC di intercettare l'ID
-			// creato da MySQL/PostgreSQL
+			
 			ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
 			ps.setString(1, carrello.getId_utente());
 
 			ps.executeUpdate();
 
-			// Recuperiamo l'ID generato automaticamente
+			
 			rs = ps.getGeneratedKeys();
 			if (rs.next()) {
 				int idGenerato = rs.getInt(1);
-				carrello.setId_carrello(idGenerato); // Aggiorna l'oggetto in memoria con il vero ID!
+				carrello.setId_carrello(idGenerato); 
 			}
 
 		} finally {
@@ -94,17 +90,14 @@ public class CarrelloDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 
-		// Assumo che id_carrello sia la chiave primaria
+		
 		String sql = "UPDATE carrello SET email_utente = ? WHERE id_carrello = ?";
 
 		try {
 			con = ConnectionPool.getConnection();
 			ps = con.prepareStatement(sql);
 
-			// ATTENZIONE: se nel DB email_utente è una stringa (come suggerisce il
-			// doRetreiveByUtente),
-			// dovresti usare carrello.getEmail_utente() [String].
-			// Qui ho tenuto ps.setInt per consistenza con il tuo codice doSave.
+			
 			ps.setString(1, carrello.getId_utente());
 			ps.setInt(2, carrello.getId_carrello());
 
@@ -136,8 +129,7 @@ public class CarrelloDAO {
 			rs = ps.executeQuery();
 
 			if (rs.next()) {
-				// FIX: Inizializzo l'oggetto prima di popolarlo altrimenti lancia
-				// NullPointerException
+				
 				carrello = new CarrelloBean();
 				carrello.setId_carrello(rs.getInt("id_carrello"));
 				carrello.setId_utente(rs.getString("email_utente"));

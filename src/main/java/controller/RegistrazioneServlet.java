@@ -46,7 +46,7 @@ public class RegistrazioneServlet extends HttpServlet {
 		String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
 		String passwordRegex = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,16}$";
 
-		// Controlli sui singoli campi
+		
 		if (username == null || !username.trim().matches(usernameRegex)) {
 			erroriList.add(
 					"L'username deve contenere da 5 a 15 caratteri (sono ammessi solo lettere, numeri, punti e underscore).");
@@ -62,17 +62,17 @@ public class RegistrazioneServlet extends HttpServlet {
 			erroriList.add("La password di conferma non coincide con la password inserita.");
 		}
 
-		// Se ci sono errori di validazione formale, ci fermiamo qui
+		
 		if (!erroriList.isEmpty()) {
 			request.setAttribute("errori", erroriList);
-			// Rimandiamo indietro i vecchi dati per non svuotare il form
+			
 			request.setAttribute("oldUsername", username);
 			request.setAttribute("oldEmail", email);
 
 			request.getRequestDispatcher("register.jsp").forward(request, response);
 			return;
 		}
-		// Se i controlli formali sono passati, interroghiamo il database
+		
 		UtenteDAO udao = new UtenteDAO();
 		try {
 			if (udao.doRetrieveByEmail(email.trim()) != null) {
@@ -91,7 +91,7 @@ public class RegistrazioneServlet extends HttpServlet {
 
 			udao.doSave(ub);
 
-			// Salviamo in sessione per non perdere il messaggio nel sendRedirect
+			
 			request.setAttribute("successMessage", "Registrazione completata con successo! Adesso puoi accedere.");
 			response.sendRedirect("login.jsp");
 

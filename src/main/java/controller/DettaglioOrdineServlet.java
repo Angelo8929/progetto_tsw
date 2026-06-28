@@ -47,20 +47,19 @@ public class DettaglioOrdineServlet extends HttpServlet {
 		try {
 			int idOrdine = Integer.parseInt(idParam);
 
-			// 1. Recuperiamo la testata dell'ordine
+			
 			OrdineBean ordine = ordineDAO.doRetrieveByKey(idOrdine);
 
-			// Controllo di sicurezza fondamentale: l'ordine deve appartenere all'utente
-			// loggato!
+			
 			if (ordine == null || !ordine.getEmail_utente().equals(utenteLoggato.getEmail())) {
 				response.sendRedirect(request.getContextPath() + "/AreaRiservataServlet");
 				return;
 			}
 
-			// 2. Recuperiamo i dettagli dei prodotti acquistati
+			
 			List<ProdottoOrdineBean> dettagli = prodottoOrdineDAO.doRetrieveByOrdine(idOrdine);
 
-			// Passiamo i dati alla JSP di dettaglio
+			
 			request.setAttribute("ordine", ordine);
 			request.setAttribute("dettagli", dettagli);
 
