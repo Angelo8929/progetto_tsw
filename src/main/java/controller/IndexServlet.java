@@ -33,16 +33,31 @@ public class IndexServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		ProdottoDAO pdao = new ProdottoDAO();
-
 		try {
-			List<ProdottoBean> prodotti = pdao.doRetrieveAll();
+			ProdottoDAO prodottoDAO = new ProdottoDAO();
+			// 1. Recuperiamo tutti i prodotti dal database
+			List<ProdottoBean> tuttiIProdotti = prodottoDAO.doRetrieveAll();
 
-			request.setAttribute("prodotti", prodotti);
-			request.getRequestDispatcher("home.jsp").forward(request, response);
+			List<ProdottoBean> prodottiInEvidenza = null;
+
+			if (tuttiIProdotti != null && !tuttiIProdotti.isEmpty()) {
+				// 2. Mescoliamo la lista in modo completamente casuale
+				java.util.Collections.shuffle(tuttiIProdotti);
+
+				// 3. Prendiamo al massimo 4 prodotti (usiamo Math.min per evitare crash se sul
+				// DB ci sono meno di 4 prodotti totali)
+				int limite = Math.min(tuttiIProdotti.size(), 4);
+				prodottiInEvidenza = tuttiIProdotti.subList(0, limite);
+			}
+
+			// 4. Passiamo alla JSP la lista che ora contiene esattamente 4 prodotti casuali
+			request.setAttribute("prodotti", prodottiInEvidenza);
+
+			request.getRequestDispatcher("/home.jsp").forward(request, response);
+
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			response.sendRedirect("errore.jsp");
 		}
 	}
 
