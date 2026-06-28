@@ -77,10 +77,10 @@ public class FatturaServlet extends HttpServlet {
 			Font fontBold = new Font(Font.HELVETICA, 11, Font.BOLD);
 
 			
-			document.add(new Paragraph("AlcoMarket S.r.l.", fontTitolo));
-			document.add(new Paragraph("Via giovanni paolo II, Fisciano (SA)", fontSub));
+			document.add(new Paragraph("AlcoMarket S.P.A", fontTitolo));
+			document.add(new Paragraph("Via Giovanni Paolo II, Fisciano (SA)", fontSub));
 			document.add(new Paragraph("Email: {a.verolla, m.korovskyy}@studenti.unisa.it", fontSub));
-			document.add(new Paragraph(" ", fontSub)); // Spazio vuoto
+			document.add(new Paragraph(" ", fontSub)); 
 			document.add(new Paragraph(
 					"---------------------------------------------------------------------------------------------------------------------------------"));
 			document.add(new Paragraph(" ", fontSub));
@@ -92,9 +92,9 @@ public class FatturaServlet extends HttpServlet {
 			document.add(new Paragraph(" ", fontSub));
 
 			
-			PdfPTable table = new PdfPTable(5); // 4 colonne
+			PdfPTable table = new PdfPTable(5); 
 			table.setWidthPercentage(100);
-			table.setWidths(new float[] { 40f, 20f,20f,  20f, 20f }); // Proporzioni colonne
+			table.setWidths(new float[] { 40f, 20f,20f,  20f, 20f }); 
 
 			
 			table.addCell(new PdfPCell(new Phrase("Prodotto", fontBold)));
