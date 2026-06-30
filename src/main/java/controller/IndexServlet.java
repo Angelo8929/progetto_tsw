@@ -57,7 +57,7 @@ public class IndexServlet extends HttpServlet {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			response.sendRedirect("errore.jsp");
+			response.sendRedirect("500.jsp");
 		}
 	}
 
