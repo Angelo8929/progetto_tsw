@@ -26,8 +26,6 @@ public class IndexServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		ProdottoDAO pdao = new ProdottoDAO();
-
 		try {
 			ProdottoDAO prodottoDAO = new ProdottoDAO();
 			
