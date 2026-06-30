@@ -45,19 +45,16 @@ public class AreaRiservataServlet extends HttpServlet {
 		}
 
 		try {
-			
+
 			Collection<OrdineBean> ordiniPersonali = ordineDAO.doRetrieveByUtente(utenteLoggato.getEmail());
 			List<InfoConsegnaBean> indirizziPersonali = infoConsegnaDAO.doRetrieveByUtente(utenteLoggato.getEmail());
 
-			
 			request.setAttribute("listaOrdini", ordiniPersonali);
-			request.setAttribute("listaIndirizzi", indirizziPersonali); 
+			request.setAttribute("listaIndirizzi", indirizziPersonali);
 
-			
 			if (utenteLoggato.getIsAdmin()) {
 				request.setAttribute("isAdmin", true);
 
-				
 				List<OrdineBean> tuttiGliOrdini = ordineDAO.doRetrieveAll();
 				List<ProdottoBean> tuttiIProdotti = prodottoDAO.doRetrieveAll();
 
@@ -67,7 +64,6 @@ public class AreaRiservataServlet extends HttpServlet {
 				request.setAttribute("isAdmin", false);
 			}
 
-			
 			String success = request.getParameter("success");
 			if (success != null && success.equals("true")) {
 				request.setAttribute("successMessage", "Operazione completata con successo!");
@@ -78,7 +74,7 @@ public class AreaRiservataServlet extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", "Errore nel recupero dei dati del profilo: " + e.getMessage());
-			request.getRequestDispatcher("/errore.jsp").forward(request, response);
+			request.getRequestDispatcher("/500.jsp").forward(request, response);
 		}
 	}
 
