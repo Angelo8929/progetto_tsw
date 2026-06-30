@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <title>Checkout - Spedizione e Pagamento</title>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/css/checkout.css" media="all" />
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/area_riservata.css" media="all" />
     
 </head>
 <body>
@@ -25,15 +26,15 @@
         <p class="error-message"><%= errorMessage %></p>
     <% } %>
 
-    <%-- Ripilogo del costo --%>
+    
     <div class="box">
         <h2>Riepilogo Ordine</h2>
         <p>Totale da pagare: <strong><%= prezzoTotale %> €</strong></p>
     </div>
 
-    <%-- SEZIONE 1: SELEZIONE INDIRIZZO ESISTENTE --%>
+    
     <div class="box">
-        <h2>1. Scegli un indirizzo di spedizione</h2>
+        <h2>Scegli un indirizzo di spedizione</h2>
         
         <% if (listaIndirizzi == null || listaIndirizzi.isEmpty()) { %>
             <p>Non hai ancora indirizzi salvati. Compila il modulo sottostante per aggiungerne uno.</p>
@@ -56,28 +57,42 @@
         <% } %>
     </div>
 
-    <%-- SEZIONE 2: FORM PER AGGIUNGERE UN NUOVO INDIRIZZO --%>
+    
     <div class="box form-nuovo-indirizzo">
         <h2>O aggiungi un nuovo indirizzo</h2>
-        <form action="<%= request.getContextPath() %>/SalvaIndirizzoServlet" method="post">
-            <label>Nome e Cognome Destinatario</label>
-            <input type="text" name="destinatario" placeholder="Es. Mario Rossi" required>
+        <form action="SalvaIndirizzoServlet" method="post">
+				<div class="form-gruppo">
+					<label for="nome_cognome">Nome e Cognome Destinatario</label> <input
+						type="text" id="destinatario" name="destinatario"
+						placeholder="Es. Mario Rossi" required />
+				</div>
 
-            <label>Via / Piazza</label>
-            <input type="text" name="via" placeholder="Es. Via Roma" required>
+				<div class="form-gruppo">
+					<label for="via">Via</label> <input type="text" id="indirizzo_via"
+						name="via" placeholder="Es. Via Roma 12" required />
+				</div>
 
-            <label>Numero Civico</label>
-            <input type="number" name="civico" placeholder="Es. 12" required>
-            
-            
-            <label for="citta">Città</label>
-            <input type="text" name="citta" id="citta" />
 
-            <button type="submit" style="background-color: #008CBA; color: white; border: none; padding: 10px 15px; cursor: pointer; border-radius: 4px;">Salva Indirizzo</button>
-        </form>
+				<div class="form-gruppo">
+					<label for="civico">Civico</label> <input type="text" id="civico"
+						name="civico" placeholder="104" required />
+				</div>
+
+				<div class="form-gruppo">
+					<label for="citta">Città</label> <input type="text" id="citta"
+						name="citta" placeholder="teverola" required />
+				</div>
+
+
+
+				<div style="margin-top: 20px; text-align: right;">
+					<input type="submit" class="btn-salva" value="Salva Indirizzo" />
+				</div>
+			</form>
     </div>
 
 </div>
+<script src="<%=request.getContextPath() %>/js/indirizzi.js"></script>
 <%@ include file="footer.jsp"%>
 </body>
 </html>

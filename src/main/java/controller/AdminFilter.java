@@ -14,16 +14,16 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.UtenteBean;
 
-// Il filtro intercetta qualsiasi richiesta che inizi con /admin/
+
 @WebFilter("/admin/*")
 public class AdminFilter implements Filter {
 
 	public void init(FilterConfig fConfig) throws ServletException {
-		// Inizializzazione se necessaria
+		
 	}
 
 	public void destroy() {
-		// Pulizia risorse se necessaria
+		
 	}
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -49,12 +49,10 @@ public class AdminFilter implements Filter {
 		}
 
 		if (loggedIn && isAdmin) {
-			// L'utente è un amministratore: lascia proseguire la richiesta verso la
-			// servlet/JSP
+			
 			chain.doFilter(request, response);
 		} else {
-			// FIX: Usiamo il forward al posto del sendRedirect per non perdere l'attributo
-			// errorMessage
+			
 			httpResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
 			request.getRequestDispatcher("/403.jsp").forward(request, response);
 		}

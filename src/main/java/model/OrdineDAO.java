@@ -20,7 +20,7 @@ public class OrdineDAO {
 
 		try {
 			con = ConnectionPool.getConnection();
-			// Richiediamo esplicitamente l'ID autoincrementale generato
+			
 			ps = con.prepareStatement(sql, java.sql.Statement.RETURN_GENERATED_KEYS);
 
 			ps.setString(1, ordine.getData_ordine());
@@ -48,10 +48,10 @@ public class OrdineDAO {
 				}
 			}
 		}
-		return idGenerato; // Restituisce l'id alla Servlet
+		return idGenerato; 
 	}
 
-	// 2. DO UPDATE (Aggiornamento di un ordine esistente)
+	
 	public void doUpdate(OrdineBean ordine) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -79,7 +79,7 @@ public class OrdineDAO {
 		}
 	}
 
-	// 3. DO RETRIEVE BY KEY (Ricerca del singolo ordine tramite ID)
+	
 	public OrdineBean doRetrieveByKey(int idOrdine) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -120,7 +120,7 @@ public class OrdineDAO {
 		return ordine;
 	}
 
-	// 4. DO RETRIEVE ALL (Tutti gli ordini del sistema - es. per pannello Admin)
+	
 	public List<OrdineBean> doRetrieveAll() throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -161,14 +161,14 @@ public class OrdineDAO {
 		return lista;
 	}
 
-	// 5. DO RETRIEVE BY UTENTE (Storico ordini del singolo cliente)
+	
 	public Collection<OrdineBean> doRetrieveByUtente(String emailUtente) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<OrdineBean> lista = new ArrayList<>();
 
-		// Ordinati dal più recente al più vecchio (ottimo per la UI del profilo utente)
+		
 		String sql = "SELECT * FROM ordine WHERE email_utente = ? ORDER BY id_ordine DESC";
 
 		try {
@@ -212,10 +212,10 @@ public class OrdineDAO {
 		ResultSet rs = null;
 		List<OrdineBean> ordini = new ArrayList<>();
 
-		// Base della query
+		
 		StringBuilder sql = new StringBuilder("SELECT * FROM ordine WHERE 1=1");
 
-		// Aggiunta dinamica dei filtri se presenti
+		
 		if (email != null && !email.trim().isEmpty()) {
 			sql.append(" AND email_utente LIKE ?");
 		}
@@ -249,9 +249,9 @@ public class OrdineDAO {
 				OrdineBean ordine = new OrdineBean();
 				ordine.setId_ordine(rs.getInt("id_ordine"));
 				ordine.setEmail_utente(rs.getString("email_utente"));
-				ordine.setData_ordine(rs.getString("data_ordine")); // o rs.getDate a seconda del tuo Bean
+				ordine.setData_ordine(rs.getString("data_ordine")); 
 				ordine.setNum_prodotti(rs.getInt("num_prodotti"));
-				ordine.setCosto_totale(rs.getInt("costo_totale")); // o double/int centesimi
+				ordine.setCosto_totale(rs.getInt("costo_totale")); 
 
 				ordini.add(ordine);
 			}

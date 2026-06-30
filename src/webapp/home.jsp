@@ -32,22 +32,15 @@
 	
 	<% 
 	if (prodotti != null && !prodotti.isEmpty()) { 
-		int limiteProdotti = 4; // Cambia questo numero per decidere quanti metterne in evidenza
-		int contatore = 0;
-		
-		for (ProdottoBean prodotto : prodotti) { 
-			if (contatore >= limiteProdotti) {
-				break; // Interrompe il ciclo appena raggiungiamo il limite
-			}
-			contatore++;
+        for (ProdottoBean prodotto : prodotti) { 
 	%>
             <div class="item">
                <div class="item_title"><%= prodotto.getNome_prodotto() %></div> 
                <div class="item_price"><%= String.format("%.2f", prodotto.getPrezzo()) %> €</div>
                <div class="item_photo"> 
-                <a class="item_link" href="ProdottoServlet?id=<%=prodotto.getId_prodotto()%>">
-                	<img src="<%= request.getContextPath() %>/images/<%= prodotto.getImgPath() %>" alt="foto prodotto" />
-                </a>
+                   <a class="item_link" href="ProdottoServlet?id=<%=prodotto.getId_prodotto()%>">
+                       <img src="<%= request.getContextPath() %>/images/<%= prodotto.getImgPath() %>" alt="foto prodotto" />
+                   </a>
                </div>
                 
                 <form action="AggiungiAlCarrelloServlet" method="post">

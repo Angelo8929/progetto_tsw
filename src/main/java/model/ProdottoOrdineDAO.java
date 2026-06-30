@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ProdottoOrdineDAO {
 
-	// 1. DO SAVE (Inserimento)
+	
 	public void doSave(ProdottoOrdineBean dettaglio) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -38,7 +38,7 @@ public class ProdottoOrdineDAO {
 		}
 	}
 
-	// 2. DO UPDATE (Aggiornamento)
+	
 	public void doUpdate(ProdottoOrdineBean prodottoOrdine) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -68,7 +68,7 @@ public class ProdottoOrdineDAO {
 		}
 	}
 
-	// 3. DO RETRIEVE BY KEY (Ricerca singola per ID)
+	
 	public ProdottoOrdineBean doRetrieveByKey(int id) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -86,8 +86,7 @@ public class ProdottoOrdineDAO {
 			rs = ps.executeQuery();
 
 			if (rs.next()) {
-				prodottoOrdine = new ProdottoOrdineBean(); // Istanza creata correttamente per evitare
-															// NullPointerException
+				prodottoOrdine = new ProdottoOrdineBean(); 
 				prodottoOrdine.setId(rs.getInt("id"));
 				prodottoOrdine.setNome_prodotto(rs.getString("nome_prodotto"));
 				prodottoOrdine.setId_prodotto(rs.getInt("id_prodotto"));
@@ -112,7 +111,7 @@ public class ProdottoOrdineDAO {
 		return prodottoOrdine;
 	}
 
-	// 4. DO RETRIEVE ALL (Tutti i record della tabella)
+	
 	public List<ProdottoOrdineBean> doRetrieveAll() throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -155,8 +154,7 @@ public class ProdottoOrdineDAO {
 		return lista;
 	}
 
-	// 5. METODO DI UTILITÀ: Recupera tutti i prodotti di un singolo ordine
-	// specifico
+	
 	public List<ProdottoOrdineBean> doRetrieveByOrdine(int idOrdine) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;

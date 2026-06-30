@@ -35,22 +35,26 @@
             <tr>
                 <th>Prodotto</th>
                 <th>Prezzo Unitario</th>
+                <th>Iva</th>
                 <th>Quantità</th>
                 <th>Totale</th>
             </tr>
         </thead>
-        <tbody>
-            <% for (ProdottoOrdineBean item : dettagli) { 
-                double totaleRiga = item.getPrezzo() * item.getQuantita();
-            %>
-                <tr>
-                    <td><strong><%= item.getNome_prodotto() %></strong></td>
-                    <td><%= String.format("%.2f", item.getPrezzo()) %> €</td>
-                    <td>x<%= item.getQuantita() %></td>
-                    <td><%= String.format("%.2f", totaleRiga) %> €</td>
-                </tr>
-            <% } %>
-        </tbody>
+       <tbody>
+    <% for (ProdottoOrdineBean item : dettagli) { 
+        
+        double prezzoUnitarioConIva = item.getPrezzo() + (item.getPrezzo() * (item.getIva() / 100.0));
+        double totaleRiga = prezzoUnitarioConIva * item.getQuantita();
+    %>
+        <tr>
+            <td><strong><%= item.getNome_prodotto() %></strong></td>
+            <td><%= String.format("%.2f", item.getPrezzo()) %> €</td>
+            <td><%= item.getIva() %>%</td> 
+            <td>x<%= item.getQuantita() %></td>
+            <td style="font-weight: bold;"><%= String.format("%.2f", totaleRiga) %> €</td>
+        </tr>
+    <% } %>
+</tbody>
     </table>
     
     <h3 style="text-align: right; margin-top: 25px;">

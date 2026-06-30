@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="model.UtenteBean" %>
 <%
-	// Controllo di sicurezza: se un utente non loggato prova ad accedere a questa pagina a caso,
-	// lo rimandiamo alla home.
+	
 	UtenteBean utenteLoggato = (UtenteBean) session.getAttribute("user");
 	if (utenteLoggato == null) {
 		response.sendRedirect(request.getContextPath() + "/index.jsp");

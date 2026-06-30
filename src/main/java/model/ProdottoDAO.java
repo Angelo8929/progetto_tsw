@@ -209,9 +209,6 @@ public class ProdottoDAO {
 	public void doUpdate(ProdottoBean prodotto) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
-
-		// FIX: Corretta la sintassi SQL, rimosse le virgole errate e aggiunta la
-		// categoria
 		String sql = "UPDATE prodotto SET perc_alcol = ?, nome_prodotto = ?, effervescenza = ?, "
 				+ "prezzo = ?, categoria = ?, imgPath = ?, descrizione=?, iva=?, disponibilita=? WHERE id_prodotto = ?";
 
@@ -242,7 +239,7 @@ public class ProdottoDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 
-		// UPDATE anziché DELETE
+		
 		String sql = "UPDATE prodotto SET disponibilita = 0 WHERE id_prodotto = ?";
 
 		try {
@@ -268,10 +265,10 @@ public class ProdottoDAO {
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, quantitaAcquistata);
 			ps.setInt(2, idProdotto);
-			ps.setInt(3, quantitaAcquistata); // Sicurezza: non va sotto zero
+			ps.setInt(3, quantitaAcquistata); 
 
 			int righeAggiornate = ps.executeUpdate();
-			return righeAggiornate > 0; // Restituisce false se il prodotto era esaurito nel frattempo
+			return righeAggiornate > 0; 
 		} finally {
 			if (ps != null)
 				ps.close();

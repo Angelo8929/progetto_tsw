@@ -19,9 +19,7 @@ import model.ProdottoCarrelloDAO;
 import model.ProdottoDAO;
 import model.UtenteBean;
 
-/**
- * Servlet implementation class CarrelloServlet
- */
+
 @WebServlet("/CarrelloServlet")
 public class CarrelloServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -29,9 +27,7 @@ public class CarrelloServlet extends HttpServlet {
 	private ProdottoCarrelloDAO prodottoCarrelloDAO;
 	private ProdottoDAO prodottoDAO;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
+	
 	public CarrelloServlet() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -43,10 +39,7 @@ public class CarrelloServlet extends HttpServlet {
 		prodottoDAO = new ProdottoDAO();
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
@@ -57,18 +50,16 @@ public class CarrelloServlet extends HttpServlet {
 
 		try {
 			if (utenteLoggato != null) {
-				// -------------------------------------------------------------
-				// CASO 1: UTENTE LOGGATO (Database)
-				// -------------------------------------------------------------
+				
 				CarrelloBean carrelloUtente = carrelloDAO.doRetrieveByUtente(utenteLoggato.getEmail());
 
 				if (carrelloUtente == null) {
-					// Se non ha un carrello nel DB, lo creiamo subito
+					
 					carrelloUtente = new CarrelloBean();
 					carrelloUtente.setId_utente(utenteLoggato.getEmail());
 					carrelloDAO.doSave(carrelloUtente);
 
-					// Recuperiamo l'eventuale carrello ospite per fare il travaso
+					
 
 					Map<Integer, Integer> carrelloOspite = (Map<Integer, Integer>) session
 							.getAttribute("carrelloOspite");
@@ -85,8 +76,7 @@ public class CarrelloServlet extends HttpServlet {
 					}
 				}
 
-				// ORA recuperiamo SEMPRE le righe (sia che il carrello esistesse già, sia che
-				// sia appena stato creato)
+				
 				List<ProdottoCarrelloBean> righeCarrello = prodottoCarrelloDAO
 						.doRetrieveByCarrello(carrelloUtente.getId_carrello());
 
@@ -100,10 +90,7 @@ public class CarrelloServlet extends HttpServlet {
 				}
 
 			} else {
-				// -------------------------------------------------------------
-				// CASO 2: UTENTE OSPITE (Sessione)
-				// -------------------------------------------------------------
-				@SuppressWarnings("unchecked")
+				
 				Map<Integer, Integer> carrelloOspite = (Map<Integer, Integer>) session.getAttribute("carrelloOspite");
 
 				if (carrelloOspite != null && !carrelloOspite.isEmpty()) {
@@ -120,7 +107,7 @@ public class CarrelloServlet extends HttpServlet {
 				}
 			}
 
-			// Passiamo i dati puliti alla JSP
+			
 			request.setAttribute("elementiCarrello", elementiCarrello);
 			request.setAttribute("prezzoTotale", prezzoTotale);
 
@@ -133,10 +120,7 @@ public class CarrelloServlet extends HttpServlet {
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
@@ -149,16 +133,15 @@ public class CarrelloServlet extends HttpServlet {
 
 			try {
 				if (utenteLoggato != null) {
-					// Rimozione dal Database
+					
 					CarrelloBean carrelloUtente = carrelloDAO.doRetrieveByUtente(utenteLoggato.getEmail());
 					if (carrelloUtente != null) {
-						// Immaginando tu abbia questo metodo nel DAO, altrimenti eliminalo con una
-						// query custom
+						
 						prodottoCarrelloDAO.doDeleteByProdottoAndCarrello(idProdotto, carrelloUtente.getId_carrello());
 					}
 				} else {
-					// Rimozione dalla Sessione (Ospite)
-					@SuppressWarnings("unchecked")
+					
+					
 					Map<Integer, Integer> carrelloOspite = (Map<Integer, Integer>) session
 							.getAttribute("carrelloOspite");
 					if (carrelloOspite != null) {
@@ -171,7 +154,7 @@ public class CarrelloServlet extends HttpServlet {
 			}
 		}
 
-		// Dopo l'azione di rimozione, ricarica la pagina del carrello aggiornata
+		
 		response.sendRedirect(request.getContextPath() + "/CarrelloServlet");
 
 	}

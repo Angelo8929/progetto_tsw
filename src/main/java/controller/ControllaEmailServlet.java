@@ -28,8 +28,7 @@ public class ControllaEmailServlet extends HttpServlet {
 
 		if (email != null && !email.trim().isEmpty()) {
 			try {
-				// Utilizza il metodo del tuo DAO che recupera l'utente tramite email
-				// Se il metodo restituisce un oggetto diverso da null, l'email esiste già
+				
 				UtenteBean utente = utenteDAO.doRetrieveByEmail(email.trim());
 				if (utente != null && utente.getEmail() != null) {
 					esiste = true;
@@ -39,11 +38,11 @@ public class ControllaEmailServlet extends HttpServlet {
 			}
 		}
 
-		// Impostiamo l'header di risposta per specificare il formato JSON
+		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 
-		// Scriviamo l'oggetto JSON direttamente nello stream di output
+		
 		response.getWriter().write("{\"esiste\": " + esiste + "}");
 	}
 

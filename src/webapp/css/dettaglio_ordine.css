@@ -1,6 +1,4 @@
-/* ==========================================================================
-   1. Contenitore Principale e Struttura Layout
-   ========================================================================== */
+
 .details-container {
     max-width: 900px;
     margin: 40px auto 20px auto;
@@ -12,7 +10,7 @@
     box-sizing: border-box;
 }
 
-/* Link di ritorno rapido in alto */
+
 .back-link {
     display: inline-block;
     color: var(--accent-gold);
@@ -27,7 +25,7 @@
     text-decoration: underline;
 }
 
-/* Titoli delle sezioni */
+
 .details-container h2 {
     font-size: 1.8rem;
     color: var(--accent-gold);
@@ -60,9 +58,7 @@
     margin-right: 5px;
 }
 
-/* ==========================================================================
-   2. Tabella Riepilogo Prodotti Acquistati
-   ========================================================================== */
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -101,12 +97,12 @@ td strong {
     color: var(--text-light);
 }
 
-/* Allineamento a destra per i totali di riga */
+
 th:last-child, td:last-child {
     text-align: right;
 }
 
-/* Evidenziazione del Prezzo Complessivo Finale */
+
 .details-container h3[style*="text-align: right"] {
     text-align: right !important;
     font-size: 1.6rem !important;
@@ -116,23 +112,21 @@ th:last-child, td:last-child {
 }
 
 .details-container h3[style*="text-align: right"]::after {
-    display: none; /* Rimuove sovrapposizioni insolite */
+    display: none; 
 }
 
-/* ==========================================================================
-   3. Pulsanti di Azione Inferiori (Scarica PDF / Indietro)
-   ========================================================================== */
-/* Contenitore flessibile dei bottoni esterni al box */
+
+
 div[style*="display: flex"] {
     display: flex !important;
     gap: 15px !important;
     max-width: 900px;
     margin: 25px auto 80px auto !important;
-    padding: 0 35px; /* Allineato al padding interno del container principale */
+    padding: 0 35px; 
     box-sizing: border-box;
 }
 
-/* Struttura base condivisa dei link-bottone */
+
 div[style*="display: flex"] a {
     padding: 12px 24px !important;
     text-decoration: none;
@@ -146,11 +140,11 @@ div[style*="display: flex"] a {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* Bottone 📄 Scarica Fattura PDF */
+
 div[style*="display: flex"] a[href*="FatturaServlet"] {
     background-color: var(--accent-wine) !important;
     color: white !important;
-    flex-grow: 1; /* Rende il tasto della fattura principale e più largo */
+    flex-grow: 1; 
     max-width: 250px;
 }
 
@@ -159,7 +153,7 @@ div[style*="display: flex"] a[href*="FatturaServlet"]:hover {
     transform: translateY(-1px);
 }
 
-/* Bottone Torna Indietro */
+
 div[style*="display: flex"] a[href*="AreaRiservataServlet"] {
     background-color: #3a3a4a !important;
     color: var(--text-light) !important;
@@ -175,9 +169,7 @@ div[style*="display: flex"] a:active {
     transform: scale(0.98);
 }
 
-/* ==========================================================================
-   4. Ottimizzazione Mobile (Responsive Avanzato)
-   ========================================================================== */
+
 @media (max-width: 768px) {
     .details-container {
         padding: 20px;
@@ -196,7 +188,7 @@ div[style*="display: flex"] a:active {
         max-width: none !important;
     }
 
-    /* Trasformazione strutturale della tabella */
+    
     table, thead, tbody, th, td, tr {
         display: block;
     }
@@ -231,7 +223,7 @@ div[style*="display: flex"] a:active {
         text-align: right;
     }
 
-    /* Etichette fittizie per non perdere la corrispondenza dei dati */
+    
     td::before {
         position: absolute;
         left: 8px;

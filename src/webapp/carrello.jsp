@@ -15,23 +15,23 @@
     <h1>Il tuo Carrello Shopping</h1>
 
     <%
-        // Recuperiamo i dati passati dalla Servlet tramite gli attributi della Request
+        
         String errorMessage = (String) request.getAttribute("errorMessage");
         Map<ProdottoBean, Integer> elementiCarrello = (Map<ProdottoBean, Integer>) request.getAttribute("elementiCarrello");
         Double prezzoTotale = (Double) request.getAttribute("prezzoTotale");
         
-        // Se per qualche motivo l'attributo del prezzo è nullo, lo impostiamo a 0
+        
         if (prezzoTotale == null) {
             prezzoTotale = 0.0;
         }
     %>
 
-    <%-- Gestione Messaggi di Errore --%>
+    
     <% if (errorMessage != null && !errorMessage.isEmpty()) { %>
         <p class="error-message"><%= errorMessage %></p>
     <% } %>
 
-    <%-- Se il carrello è vuoto (la mappa è null o non ha elementi) --%>
+    
     <% if (elementiCarrello == null || elementiCarrello.isEmpty()) { %>
         <div class="empty-cart">
             <h2>Il tuo carrello è vuoto.</h2>
@@ -39,7 +39,7 @@
         </div>
     <% } else { %>
         
-        <%-- Se il carrello ha prodotti, mostriamo la tabella --%>
+        
         <table>
             <thead>
                 <tr>
@@ -53,7 +53,7 @@
             </thead>
             <tbody>
                 <% 
-                    // Cicliamo sulla LinkedHashMap usando un normale ciclo for-each di Java
+                    
                     for (Map.Entry<ProdottoBean, Integer> entry : elementiCarrello.entrySet()) {
                         ProdottoBean prodotto = entry.getKey();
                         int quantita = entry.getValue();
@@ -66,7 +66,7 @@
                         <td><strong><%= prodotto.getNome_prodotto() %></strong></td>
                         <td><%= prodotto.getPrezzo() %> €</td>
                         
-                        <%-- FIX CRUCIALE: L'input ora è racchiuso dentro i tag <td> --%>
+                       
                         <td>
                             <input type="number" 
                                    class="input-quantita" 
@@ -78,7 +78,7 @@
                         
                         <td><%= totaleRiga %> €</td>
                         <td>
-                            <%-- Form per la rimozione del prodotto --%>
+                            
                             <form action="<%= request.getContextPath() %>/CarrelloServlet" method="post" style="display:inline;">
                                 <input type="hidden" name="action" value="rimuovi">
                                 <input type="hidden" name="id_prodotto" value="<%= prodotto.getId_prodotto() %>">
@@ -87,7 +87,7 @@
                         </td>
                     </tr>
                 <% 
-                    } // Fine del ciclo for
+                    } 
                 %>
             </tbody>
         </table>
@@ -98,10 +98,10 @@
             <a href="CheckoutServlet" style="background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px; font-weight: bold;">Procedi al Checkout</a>
         </div>
         
-    <% } // Fine del blocco else %>
+    <% }  %>
     <%@ include file="footer.jsp" %>
     <script>
-    // Questa variabile globale sarà leggibile da qualsiasi file .js esterno caricato dopo
+    
     window.contextPath = "<%= request.getContextPath() %>";
 </script>
 <script src="js/aggiorna_quantita_carrello.js"></script>
