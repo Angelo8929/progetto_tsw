@@ -11,11 +11,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.ProdottoBean;
 import model.ProdottoDAO;
 
-
 @WebServlet("/ProdottoServlet")
 public class ProdottoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ProdottoDAO pdao; 
+	private ProdottoDAO pdao;
 
 	public ProdottoServlet() {
 		super();
@@ -26,23 +25,20 @@ public class ProdottoServlet extends HttpServlet {
 		pdao = new ProdottoDAO();
 	}
 
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		String idParam = request.getParameter("id");
-		String errorParam = request.getParameter("error"); 
+		String errorParam = request.getParameter("error");
 
-		
 		String errorMessage = (String) request.getAttribute("errorMessage");
 
-		
 		if (errorParam != null && errorParam.equals("true")) {
 			errorMessage = "Si è verificato un errore durante l'aggiunta del prodotto al carrello. Riprova.";
 		}
 
 		if (idParam == null || idParam.isEmpty()) {
-			response.sendRedirect(request.getContextPath() + "/index.jsp"); // Evita NumberFormatException se l'id manca
+			response.sendRedirect(request.getContextPath() + "/index.jsp");
 			return;
 		}
 
@@ -53,16 +49,15 @@ public class ProdottoServlet extends HttpServlet {
 			if (prodotto != null) {
 				request.setAttribute("prodotto", prodotto);
 
-				
 				if (errorMessage != null) {
 					request.setAttribute("errorMessage", errorMessage);
 				}
 
 				request.getRequestDispatcher("prodotto.jsp").forward(request, response);
 			} else {
-				
+
 				request.setAttribute("errorMessage", "Il prodotto richiesto non esiste.");
-				request.getRequestDispatcher("errore.jsp").forward(request, response);
+				request.getRequestDispatcher("/500.jsp").forward(request, response);
 			}
 
 		} catch (NumberFormatException e) {
@@ -75,7 +70,6 @@ public class ProdottoServlet extends HttpServlet {
 		}
 	}
 
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);

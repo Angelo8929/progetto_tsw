@@ -40,7 +40,6 @@ public class CheckoutServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		UtenteBean utenteLoggato = (UtenteBean) session.getAttribute("user");
 
-		
 		if (utenteLoggato == null) {
 			request.setAttribute("errorMessage", "Devi effettuare il login per procedere al checkout.");
 			request.getRequestDispatcher("/login.jsp").forward(request, response);
@@ -50,7 +49,7 @@ public class CheckoutServlet extends HttpServlet {
 		double prezzoTotale = 0.0;
 
 		try {
-			
+
 			CarrelloBean carrelloUtente = carrelloDAO.doRetrieveByUtente(utenteLoggato.getEmail());
 			if (carrelloUtente != null) {
 				List<ProdottoCarrelloBean> righeCarrello = prodottoCarrelloDAO
@@ -61,19 +60,16 @@ public class CheckoutServlet extends HttpServlet {
 						prezzoTotale += prodotto.getPrezzo() * riga.getQuantita();
 					}
 				}
-				System.out.println("DEBUG - Prezzo Totale Calcolato: " + prezzoTotale);
+
 			}
 
-			
 			if (prezzoTotale <= 0) {
 				response.sendRedirect(request.getContextPath() + "/CarrelloServlet");
 				return;
 			}
 
-			
 			List<InfoConsegnaBean> listaIndirizzi = infoConsegnaDAO.doRetrieveByUtente(utenteLoggato.getEmail());
 
-			
 			request.setAttribute("listaIndirizzi", listaIndirizzi);
 			request.setAttribute("prezzoTotale", prezzoTotale);
 
@@ -82,7 +78,7 @@ public class CheckoutServlet extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", "Errore durante la fase di checkout: " + e.getMessage());
-			request.getRequestDispatcher("/errore.jsp").forward(request, response);
+			request.getRequestDispatcher("/500.jsp").forward(request, response);
 		}
 	}
 
