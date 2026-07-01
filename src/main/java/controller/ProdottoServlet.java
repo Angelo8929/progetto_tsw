@@ -57,7 +57,7 @@ public class ProdottoServlet extends HttpServlet {
 			} else {
 
 				request.setAttribute("errorMessage", "Il prodotto richiesto non esiste.");
-				request.getRequestDispatcher("/500.jsp").forward(request, response);
+				request.getRequestDispatcher("/404.jsp").forward(request, response);
 			}
 
 		} catch (NumberFormatException e) {

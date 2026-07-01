@@ -29,10 +29,6 @@
             </select>
         </div>
         <div class="form-gruppo">
-            <label>Sottocategoria / Stile</label>
-            <input type="text" name="sottocategoria" placeholder="Es. Rum, Birra IPA">
-        </div>
-        <div class="form-gruppo">
             <label>Prezzo al pubblico (€)</label>
             <input type="number" name="prezzo" step="0.01" min="0.01" required>
         </div>

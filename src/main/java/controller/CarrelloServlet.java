@@ -19,7 +19,6 @@ import model.ProdottoCarrelloDAO;
 import model.ProdottoDAO;
 import model.UtenteBean;
 
-
 @WebServlet("/CarrelloServlet")
 public class CarrelloServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -27,7 +26,6 @@ public class CarrelloServlet extends HttpServlet {
 	private ProdottoCarrelloDAO prodottoCarrelloDAO;
 	private ProdottoDAO prodottoDAO;
 
-	
 	public CarrelloServlet() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -39,7 +37,6 @@ public class CarrelloServlet extends HttpServlet {
 		prodottoDAO = new ProdottoDAO();
 	}
 
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
@@ -50,16 +47,14 @@ public class CarrelloServlet extends HttpServlet {
 
 		try {
 			if (utenteLoggato != null) {
-				
+
 				CarrelloBean carrelloUtente = carrelloDAO.doRetrieveByUtente(utenteLoggato.getEmail());
 
 				if (carrelloUtente == null) {
-					
+
 					carrelloUtente = new CarrelloBean();
 					carrelloUtente.setId_utente(utenteLoggato.getEmail());
 					carrelloDAO.doSave(carrelloUtente);
-
-					
 
 					Map<Integer, Integer> carrelloOspite = (Map<Integer, Integer>) session
 							.getAttribute("carrelloOspite");
@@ -76,7 +71,6 @@ public class CarrelloServlet extends HttpServlet {
 					}
 				}
 
-				
 				List<ProdottoCarrelloBean> righeCarrello = prodottoCarrelloDAO
 						.doRetrieveByCarrello(carrelloUtente.getId_carrello());
 
@@ -85,12 +79,13 @@ public class CarrelloServlet extends HttpServlet {
 					if (prodotto != null) {
 						int qta = riga.getQuantita();
 						elementiCarrello.put(prodotto, qta);
-						prezzoTotale += prodotto.getPrezzo() * qta;
+						prezzoTotale += prodotto.getPrezzo()
+								+ (prodotto.getPrezzo() * (prodotto.getIva() / 100.0)) * qta;
 					}
 				}
 
 			} else {
-				
+
 				Map<Integer, Integer> carrelloOspite = (Map<Integer, Integer>) session.getAttribute("carrelloOspite");
 
 				if (carrelloOspite != null && !carrelloOspite.isEmpty()) {
@@ -101,13 +96,13 @@ public class CarrelloServlet extends HttpServlet {
 						ProdottoBean prodotto = prodottoDAO.doRetrieveByKey(idProdotto);
 						if (prodotto != null) {
 							elementiCarrello.put(prodotto, qta);
-							prezzoTotale += prodotto.getPrezzo() * qta;
+							prezzoTotale += prodotto.getPrezzo()
+									+ (prodotto.getPrezzo() * (prodotto.getIva() / 100.0)) * qta;
 						}
 					}
 				}
 			}
 
-			
 			request.setAttribute("elementiCarrello", elementiCarrello);
 			request.setAttribute("prezzoTotale", prezzoTotale);
 
@@ -120,7 +115,6 @@ public class CarrelloServlet extends HttpServlet {
 		}
 	}
 
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
@@ -133,15 +127,14 @@ public class CarrelloServlet extends HttpServlet {
 
 			try {
 				if (utenteLoggato != null) {
-					
+
 					CarrelloBean carrelloUtente = carrelloDAO.doRetrieveByUtente(utenteLoggato.getEmail());
 					if (carrelloUtente != null) {
-						
+
 						prodottoCarrelloDAO.doDeleteByProdottoAndCarrello(idProdotto, carrelloUtente.getId_carrello());
 					}
 				} else {
-					
-					
+
 					Map<Integer, Integer> carrelloOspite = (Map<Integer, Integer>) session
 							.getAttribute("carrelloOspite");
 					if (carrelloOspite != null) {
@@ -154,7 +147,6 @@ public class CarrelloServlet extends HttpServlet {
 			}
 		}
 
-		
 		response.sendRedirect(request.getContextPath() + "/CarrelloServlet");
 
 	}
