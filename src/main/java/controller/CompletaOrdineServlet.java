@@ -51,14 +51,12 @@ public class CompletaOrdineServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		UtenteBean utenteLoggato = (UtenteBean) session.getAttribute("user");
 
-		
 		if (utenteLoggato == null) {
 			request.setAttribute("errorMessage", "Devi effettuare il login per completare un ordine.");
 			request.getRequestDispatcher("/login.jsp").forward(request, response);
 			return;
 		}
 
-		
 		String idConsegnaParam = request.getParameter("id_consegna");
 		if (idConsegnaParam == null || idConsegnaParam.isEmpty()) {
 			request.setAttribute("errorMessage", "Devi selezionare un indirizzo di spedizione valido per proseguire.");
@@ -69,18 +67,15 @@ public class CompletaOrdineServlet extends HttpServlet {
 		try {
 			int idConsegna = Integer.parseInt(idConsegnaParam);
 
-			
 			CarrelloBean carrelloUtente = carrelloDAO.doRetrieveByUtente(utenteLoggato.getEmail());
 			if (carrelloUtente == null) {
 				response.sendRedirect(request.getContextPath() + "/CarrelloServlet");
 				return;
 			}
 
-			
 			List<ProdottoCarrelloBean> righeCarrello = prodottoCarrelloDAO
 					.doRetrieveByCarrello(carrelloUtente.getId_carrello());
 
-			
 			if (righeCarrello == null || righeCarrello.isEmpty()) {
 				request.setAttribute("errorMessage", "Il tuo carrello è vuoto. Impossibile completare l'acquisto.");
 				request.getRequestDispatcher("/CarrelloServlet").forward(request, response);
@@ -90,11 +85,10 @@ public class CompletaOrdineServlet extends HttpServlet {
 			long costoTotaleCentesimi = 0;
 			int numProdottiTotali = 0;
 
-			
 			for (ProdottoCarrelloBean riga : righeCarrello) {
 				ProdottoBean prodotto = prodottoDAO.doRetrieveByKey(riga.getId_prodotto());
 				if (prodotto != null) {
-					
+
 					if (prodotto.getDisponibilita() < riga.getQuantita()) {
 						request.setAttribute("errorMessage", "Ci dispiace, il prodotto '" + prodotto.getNome_prodotto()
 								+ "' non ha scorte sufficienti (Disponibili: " + prodotto.getDisponibilita() + " pz).");
@@ -102,13 +96,10 @@ public class CompletaOrdineServlet extends HttpServlet {
 						return;
 					}
 
-					
 					double iva = prodotto.getIva() != 0 ? prodotto.getIva() : 22.0;
 
-					
 					double prezzoUnitarioConIva = prodotto.getPrezzo() + (prodotto.getPrezzo() * (iva / 100.0));
 
-					
 					long prezzoIvatoInCentesimi = Math.round(prezzoUnitarioConIva * 100.0);
 
 					costoTotaleCentesimi += prezzoIvatoInCentesimi * riga.getQuantita();
@@ -116,9 +107,8 @@ public class CompletaOrdineServlet extends HttpServlet {
 				}
 			}
 
-			
 			for (ProdottoCarrelloBean riga : righeCarrello) {
-				
+
 				boolean successoScarico = prodottoDAO.scaricaMagazzino(riga.getId_prodotto(), riga.getQuantita());
 
 				if (!successoScarico) {
@@ -129,7 +119,6 @@ public class CompletaOrdineServlet extends HttpServlet {
 				}
 			}
 
-			
 			OrdineBean nuovoOrdine = new OrdineBean();
 			java.time.format.DateTimeFormatter dtf = java.time.format.DateTimeFormatter
 					.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -140,10 +129,8 @@ public class CompletaOrdineServlet extends HttpServlet {
 			nuovoOrdine.setEmail_utente(utenteLoggato.getEmail());
 			nuovoOrdine.setId_consegna(idConsegna);
 
-			
 			int idOrdineGenerato = ordineDAO.doSave(nuovoOrdine);
 
-			
 			if (idOrdineGenerato != -1) {
 				for (ProdottoCarrelloBean riga : righeCarrello) {
 					ProdottoBean prodotto = prodottoDAO.doRetrieveByKey(riga.getId_prodotto());
@@ -162,13 +149,11 @@ public class CompletaOrdineServlet extends HttpServlet {
 				}
 			}
 
-			
 			for (ProdottoCarrelloBean riga : righeCarrello) {
 				prodottoCarrelloDAO.doDeleteByProdottoAndCarrello(riga.getId_prodotto(),
 						carrelloUtente.getId_carrello());
 			}
 
-			
 			response.sendRedirect(request.getContextPath() + "/conferma_ordine.jsp");
 
 		} catch (NumberFormatException e) {
@@ -178,7 +163,7 @@ public class CompletaOrdineServlet extends HttpServlet {
 			e.printStackTrace();
 			request.setAttribute("errorMessage",
 					"Errore del database durante la finalizzazione dell'ordine: " + e.getMessage());
-			request.getRequestDispatcher("/errore.jsp").forward(request, response);
+			request.getRequestDispatcher("/500.jsp").forward(request, response);
 		}
 	}
 }

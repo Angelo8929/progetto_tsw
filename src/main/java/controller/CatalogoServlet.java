@@ -59,7 +59,7 @@ public class CatalogoServlet extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", "Errore nel caricamento del catalogo prodotti: " + e.getMessage());
-			request.getRequestDispatcher("/errore.jsp").forward(request, response);
+			request.getRequestDispatcher("/500.jsp").forward(request, response);
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 			

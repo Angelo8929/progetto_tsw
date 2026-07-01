@@ -24,7 +24,7 @@ public class SalvaIndirizzoServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		response.sendRedirect(request.getContextPath() + "/AreaRiservataServlet");
 	}
 
@@ -34,14 +34,12 @@ public class SalvaIndirizzoServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		UtenteBean utenteLoggato = (UtenteBean) session.getAttribute("user");
 
-		
 		if (utenteLoggato == null) {
 			request.setAttribute("errorMessage", "Devi effettuare il login per salvare un indirizzo.");
 			request.getRequestDispatcher("/login.jsp").forward(request, response);
 			return;
 		}
 
-		
 		String destinatario = request.getParameter("destinatario");
 		String via = request.getParameter("via");
 		String civicoParam = request.getParameter("civico");
@@ -58,7 +56,6 @@ public class SalvaIndirizzoServlet extends HttpServlet {
 		try {
 			int civico = Integer.parseInt(civicoParam);
 
-			
 			InfoConsegnaBean nuovoIndirizzo = new InfoConsegnaBean();
 			nuovoIndirizzo.setDestinatario(destinatario);
 			nuovoIndirizzo.setVia(via);
@@ -66,10 +63,8 @@ public class SalvaIndirizzoServlet extends HttpServlet {
 			nuovoIndirizzo.setCitta(citta);
 			nuovoIndirizzo.setId_utente(utenteLoggato.getEmail());
 
-			
 			infoConsegnaDAO.doSave(nuovoIndirizzo);
 
-			
 			String provenienza = request.getHeader("Referer");
 			if (provenienza != null
 					&& (provenienza.contains("CheckoutServlet") || provenienza.contains("checkout.jsp"))) {
@@ -81,13 +76,13 @@ public class SalvaIndirizzoServlet extends HttpServlet {
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", "Il numero civico deve essere un valore numerico valido.");
-			
+
 			request.getRequestDispatcher("/area_riservata.jsp").forward(request, response);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage",
 					"Errore nel salvataggio dell'indirizzo nel database: " + e.getMessage());
-			request.getRequestDispatcher("/errore.jsp").forward(request, response);
+			request.getRequestDispatcher("/500.jsp").forward(request, response);
 		}
 	}
 }

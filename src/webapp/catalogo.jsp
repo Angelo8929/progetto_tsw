@@ -1,4 +1,4 @@
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="model.ProdottoBean"%>
 <%@ page import="java.util.List"%>
 
@@ -78,16 +78,20 @@ List<ProdottoBean> prodotti = (List<ProdottoBean>) request.getAttribute("prodott
 				for (ProdottoBean prod : prodotti) {
 				%>
 				<div class="item">
-					<div class="item_photo"> 
-                   <a class="item_link" href="ProdottoServlet?id=<%=prod.getId_prodotto()%>">
-                       <img src="<%= request.getContextPath() %>/images/<%= prod.getImgPath() %>" alt="foto prodotto" />
-                   </a>
+               <div class="item_title"><%= prod.getNome_prodotto() %></div> 
+               <div class="item_price"><%= String.format("%.2f", prod.getPrezzo()) %> €</div>
+               <div class="item_photo"> 
+                <a class="item_link" href="ProdottoServlet?id=<%=prod.getId_prodotto()%>">
+                	<img src="<%= request.getContextPath() %>/images/<%= prod.getImgPath() %>" alt="foto prodotto" />
+                </a>
                </div>
-					<h4><%=prod.getNome_prodotto()%></h4>
-					<p><%=String.format("%.2f", prod.getPrezzo())%>
-					</p>
-					
-				</div>
+                
+                <form action="AggiungiAlCarrelloServlet" method="post">
+                	<input type="hidden" name="id_prodotto" value="<%=prod.getId_prodotto() %>" />
+                	<input type="number" name="quantita" value="1" min="1" max="<%= prod.getDisponibilita() %>">
+                	<button type="submit">Aggiungi al carrello</button>
+                </form>
+            </div>
 				<%
 				}
 				%>
