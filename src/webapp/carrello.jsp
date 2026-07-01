@@ -57,7 +57,7 @@
                     for (Map.Entry<ProdottoBean, Integer> entry : elementiCarrello.entrySet()) {
                         ProdottoBean prodotto = entry.getKey();
                         int quantita = entry.getValue();
-                        double totaleRiga = prodotto.getPrezzo()+(prodotto.getPrezzo()*(prodotto.getIva()/100.0)) * quantita;
+                        double totaleRiga = (prodotto.getPrezzo()+(prodotto.getPrezzo()*(prodotto.getIva()/100.0))) * quantita;
                 %>
                     <tr>
                         <td>
