@@ -23,6 +23,7 @@
 	<h1><%=prodotto.getNome_prodotto() %></h1>
 	<p><%=prodotto.getDescrizione() %></p>
 <strong><%=prodotto.getPrezzo() %> euro</strong>
+<p>Prezzo con iva: <%=prodotto.getPrezzo()+(prodotto.getPrezzo()*(prodotto.getIva()/100.0)) %> €</p>
 	<form action="AggiungiAlCarrelloServlet" method="post">
 	<input type="hidden" name="id_prodotto" value="<%=prodotto.getId_prodotto() %>" />
 	<label for="quantita">Quantità:</label>

@@ -57,7 +57,8 @@ public class CheckoutServlet extends HttpServlet {
 				for (ProdottoCarrelloBean riga : righeCarrello) {
 					ProdottoBean prodotto = prodottoDAO.doRetrieveByKey(riga.getId_prodotto());
 					if (prodotto != null) {
-						prezzoTotale += prodotto.getPrezzo() * riga.getQuantita();
+						prezzoTotale += prodotto.getPrezzo()
+								+ (prodotto.getPrezzo() * (prodotto.getIva() / 100.0)) * riga.getQuantita();
 					}
 				}
 
