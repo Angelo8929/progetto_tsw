@@ -79,8 +79,8 @@ public class CarrelloServlet extends HttpServlet {
 					if (prodotto != null) {
 						int qta = riga.getQuantita();
 						elementiCarrello.put(prodotto, qta);
-						prezzoTotale += prodotto.getPrezzo()
-								+ (prodotto.getPrezzo() * (prodotto.getIva() / 100.0)) * qta;
+						prezzoTotale += (prodotto.getPrezzo() + (prodotto.getPrezzo() * (prodotto.getIva() / 100.0)))
+								* qta;
 					}
 				}
 
