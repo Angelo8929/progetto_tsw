@@ -29,7 +29,7 @@
     
     <div class="box">
         <h2>Riepilogo Ordine</h2>
-        <p>Totale da pagare: <strong><%= prezzoTotale %> €</strong></p>
+        <p>Totale da pagare: <strong><%= String.format("%.2f",prezzoTotale) %> €</strong></p>
     </div>
 
     
