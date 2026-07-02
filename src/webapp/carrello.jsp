@@ -12,7 +12,7 @@
 <body>
 <%@ include file="header.jsp"  %>
 
-    <h1>Il tuo Carrello Shopping</h1>
+    <h1>Carrello</h1>
 
     <%
         
@@ -76,7 +76,7 @@
                                    style="width: 60px; padding: 5px;" />
                         </td>
                         
-                        <td><%= totaleRiga %> €</td>
+                        <td><%= String.format("%.2f",totaleRiga) %> €</td>
                         <td>
                             
                             <form action="<%= request.getContextPath() %>/CarrelloServlet" method="post" style="display:inline;">
@@ -93,7 +93,7 @@
         </table>
 
         <div class="totale-container">
-            <h2>Totale Complessivo: <span><%= prezzoTotale %> €</span></h2>
+            <h2>Totale Complessivo: <span><%= String.format("%.2f",prezzoTotale) %> €</span></h2>
             <br>
             <a href="CheckoutServlet" style="background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px; font-weight: bold;">Procedi al Checkout</a>
         </div>

@@ -39,8 +39,8 @@ List<ProdottoBean> prodotti = (List<ProdottoBean>) request.getAttribute("prodott
 				</div>
 
 				<div class="sidebar_prezzo">
-					<label>Prezzo</label> <input type="number" name="" id=""
-						placeholder="min" /> <span>-</span> <input type="number" name=""
+					<label>Prezzo</label> <input type="number" name="prezzoMin" id=""
+						placeholder="min" /> <span>-</span> <input type="number" name="prezzoMax"
 						id="" placeholder="max" />
 				</div>
 
