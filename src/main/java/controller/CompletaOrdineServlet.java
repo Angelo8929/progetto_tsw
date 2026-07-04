@@ -142,7 +142,7 @@ public class CompletaOrdineServlet extends HttpServlet {
 						dettaglio.setId_prodotto(riga.getId_prodotto());
 						dettaglio.setPrezzo(prodotto.getPrezzo());
 						dettaglio.setQuantita(riga.getQuantita());
-						dettaglio.setIva(prodotto.getIva() != 0 ? prodotto.getIva() : 22); // Usa l'IVA dinamica del DB!
+						dettaglio.setIva(prodotto.getIva() != 0 ? prodotto.getIva() : 22);
 
 						prodottoOrdineDAO.doSave(dettaglio);
 					}
