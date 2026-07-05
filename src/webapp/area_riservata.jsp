@@ -127,7 +127,7 @@ List<InfoConsegnaBean> listaIndirizzi = (List<InfoConsegnaBean>) request.getAttr
 						</a></td>
 						<td><%=ordine.getData_ordine()%></td>
 						<td><%=ordine.getNum_prodotti()%> articoli</td>
-						<td ><%=String.format("%.2f", ordine.getCosto_totale() / 100.0)%>
+						<td ><%=ordine.getCosto_totale()%>
 							€</td>
 					</tr>
 					<%

@@ -20,11 +20,11 @@ public class OrdineDAO {
 
 		try {
 			con = ConnectionPool.getConnection();
-			
+
 			ps = con.prepareStatement(sql, java.sql.Statement.RETURN_GENERATED_KEYS);
 
 			ps.setString(1, ordine.getData_ordine());
-			ps.setLong(2, ordine.getCosto_totale());
+			ps.setDouble(2, ordine.getCosto_totale());
 			ps.setInt(3, ordine.getNum_prodotti());
 			ps.setString(4, ordine.getEmail_utente());
 			ps.setInt(5, ordine.getId_consegna());
@@ -48,10 +48,9 @@ public class OrdineDAO {
 				}
 			}
 		}
-		return idGenerato; 
+		return idGenerato;
 	}
 
-	
 	public void doUpdate(OrdineBean ordine) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -63,7 +62,7 @@ public class OrdineDAO {
 			ps = con.prepareStatement(sql);
 
 			ps.setString(1, ordine.getData_ordine());
-			ps.setLong(2, ordine.getCosto_totale());
+			ps.setDouble(2, ordine.getCosto_totale());
 			ps.setInt(3, ordine.getNum_prodotti());
 			ps.setString(4, ordine.getEmail_utente());
 			ps.setInt(5, ordine.getId_ordine());
@@ -79,7 +78,6 @@ public class OrdineDAO {
 		}
 	}
 
-	
 	public OrdineBean doRetrieveByKey(int idOrdine) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -97,10 +95,10 @@ public class OrdineDAO {
 			rs = ps.executeQuery();
 
 			if (rs.next()) {
-				ordine = new OrdineBean(); // Istanza per evitare NullPointerException
+				ordine = new OrdineBean();
 				ordine.setId_ordine(rs.getInt("id_ordine"));
 				ordine.setData_ordine(rs.getString("data_ordine"));
-				ordine.setCosto_totale(rs.getLong("costo_totale"));
+				ordine.setCosto_totale(rs.getDouble("costo_totale"));
 				ordine.setNum_prodotti(rs.getInt("num_prodotti"));
 				ordine.setEmail_utente(rs.getString("email_utente"));
 			}
@@ -120,7 +118,6 @@ public class OrdineDAO {
 		return ordine;
 	}
 
-	
 	public List<OrdineBean> doRetrieveAll() throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -139,7 +136,7 @@ public class OrdineDAO {
 				OrdineBean ordine = new OrdineBean();
 				ordine.setId_ordine(rs.getInt("id_ordine"));
 				ordine.setData_ordine(rs.getString("data_ordine"));
-				ordine.setCosto_totale(rs.getLong("costo_totale"));
+				ordine.setCosto_totale(rs.getDouble("costo_totale"));
 				ordine.setNum_prodotti(rs.getInt("num_prodotti"));
 				ordine.setEmail_utente(rs.getString("email_utente"));
 
@@ -161,14 +158,12 @@ public class OrdineDAO {
 		return lista;
 	}
 
-	
 	public Collection<OrdineBean> doRetrieveByUtente(String emailUtente) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<OrdineBean> lista = new ArrayList<>();
 
-		
 		String sql = "SELECT * FROM ordine WHERE email_utente = ? ORDER BY id_ordine DESC";
 
 		try {
@@ -183,7 +178,7 @@ public class OrdineDAO {
 				OrdineBean ordine = new OrdineBean();
 				ordine.setId_ordine(rs.getInt("id_ordine"));
 				ordine.setData_ordine(rs.getString("data_ordine"));
-				ordine.setCosto_totale(rs.getLong("costo_totale"));
+				ordine.setCosto_totale(rs.getDouble("costo_totale"));
 				ordine.setNum_prodotti(rs.getInt("num_prodotti"));
 				ordine.setEmail_utente(rs.getString("email_utente"));
 
@@ -212,10 +207,8 @@ public class OrdineDAO {
 		ResultSet rs = null;
 		List<OrdineBean> ordini = new ArrayList<>();
 
-		
 		StringBuilder sql = new StringBuilder("SELECT * FROM ordine WHERE 1=1");
 
-		
 		if (email != null && !email.trim().isEmpty()) {
 			sql.append(" AND email_utente LIKE ?");
 		}
@@ -249,9 +242,9 @@ public class OrdineDAO {
 				OrdineBean ordine = new OrdineBean();
 				ordine.setId_ordine(rs.getInt("id_ordine"));
 				ordine.setEmail_utente(rs.getString("email_utente"));
-				ordine.setData_ordine(rs.getString("data_ordine")); 
+				ordine.setData_ordine(rs.getString("data_ordine"));
 				ordine.setNum_prodotti(rs.getInt("num_prodotti"));
-				ordine.setCosto_totale(rs.getInt("costo_totale")); 
+				ordine.setCosto_totale(rs.getDouble("costo_totale"));
 
 				ordini.add(ordine);
 			}

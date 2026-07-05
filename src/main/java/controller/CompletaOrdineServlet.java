@@ -82,7 +82,7 @@ public class CompletaOrdineServlet extends HttpServlet {
 				return;
 			}
 
-			long costoTotaleCentesimi = 0;
+			double costoTotale = 0;
 			int numProdottiTotali = 0;
 
 			for (ProdottoCarrelloBean riga : righeCarrello) {
@@ -99,10 +99,11 @@ public class CompletaOrdineServlet extends HttpServlet {
 					double iva = prodotto.getIva() != 0 ? prodotto.getIva() : 22.0;
 
 					double prezzoUnitarioConIva = prodotto.getPrezzo() + (prodotto.getPrezzo() * (iva / 100.0));
+					System.out.println("iva: " + iva / 100.0);
+					System.out.println("prezzo unitario con iva: " + prezzoUnitarioConIva);
 
-					long prezzoIvatoInCentesimi = Math.round(prezzoUnitarioConIva * 100.0);
-
-					costoTotaleCentesimi += prezzoIvatoInCentesimi * riga.getQuantita();
+					costoTotale += prezzoUnitarioConIva * riga.getQuantita();
+					System.out.println(costoTotale);
 					numProdottiTotali += riga.getQuantita();
 				}
 			}
@@ -124,7 +125,7 @@ public class CompletaOrdineServlet extends HttpServlet {
 					.ofPattern("yyyy-MM-dd HH:mm:ss");
 
 			nuovoOrdine.setData_ordine(java.time.LocalDateTime.now().format(dtf));
-			nuovoOrdine.setCosto_totale(costoTotaleCentesimi);
+			nuovoOrdine.setCosto_totale(costoTotale);
 			nuovoOrdine.setNum_prodotti(numProdottiTotali);
 			nuovoOrdine.setEmail_utente(utenteLoggato.getEmail());
 			nuovoOrdine.setId_consegna(idConsegna);

@@ -106,7 +106,7 @@ public class FatturaServlet extends HttpServlet {
 
 					double totaleArticolo = (articolo.getPrezzo()
 							+ (articolo.getPrezzo() * (articolo.getIva() / 100.0))) * articolo.getQuantita();
-					table.addCell(String.format("%.2f €", totaleArticolo));
+					table.addCell(String.format("%.2f", totaleArticolo) + " €");
 				}
 			}
 
@@ -114,7 +114,7 @@ public class FatturaServlet extends HttpServlet {
 			document.add(new Paragraph(" ", fontSub));
 
 			Paragraph totaleFinale = new Paragraph(
-					"TOTALE PAGATO: " + String.format("%.2f", ordine.getCosto_totale() / 100.0) + " €", fontTitolo);
+					"TOTALE PAGATO: " + String.format("%.2f", ordine.getCosto_totale()) + " €", fontTitolo);
 			totaleFinale.setAlignment(Element.ALIGN_RIGHT);
 			document.add(totaleFinale);
 
