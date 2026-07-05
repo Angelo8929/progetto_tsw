@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 9.7.1, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.19, for Win64 (x86_64)
 --
 -- Host: localhost    Database: progetto_tsw
 -- ------------------------------------------------------
@@ -21,7 +21,8 @@ SET @@SESSION.SQL_LOG_BIN= 0;
 -- GTID state at the beginning of the backup 
 --
 
-SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ 'b5d16312-723f-11f1-bc69-2c6dc1d457b5:1-91';
+SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ '0e7fd214-74a1-11f1-9eae-6083e7cbc9fb:1-245,
+b5d16312-723f-11f1-bc69-2c6dc1d457b5:1-91';
 
 --
 -- Table structure for table `carrello`
@@ -98,7 +99,7 @@ CREATE TABLE `ordine` (
   KEY `id_consegna_ordine_idx` (`id_consegna`),
   CONSTRAINT `email_utente` FOREIGN KEY (`email_utente`) REFERENCES `utente` (`email`),
   CONSTRAINT `id_consegna_ordine` FOREIGN KEY (`id_consegna`) REFERENCES `info_consegna` (`id_consegna`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -107,7 +108,7 @@ CREATE TABLE `ordine` (
 
 LOCK TABLES `ordine` WRITE;
 /*!40000 ALTER TABLE `ordine` DISABLE KEYS */;
-INSERT INTO `ordine` VALUES (1,'2026-06-18',3570.00,4,'angeloverolla8@gmail.com',1),(2,'2026-06-19',70.00,1,'angeloverolla8@gmail.com',1),(3,'2026-06-19',740.00,3,'angeloverolla8@gmail.com',1),(4,'2026-06-20',680.00,2,'angeloverolla8@gmail.com',1),(5,'2026-06-20',20800.00,2,'angeloverolla8@gmail.com',1),(6,'2026-06-20',80.00,1,'angeloverolla8@gmail.com',1),(7,'2026-06-21',12450.00,3,'angeloverolla8@gmail.com',2),(10,'2026-06-23',28738.00,3,'angeloverolla8@gmail.com',2),(11,'2026-06-28',14700.00,4,'angeloverolla8@gmail.com',4),(12,'2026-06-28',2500.00,1,'angeloverolla8@gmail.com',7),(13,'2026-06-28',10400.00,1,'angeloverolla8@gmail.com',8),(14,'2026-06-28',4148.00,1,'angeloverolla8@gmail.com',8);
+INSERT INTO `ordine` VALUES (1,'2026-06-18',35.70,4,'angeloverolla8@gmail.com',1),(2,'2026-06-19',70.00,1,'angeloverolla8@gmail.com',1),(3,'2026-06-19',7.40,3,'angeloverolla8@gmail.com',1),(4,'2026-06-20',68.00,2,'angeloverolla8@gmail.com',1),(5,'2026-06-20',208.00,2,'angeloverolla8@gmail.com',1),(6,'2026-06-20',80.00,1,'angeloverolla8@gmail.com',1),(7,'2026-06-21',124.50,3,'angeloverolla8@gmail.com',2),(10,'2026-06-23',287.38,3,'angeloverolla8@gmail.com',2),(11,'2026-06-28',14.70,4,'angeloverolla8@gmail.com',4),(12,'2026-06-28',25.00,1,'angeloverolla8@gmail.com',7),(13,'2026-06-28',104.00,1,'angeloverolla8@gmail.com',8),(14,'2026-06-28',41.48,1,'angeloverolla8@gmail.com',8),(15,'2026-07-01',23.46,1,'angeloverolla8@gmail.com',8),(16,'2026-07-01',87.36,1,'angeloverolla8@gmail.com',7),(17,'2026-07-02',125.84,1,'angeloverolla8@gmail.com',2),(18,'2026-07-02',41.48,1,'angeloverolla8@gmail.com',4),(19,'2026-07-04',41.15,2,'angeloverolla8@gmail.com',4),(20,'2026-07-05',21.08,1,'angeloverolla8@gmail.com',1),(21,'2026-07-05',30.50,1,'angeloverolla8@gmail.com',2),(22,'2026-07-05',23.00,1,'angeloverolla8@gmail.com',2),(23,'2026-07-05',13.00,1,'angeloverolla8@gmail.com',2),(24,'2026-07-05',77.00,1,'angeloverolla8@gmail.com',2),(25,'2026-07-05',6.00,1,'angeloverolla8@gmail.com',2),(26,'2026-07-05',14.00,1,'angeloverolla8@gmail.com',2),(27,'2026-07-05',15.00,1,'angeloverolla8@gmail.com',2),(28,'2026-07-05',111.65,1,'angeloverolla8@gmail.com',2);
 /*!40000 ALTER TABLE `ordine` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -130,7 +131,7 @@ CREATE TABLE `prodotto` (
   `iva` tinyint DEFAULT NULL,
   `disponibilita` int NOT NULL DEFAULT '50',
   PRIMARY KEY (`id_prodotto`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -139,7 +140,7 @@ CREATE TABLE `prodotto` (
 
 LOCK TABLES `prodotto` WRITE;
 /*!40000 ALTER TABLE `prodotto` DISABLE KEYS */;
-INSERT INTO `prodotto` VALUES (1,0.00,'Acqua uliveto','naturale',17.00,'Analcolici','san_benedetto.jpg','frate è la san benedetto',24,79),(2,14.00,'Chianti Classico',NULL,14.50,'alcolici','chianti.jpg',NULL,22,49),(3,7.00,'Birra Artigianale IPA',NULL,6.00,'alcolici','birra_ipa.png',NULL,22,48),(4,30.00,'Amaro alle Erbe','',20.00,'Alcolici','amaro_erbe.jpg','',22,48),(5,7.00,'birra chill','',34.00,'Alcolici','birra_chill.jpg','',22,49),(6,0.00,'paolo bonolis',NULL,104.00,'Analcolici','paolo.jpg','le velineee',21,48),(7,0.00,'monster gusto tachipirina','',13.00,'Analcolici','monster.jpg','giuro, ha quel sapore lì',22,12),(8,0.00,'aaaa','',78.00,'Superalcolici','aaaa.png','si',12,55),(9,0.00,'massimo korovskyy','',77.00,'Alcolici','massimo.jpg','il mio compagno di progetto',45,2),(10,70.00,'latte di suocera','',25.00,'Superalcolici','latte_suocera.jpg','bono',22,1);
+INSERT INTO `prodotto` VALUES (1,0.00,'Acqua uliveto','naturale',17.40,'Analcolici','san_benedetto.jpg','frate è la san benedetto',25,78),(2,14.00,'Chianti Classico',NULL,14.50,'alcolici','chianti.jpg',NULL,22,47),(3,7.00,'Birra Artigianale IPA',NULL,6.00,'alcolici','birra_ipa.png',NULL,22,47),(4,30.00,'Amaro alle Erbe','',20.00,'Alcolici','amaro_erbe.jpg','',22,48),(5,7.00,'birra chill','',34.00,'Alcolici','birra_chill.jpg','',22,48),(6,0.00,'paolo bonolis','',104.00,'Analcolici','paolo.jpg','AVANTI UN ALTRO',21,47),(7,0.00,'monster gusto tachipirina','',13.00,'Analcolici','monster.jpg','giuro, ha quel sapore lì',22,10),(8,0.00,'aaaa','',78.00,'Superalcolici','aaaa.png','si',12,54),(9,0.00,'massimo korovskyy','',77.00,'Alcolici','massimo.jpg','il mio compagno di progetto',45,0),(10,70.00,'latte di suocera','',25.00,'Superalcolici','latte_suocera.jpg','bono',22,0),(11,76.00,'ezio greggio','',23.00,'Superalcolici','ezio.jpg','sono loro o non sono loro?',2,46);
 /*!40000 ALTER TABLE `prodotto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -161,7 +162,7 @@ CREATE TABLE `prodotto_carrello` (
   KEY `id_carrello_carrello_idx` (`id_carrello`),
   CONSTRAINT `id_carrello_carrello` FOREIGN KEY (`id_carrello`) REFERENCES `carrello` (`id_carrello`),
   CONSTRAINT `id_prodotto_carrello` FOREIGN KEY (`id_prodotto`) REFERENCES `prodotto` (`id_prodotto`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -194,7 +195,7 @@ CREATE TABLE `prodotto_ordine` (
   KEY `id_ordine_ordine_idx` (`id_ordine`),
   CONSTRAINT `id_ordine_ordine` FOREIGN KEY (`id_ordine`) REFERENCES `ordine` (`id_ordine`),
   CONSTRAINT `id_prodotto_ordine` FOREIGN KEY (`id_prodotto`) REFERENCES `prodotto` (`id_prodotto`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -203,7 +204,7 @@ CREATE TABLE `prodotto_ordine` (
 
 LOCK TABLES `prodotto_ordine` WRITE;
 /*!40000 ALTER TABLE `prodotto_ordine` DISABLE KEYS */;
-INSERT INTO `prodotto_ordine` VALUES (1,'Chianti Classico',1,2,15.00,2,22),(2,'Acqua san benedetto',1,1,1.00,1,22),(3,'Birra Artigianale IPA',1,3,6.00,1,22),(4,'Acqua san benedetto',2,1,1.00,1,22),(5,'Acqua san benedetto',3,1,1.00,2,22),(6,'Birra Artigianale IPA',3,3,6.00,1,22),(7,'Birra Artigianale IPA',4,3,6.00,1,22),(8,'Acqua uliveto',4,1,0.80,1,22),(9,'paolo bonolis',5,6,104.00,2,22),(10,'Acqua uliveto',6,1,0.80,1,22),(11,'Acqua uliveto',7,1,104.00,1,24),(12,'Birra Artigianale IPA',7,3,6.00,1,22),(13,'Chianti Classico',7,2,14.50,1,22),(17,'massimo korovskyy',10,9,104.69,2,45),(18,'aaaa',10,8,78.00,1,12),(19,'Amaro alle Erbe',11,4,20.00,1,22),(20,'Acqua uliveto',11,1,17.00,1,24),(21,'Birra Artigianale IPA',11,3,6.00,1,22),(22,'paolo bonolis',11,6,104.00,1,21),(23,'latte di suocera',12,10,25.00,1,22),(24,'paolo bonolis',13,6,104.00,1,21),(25,'birra chill',14,5,34.00,1,22);
+INSERT INTO `prodotto_ordine` VALUES (1,'Chianti Classico',1,2,15.00,2,22),(2,'Acqua san benedetto',1,1,1.00,1,22),(3,'Birra Artigianale IPA',1,3,6.00,1,22),(4,'Acqua san benedetto',2,1,1.00,1,22),(5,'Acqua san benedetto',3,1,1.00,2,22),(6,'Birra Artigianale IPA',3,3,6.00,1,22),(7,'Birra Artigianale IPA',4,3,6.00,1,22),(8,'Acqua uliveto',4,1,0.80,1,22),(9,'paolo bonolis',5,6,104.00,2,22),(10,'Acqua uliveto',6,1,0.80,1,22),(11,'Acqua uliveto',7,1,104.00,1,24),(12,'Birra Artigianale IPA',7,3,6.00,1,22),(13,'Chianti Classico',7,2,14.50,1,22),(17,'massimo korovskyy',10,9,104.69,2,45),(18,'aaaa',10,8,78.00,1,12),(19,'Amaro alle Erbe',11,4,20.00,1,22),(20,'Acqua uliveto',11,1,17.00,1,24),(21,'Birra Artigianale IPA',11,3,6.00,1,22),(22,'paolo bonolis',11,6,104.00,1,21),(23,'latte di suocera',12,10,25.00,1,22),(24,'paolo bonolis',13,6,104.00,1,21),(25,'birra chill',14,5,34.00,1,22),(26,'ezio greggio',15,11,23.00,1,2),(27,'aaaa',16,8,78.00,1,12),(28,'paolo bonolis',17,6,104.00,1,21),(29,'birra chill',18,5,34.00,1,22),(30,'ezio greggio',19,11,23.00,1,2),(31,'Chianti Classico',19,2,14.50,1,22),(32,'Acqua uliveto',20,1,17.00,1,24),(33,'latte di suocera',21,10,25.00,1,22),(34,'ezio greggio',22,11,23.00,1,2),(35,'monster gusto tachipirina',23,7,13.00,1,22),(36,'massimo korovskyy',24,9,77.00,1,45),(37,'Birra Artigianale IPA',25,3,6.00,1,22),(38,'Chianti Classico',26,2,14.50,1,22),(39,'monster gusto tachipirina',27,7,13.00,1,22),(40,'massimo korovskyy',28,9,77.00,1,45);
 /*!40000 ALTER TABLE `prodotto_ordine` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -229,7 +230,7 @@ CREATE TABLE `utente` (
 
 LOCK TABLES `utente` WRITE;
 /*!40000 ALTER TABLE `utente` DISABLE KEYS */;
-INSERT INTO `utente` VALUES ('angeloverolla8@gmail.com','angelo','lgbZ65ehjuIIeyxzYundTb1SSa1rGc68TuNSYSKi934=',1);
+INSERT INTO `utente` VALUES ('aaaaa@a.com','angelo345','dOM7gtnnRI4TxHAEalVgOqk3ygshz3us1Vb5CYnfJf8=',0),('angeloverolla8@gmail.com','angelo','lgbZ65ehjuIIeyxzYundTb1SSa1rGc68TuNSYSKi934=',1);
 /*!40000 ALTER TABLE `utente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -247,4 +248,4 @@ SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-06-28 20:12:53
+-- Dump completed on 2026-07-05 18:04:21
