@@ -20,7 +20,7 @@
 		<img src="<%= request.getContextPath() %>/images/<%= prodotto.getImgPath() %>" alt="foto prodotto" />
 	</div>
 	<div class="product-details">
-	<small>Categoria: <%=prodotto.getCategoria() %></small>
+	 <span><a href="CatalogoServlet?categoria=<%=prodotto.getCategoria() %>"><%=prodotto.getCategoria() %></a></span>    
 	<h1><%=prodotto.getNome_prodotto() %></h1>
 	<p><%=prodotto.getDescrizione() %></p>
 <strong><%=prodotto.getPrezzo() %> €</strong>
