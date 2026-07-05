@@ -75,7 +75,7 @@
                         <td><%= ordine.getEmail_utente() %></td>
                         <td><%= ordine.getData_ordine() %></td>
                         <td><%= ordine.getNum_prodotti() %> pezzi</td>
-                        <td style="font-weight: bold; color: #4CAF50;"><%= String.format("%.2f", ordine.getCosto_totale() / 100.0) %> €</td>
+                        <td style="font-weight: bold; color: #4CAF50;"><%= ordine.getCosto_totale() %> €</td>
                     </tr>
                 <% } %>
             </tbody>

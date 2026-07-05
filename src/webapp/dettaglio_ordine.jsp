@@ -58,7 +58,7 @@
     </table>
     
     <h3 style="text-align: right; margin-top: 25px;">
-        Totale Complessivo: <%= String.format("%.2f", ordine.getCosto_totale() / 100.0) %> €
+        Totale Complessivo: <%= ordine.getCosto_totale() %> €
     </h3>
 </div>
 <div style="margin-top: 20px; display: flex; gap: 15px;">

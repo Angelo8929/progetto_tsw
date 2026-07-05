@@ -4,7 +4,7 @@ public class OrdineBean {
 	public int id_ordine;
 	public String data_ordine;
 
-	public long costo_totale;
+	public double costo_totale;
 	public int num_prodotti;
 	public String email_utente;
 	public int id_consegna;
@@ -25,11 +25,11 @@ public class OrdineBean {
 		this.data_ordine = data_ordine;
 	}
 
-	public long getCosto_totale() {
+	public double getCosto_totale() {
 		return costo_totale;
 	}
 
-	public void setCosto_totale(long costo_totale) {
+	public void setCosto_totale(double costo_totale) {
 		this.costo_totale = costo_totale;
 	}
 
