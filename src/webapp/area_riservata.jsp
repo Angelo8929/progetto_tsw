@@ -87,7 +87,7 @@ List<InfoConsegnaBean> listaIndirizzi = (List<InfoConsegnaBean>) request.getAttr
 				</a> <a
 					href="<%=request.getContextPath()%>/admin/AdminModificaProdottoServlet"
 					class="card-admin" >
-					<div >✏️</div>
+					<div>✏️</div>
 					Modifica Prodotti Esistenti
 				</a>
 			</div>
