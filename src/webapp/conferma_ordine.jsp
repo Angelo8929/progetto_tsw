@@ -29,7 +29,7 @@
     </p>
     
     <div class="btn-group">
-        <a href="<%= request.getContextPath() %>/home.jsp" class="btn btn-primary">Continua lo Shopping</a>
+        <a href="<%= request.getContextPath() %>/IndexServlet" class="btn btn-primary">Continua lo Shopping</a>
         
         <a href="<%= request.getContextPath() %>/AreaRiservataServlet" class="btn btn-secondary">I Miei Ordini</a>
     </div>
