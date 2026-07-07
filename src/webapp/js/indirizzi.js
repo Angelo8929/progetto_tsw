@@ -1,17 +1,17 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Intercettiamo il form specifico dell'indirizzo
+    
     const form = document.querySelector("form[action='SalvaIndirizzoServlet']");
-    if (!form) return; // Sicurezza nel caso in cui lo script venga caricato altrove
+    if (!form) return;
 
     const destinatario = document.getElementById("destinatario");
     const via = document.getElementById("indirizzo_via");
     const civico = document.getElementById("civico");
     const citta = document.getElementById("citta");
     
-    // Pulsante di sottomissione
+    
     const submitBtn = form.querySelector("input[type='submit']");
 
-    // Funzione helper per creare i box di errore sotto i campi
+   
     const createErrorElement = (inputElement) => {
         const errorSpan = document.createElement("span");
         errorSpan.className = "error-message";
@@ -28,23 +28,22 @@ document.addEventListener("DOMContentLoaded", () => {
     const civicoError = createErrorElement(civico);
     const cittaError = createErrorElement(citta);
 
-    // --- REGEX DI VALIDAZIONE ---
-    // Destinatario: Solo lettere e spazi, minimo 4 caratteri (es. "Luca")
+    
     const destinatarioRegex = /^[a-zA-Z\s]{4,50}$/;
-    // Via: Lettere, spazi ed eventualmente numeri, minimo 4 caratteri (es. "Via Roma")
+    
     const viaRegex = /^[a-zA-Z0-9\s'.,-]{4,100}$/;
-    // Civico: Numeri seguiti opzionalmente da lettere (es. "104", "12/A", "23B")
+    
     const civicoRegex = /^[0-9]{1,5}[a-zA-Z\/]{0,4}$/;
-    // Città: Solo lettere e spazi, minimo 2 caratteri (es. "Napoli", "Teverola")
+    
     const cittaRegex = /^[a-zA-Z\s'.-]{2,50}$/;
 
-    // STATO DEL FORM
+    
     let isDestinatarioValid = false;
     let isViaValid = false;
     let isCivicoValid = false;
     let isCittaValid = false;
 
-    // --- FUNZIONE DI ABILITAZIONE DINAMICA DEL BOTTONE ---
+    
     const validaFormGenerale = () => {
         if (isDestinatarioValid && isViaValid && isCivicoValid && isCittaValid) {
             submitBtn.disabled = false;
@@ -57,10 +56,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    // Stato iniziale: disabilitato
+    
     validaFormGenerale();
 
-    // Gestione focus estetica generica
+    
     const aggiungiGestioneFocusGenerica = (inputElement, errorElement) => {
         inputElement.addEventListener("focus", () => {
             if (inputElement.style.borderColor !== "green" && inputElement.style.borderColor !== "red") {
@@ -80,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
     aggiungiGestioneFocusGenerica(civico, civicoError);
     aggiungiGestioneFocusGenerica(citta, cittaError);
 
-    // --- 1. DESTINATARIO (INPUT) ---
+   
     destinatario.addEventListener("input", () => {
         const val = destinatario.value.trim();
         if (val === "") {
@@ -99,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
         validaFormGenerale();
     });
 
-    // --- 2. VIA (INPUT) ---
+    
     via.addEventListener("input", () => {
         const val = via.value.trim();
         if (val === "") {
@@ -118,7 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
         validaFormGenerale();
     });
 
-    // --- 3. CIVICO (INPUT) ---
+    
     civico.addEventListener("input", () => {
         const val = civico.value.trim();
         if (val === "") {
@@ -137,7 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
         validaFormGenerale();
     });
 
-    // --- 4. CITTÀ (INPUT) ---
+    
     citta.addEventListener("input", () => {
         const val = citta.value.trim();
         if (val === "") {
@@ -156,7 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
         validaFormGenerale();
     });
 
-    // Sicurezza extra al submit
+    
     form.addEventListener("submit", (event) => {
         if (!(isDestinatarioValid && isViaValid && isCivicoValid && isCittaValid)) {
             event.preventDefault();

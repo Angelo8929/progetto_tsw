@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     password.placeholder = "inserisci password";
     conferma_password.placeholder = "conferma password";
 
-    // Mettiamo il focus iniziale sul primo campo all'apertura della pagina
+    
     if (username) {
         username.focus();
     }
@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
     aggiungiGestioneFocusGenerica(password, passwordError);
     aggiungiGestioneFocusGenerica(conferma_password, confermaPasswordError);
 
-    // --- 1. VALIDAZIONE USERNAME (Bordi reattivi, il cursore non si sposta) ---
+    
     username.addEventListener("input", () => {
         const val = username.value.trim();
         if (val === "") {
@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
         validaFormGenerale();
     });
 
-    // --- 2. VALIDAZIONE EMAIL + AJAX ---
+    
     email.addEventListener("input", () => {
         const emailValue = email.value.trim();
 
@@ -140,7 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     });
 
-    // --- 3. VALIDAZIONE PASSWORD ---
+    
     password.addEventListener("input", () => {
         const val = password.value.trim();
         if (val === "") {
@@ -161,7 +161,7 @@ document.addEventListener("DOMContentLoaded", () => {
         validaFormGenerale();
     });
 
-    // --- 4. FUNZIONE E ASCOLTATORE CONFERMA PASSWORD ---
+    
     const controlloConfermaPassword = () => {
         const valConf = conferma_password.value.trim();
         const valPass = password.value.trim();

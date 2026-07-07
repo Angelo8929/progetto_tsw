@@ -2,10 +2,10 @@
 <%@ page import="model.ProdottoBean"%>
 <%@ page import="java.util.List"%>
 <%
-// Recuperiamo la lista globale (sempre presente)
+
 List<ProdottoBean> listaProdotti = (List<ProdottoBean>) request.getAttribute("listaProdotti");
 
-// Recuperiamo il prodotto da modificare (presente solo se l'admin ha cliccato su "Modifica")
+
 ProdottoBean prodSelezionato = (ProdottoBean) request.getAttribute("prodottoSelezionato");
 %>
 <!DOCTYPE html>
@@ -157,7 +157,7 @@ ProdottoBean prodSelezionato = (ProdottoBean) request.getAttribute("prodottoSele
 	</div>
 
 	<script>
-		// FIX: Uniformato il nome della funzione cercato dall'onchange
+		
 		function gestisciCampiDinamici() {
 			var selectCategoria = document.getElementById("categoriaSelect");
 			if (!selectCategoria)
