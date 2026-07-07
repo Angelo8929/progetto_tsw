@@ -4,7 +4,7 @@
 <%
     List<OrdineBean> tuttiGliOrdini = (List<OrdineBean>) request.getAttribute("tuttiGliOrdini");
 
-    // Recuperiamo i vecchi valori per lasciarli scritti nei campi di testo
+    
     String filtroEmail = (String) request.getAttribute("filtroEmail");
     String dataInizio = (String) request.getAttribute("dataInizio");
     String dataFine = (String) request.getAttribute("dataFine");

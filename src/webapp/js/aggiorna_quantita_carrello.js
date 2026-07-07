@@ -3,7 +3,7 @@ document.querySelectorAll(".input-quantita").forEach(input => {
         let nuovaQuantita = parseInt(this.value);
         let idProdotto = this.getAttribute("data-id");
 
-        // Se l'input non è un numero o è minore di 1, forziamo a 1 sia sul client che nella richiesta
+       
         if (isNaN(nuovaQuantita) || nuovaQuantita < 1) {
             this.value = 1;
             nuovaQuantita = 1;

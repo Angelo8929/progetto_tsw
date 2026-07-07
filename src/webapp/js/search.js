@@ -8,7 +8,7 @@ document.getElementById("cerca").addEventListener("input", function() {
         return; 
     }
 
-    // Chiamata AJAX usando Fetch API
+    
     fetch(window.contextPath + "/RicercaSuggerimentiServlet?term=" + encodeURIComponent(query))
         .then(response => response.json())
         .then(prodotti => {
@@ -16,7 +16,7 @@ document.getElementById("cerca").addEventListener("input", function() {
             if (prodotti.length > 0) {
                 prodotti.forEach(prod => {
                     let elemento = document.createElement("a");
-                    // Punta alla tua servlet di dettaglio o pagina prodotto
+                    
                     elemento.href = "ProdottoServlet?id=" + prod.id;
                     elemento.textContent = prod.nome;
                     boxSuggerimenti.appendChild(elemento);
@@ -29,7 +29,7 @@ document.getElementById("cerca").addEventListener("input", function() {
         .catch(error => console.error("Errore AJAX:", error));
 });
 
-// Chiude i suggerimenti se l'utente clicca fuori dalla barra di ricerca
+
 document.addEventListener("click", function(e) {
     if (e.target.id !== "cerca") {
         document.getElementById("suggerimenti").style.display = "none";
